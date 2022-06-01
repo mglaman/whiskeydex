@@ -1,3 +1,5 @@
+# syntax = docker/dockerfile:1.2
+
 # Composer build step.
 FROM composer:2 as vendor
 
@@ -98,6 +100,8 @@ RUN mkdir -p web/sites/default/files
 RUN mkdir -p private
 RUN chown -R www-data:www-data private
 RUN chown -R www-data:www-data web/sites/default/files
+
+RUN --mount=type=secret,id=config,dst=/etc/secrets/.env cat /etc/secrets/.env > .env
 
 # Adjust the Apache docroot.
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/web

@@ -47,6 +47,9 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
+    "scripts": {
+        "docker-build": "DOCKER_BUILDKIT=1 docker build . -t whiskeydex --secret id=config,src=.env"
+    },
     "extra": {
         "drupal-scaffold": {
             "locations": {
