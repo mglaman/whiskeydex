@@ -1,0 +1,20 @@
+uuid: 02976839-d977-4556-8f44-256c6ecd140d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - distilled
+_core:
+  default_config_hash: Oh72CHUkp6cj6dbrXMK2hzCsM05w9cHVoD22rMLQUfk
+id: distilled_page_title
+theme: distilled
+region: page_title
+weight: -3
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

@@ -1,0 +1,18 @@
+whiskeydex.admin_whiskeydex:
+  title: 'Whiskey Dex'
+  route_name: 'whiskeydex.admin_whiskeydex'
+  parent: 'system.admin'
+  description: 'Administer and configure Whiskey Dex.'
+  weight: -9
+whiskeydex.distillery:
+  title: 'Distilleries'
+  route_name: 'entity.distillery.collection'
+  parent: 'whiskeydex.admin_whiskeydex'
+  description: 'Manage distilleries.'
+  weight: 10
+whiskeydex.whiskey:
+  title: 'Whiskeys'
+  route_name: 'entity.whiskey.collection'
+  parent: 'whiskeydex.admin_whiskeydex'
+  description: 'Manage whiskeys.'
+  weight: 10

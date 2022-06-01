@@ -1,0 +1,20 @@
+uuid: f1c202a7-fde1-4d3f-8e12-3330f089a427
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - distilled
+id: breadcrumbs
+theme: distilled
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

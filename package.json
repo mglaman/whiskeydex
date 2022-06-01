@@ -1,0 +1,19 @@
+{
+  "name": "whiskeydex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./web/themes/custom/distilled/src/app.css -o ./web/themes/custom/distilled/css/app.css --watch",
+    "prod": "@dev -- --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.2",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.0.24"
+  }
+}

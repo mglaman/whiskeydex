@@ -1,0 +1,20 @@
+uuid: 4e9aacc1-17de-46b5-bb70-7d0fa3824194
+langcode: en
+status: true
+dependencies:
+  theme:
+    - distilled
+_core:
+  default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
+id: distilled_local_actions
+theme: distilled
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

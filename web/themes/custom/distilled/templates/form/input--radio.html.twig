@@ -1,0 +1,7 @@
+{%
+  set classes = [
+  'focus:ring-stone-500 h-4 w-4 border-gray-300',
+  attributes.disabled ? 'text-stone-300' : 'text-stone-600'
+]
+%}
+<input{{ attributes.addClass(classes) }} />{{ children }}

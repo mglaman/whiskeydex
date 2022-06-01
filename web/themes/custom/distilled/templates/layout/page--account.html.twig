@@ -1,0 +1,20 @@
+{% extends 'page.html.twig' %}
+
+{% block main %}
+    <div>
+      {{ page.help }}
+      {{ page.breadcrumb }}
+    </div>
+    <div class="grid grid-cols-12">
+      <aside class="col-span-3" role="complementary">
+        {{ page.sidebar_first }}
+      </aside>
+      <div class="col-span-6">
+        {{ page.highlighted }}
+        {{ page.content }}
+      </div>{# /.layout-content #}
+      <aside class="col-span-3" role="complementary">
+        {{ page.sidebar_second }}
+      </aside>
+    </div>
+{% endblock %}

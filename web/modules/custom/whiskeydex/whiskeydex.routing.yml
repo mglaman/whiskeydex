@@ -1,0 +1,7 @@
+whiskeydex.admin_whiskeydex:
+  path: '/admin/whiskeydex'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Whiskey Dex'
+  requirements:
+    _permission: 'access administration pages'

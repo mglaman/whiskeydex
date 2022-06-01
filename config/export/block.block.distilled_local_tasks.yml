@@ -1,0 +1,22 @@
+uuid: a0b38cf7-0f14-4814-895e-fa88d9b140f4
+langcode: en
+status: true
+dependencies:
+  theme:
+    - distilled
+_core:
+  default_config_hash: T0wbI6qVdThbbIqXDZFg_1VZ3_ittXBdEoUH7d7ux_E
+id: distilled_local_tasks
+theme: distilled
+region: content
+weight: -20
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

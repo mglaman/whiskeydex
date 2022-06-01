@@ -1,0 +1,25 @@
+uuid: 1396d417-4605-44fc-beb8-d02165eac2cb
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - distilled
+_core:
+  default_config_hash: sG8t_FghbUscJ-GrnQ8zs_vx5YM4bJCfntrK-J5HcAY
+id: distilled_branding
+theme: distilled
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

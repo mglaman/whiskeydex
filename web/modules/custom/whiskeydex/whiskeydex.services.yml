@@ -1,0 +1,5 @@
+services:
+  whiskeydex.route_subscriber:
+    class: Drupal\whiskeydex\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

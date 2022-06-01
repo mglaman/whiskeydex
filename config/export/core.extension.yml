@@ -1,0 +1,41 @@
+_core:
+  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
+module:
+  address: 0
+  admin_toolbar: 0
+  admin_toolbar_links_access_filter: 0
+  admin_toolbar_search: 0
+  admin_toolbar_tools: 0
+  big_pipe: 0
+  block: 0
+  breakpoint: 0
+  datetime: 0
+  dblog: 0
+  dynamic_page_cache: 0
+  entity: 0
+  field: 0
+  file: 0
+  filter: 0
+  image: 0
+  inline_form_errors: 0
+  jsonapi: 0
+  link: 0
+  options: 0
+  page_cache: 0
+  path_alias: 0
+  pgsql: 0
+  serialization: 0
+  sqlite: 0
+  system: 0
+  telephone: 0
+  text: 0
+  toolbar: 0
+  update: 0
+  user: 0
+  whiskeydex: 0
+  whiskeydex_installer: 1000
+theme:
+  claro: 0
+  stable9: 0
+  distilled: 0
+profile: whiskeydex_installer

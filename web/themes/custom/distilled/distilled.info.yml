@@ -1,0 +1,40 @@
+name: distilled
+type: theme
+base theme: false
+libraries:
+  - distilled/base
+  - distilled/messages
+libraries-extend:
+  user/drupal.user:
+    - distilled/user
+  core/drupal.dropbutton:
+    - distilled/dropbutton
+  core/drupal.dialog:
+    - distilled/dialog
+  file/drupal.file:
+    - distilled/file
+  core/drupal.progress:
+    - distilled/progress
+  media/media_embed_ckeditor_theme:
+    - distilled/media_embed_ckeditor_theme
+  media_library/view:
+    - distilled/media_library
+  media_library/widget:
+    - distilled/media_library
+ckeditor_stylesheets:
+  - css/components/media-embed-error.css
+core_version_requirement: ^10
+regions:
+  sidebar_first: Sidebar first
+  sidebar_second: Sidebar second
+  content: Content
+  header: Header
+  page_title: Page title
+  primary_menu: Primary menu
+  secondary_menu: Secondary menu
+  footer: Footer
+  highlighted: Highlighted
+  help: Help
+  page_top: Page top
+  page_bottom: Page bottom
+  breadcrumb: Breadcrumb

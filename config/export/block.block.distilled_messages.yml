@@ -1,0 +1,22 @@
+uuid: 3d43c3dd-0245-4ce1-a5f5-c758df59f3c2
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - distilled
+_core:
+  default_config_hash: aeqlWs7HwctZeZC7ADcbxfqehJzBRfZKmuZz3DsH3_4
+id: distilled_messages
+theme: distilled
+region: highlighted
+weight: -2
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }
