@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="whiskeydex">
+  <description>Whiskey Dex PHPCS</description>
+  <file>web/modules/custom</file>
+  <file>web/themes/custom</file>
+  <arg name="extensions" value="php,module,inc,install,profile,theme,info,txt,yml"/>
+  <rule ref="Drupal">
+    <!-- kill frivolous comments. -->
+    <exclude name="Drupal.Commenting.ClassComment.Missing"/>
+    <exclude name="Drupal.Commenting.DocComment.MissingShort" />
+    <exclude name="Drupal.Commenting.FunctionComment.Missing" />
+    <exclude name="Drupal.Commenting.VariableComment.Missing" />
+    <exclude name="Drupal.Commenting.VariableComment.MissingVar" />
+
+    <exclude name="Drupal.WhiteSpace.OpenTagNewline.BlankLine" />
+  </rule>
+  <rule ref="DrupalPractice"/>
+</ruleset>

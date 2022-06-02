@@ -1,4 +1,5 @@
 name: distilled
+description: whiskeydex theme
 type: theme
 base theme: false
 libraries:

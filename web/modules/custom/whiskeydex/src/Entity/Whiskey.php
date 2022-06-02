@@ -16,7 +16,7 @@ final class Whiskey extends ContentEntityBase {
 
   public function getDistillery(): Distillery {
     $item = $this->get('distillery')->first();
-    assert($item instanceof EntityReferenceItem, get_class($item));
+    assert($item !== NULL && $item instanceof EntityReferenceItem);
     $distillery = $item->get('entity')->getValue();
     assert($distillery instanceof Distillery);
     return $distillery;
@@ -49,4 +49,5 @@ final class Whiskey extends ContentEntityBase {
       ]);
     return $fields;
   }
+
 }

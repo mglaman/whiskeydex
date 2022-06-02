@@ -7,7 +7,7 @@ use Symfony\Component\Routing\RouteCollection;
 
 final class RouteSubscriber extends RouteSubscriberBase {
 
-  protected function alterRoutes(RouteCollection $collection) {
+  protected function alterRoutes(RouteCollection $collection): void {
     $user_edit_form = $collection->get('entity.user.edit_form');
     $user_edit_form?->setOption('_admin_route', FALSE);
   }

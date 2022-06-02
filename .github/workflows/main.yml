@@ -57,7 +57,7 @@ jobs:
       - run: "chromedriver &"
 
       - name: phpunit
-        run: php vendor/bin/phpunit web/core/modules/custom
+        run: php vendor/bin/phpunit web/modules/custom
 
       - name: nightwatch
         run: |

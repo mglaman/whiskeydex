@@ -3,6 +3,7 @@
 namespace Drupal\Tests\whiskeydex\Entity\Kernel;
 
 use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Tests\whiskeydex\Kernel\WhiskeyDexTestBase;
 use Drupal\whiskeydex\Entity\Distillery;
@@ -15,6 +16,7 @@ final class WhiskeyTest extends WhiskeyDexTestBase {
     assert($etm instanceof EntityTypeManagerInterface);
     self::assertTrue($etm->hasDefinition('whiskey'));
     $entity_type = $etm->getDefinition('whiskey');
+    self::assertInstanceOf(EntityTypeInterface::class, $entity_type);
     self::assertEquals('Drupal\entity\EntityAccessControlHandler', $entity_type->getHandlerClass('access'));
     self::assertEquals('Drupal\entity\QueryAccess\QueryAccessHandler', $entity_type->getHandlerClass('query_access'));
     self::assertEquals('Drupal\entity\EntityPermissionProvider', $entity_type->getHandlerClass('permission_provider'));
@@ -34,6 +36,8 @@ final class WhiskeyTest extends WhiskeyDexTestBase {
 
   /**
    * @dataProvider entityValues
+   *
+   * @phpstan-param array<string, mixed> $values
    */
   public function testEntity(array $values, string $expected_name): void {
     $this->installEntitySchema('distillery');

@@ -24,11 +24,13 @@ final class Distillery extends ContentEntityBase {
 
   public function getEmail(): ?string {
     if ($this->get('email')->isEmpty()) {
-      return null;
+      return NULL;
     }
     $item = $this->get('email')->first();
     assert($item instanceof EmailItem);
-    return $item->get('value')->getValue();
+    $value = $item->get('value')->getValue();
+    assert(is_string($value));
+    return $value;
   }
 
   /**
@@ -63,15 +65,14 @@ final class Distillery extends ContentEntityBase {
       ->setDisplayOptions('form', [
         'type' => 'address_default',
         'weight' => 4,
-      ])
-    ;
+      ]);
 
     // @todo needs custom field access.
     $fields['verified'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Verified'))
-      ->setDescription(t('A boolean indicating whether this distillery is verified.'));
+      ->setLabel('Verified')
+      ->setDescription('A boolean indicating whether this distillery is verified.');
 
-      return $fields;
+    return $fields;
   }
 
 }

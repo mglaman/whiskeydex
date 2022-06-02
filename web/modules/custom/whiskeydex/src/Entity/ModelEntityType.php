@@ -14,19 +14,25 @@ use Drupal\entity\Menu\EntityCollectionLocalActionProvider;
 use Drupal\entity\QueryAccess\QueryAccessHandler;
 use Drupal\entity\QueryAccess\UncacheableQueryAccessHandler;
 use Drupal\entity\Routing\AdminHtmlRouteProvider;
-use Drupal\entity\Routing\DefaultHtmlRouteProvider;
 use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\user\EntityOwnerInterface;
 
 final class ModelEntityType extends ContentEntityType {
 
-  public function __construct($definition) {
+  /**
+   * @phpstan-param array<string, bool|string> $definition
+   */
+  public function __construct(array $definition) {
     if (empty($definition['label'])) {
+      if (!is_string($definition['class'])) {
+        throw new \InvalidArgumentException();
+      }
       $class_path = explode('\\', $definition['class']);
       $value = preg_replace('/\s+/u', '', ucwords(array_pop($class_path)));
-      $label = preg_replace('/(.)(?=[A-Z])/u', '$1 ', $value);
-      $definition['label'] = $label;
+      if ($value !== NULL) {
+        $definition['label'] = preg_replace('/(.)(?=[A-Z])/u', '$1 ', $value);
+      }
     }
 
     parent::__construct($definition);

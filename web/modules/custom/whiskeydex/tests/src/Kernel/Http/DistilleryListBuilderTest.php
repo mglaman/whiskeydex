@@ -34,28 +34,33 @@ final class DistilleryListBuilderTest extends WhiskeyDexTestBase {
     $response = $this->container->get('http_kernel')->handle($request);
     self::assertEquals($expected_status, $response->getStatusCode());
     if ($expected_status === 200) {
-      $this->setRawContent($response->getContent());
+      $content = $response->getContent();
+      self::assertNotFalse($content);
+      $this->setRawContent($content);
       $this->assertNoText('There are no distillery entities yet.');
       $this->assertLink('Woodford Reserve');
     }
   }
 
-  public function providesData() {
+  /**
+   * @phpstan-ignore-next-line
+   */
+  public function providesData(): iterable {
     yield [
       'access distillery overview,view distillery',
-      200
+      200,
     ];
     yield [
       'administer distillery',
-      200
+      200,
     ];
     yield [
       'view distillery',
-      403
+      403,
     ];
     yield [
       '',
-      403
+      403,
     ];
   }
 

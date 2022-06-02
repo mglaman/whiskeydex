@@ -24,6 +24,8 @@ final class ModelEntityTypeTest extends UnitTestCase {
 
   /**
    * @dataProvider provideDefinitions
+   *
+   * @phpstan-param array{id: string, class: string, enhanced_entity_access: bool, owner_entity_access: bool, has_ui: bool } $definition
    */
   public function testDefinitions(array $definition): void {
     self::assertArrayHasKey('id', $definition);
@@ -47,12 +49,12 @@ final class ModelEntityTypeTest extends UnitTestCase {
     self::assertEquals($definition['id'], $entity_type->getBaseTable());
     self::assertEquals($definition['id'] . '_data', $entity_type->getDataTable());
 
-    if ($definition['enhanced_entity_access'] === false) {
+    if ($definition['enhanced_entity_access'] === FALSE) {
       self::assertEquals(CoreEntityAccessControlHandler::class, $entity_type->getHandlerClass('access'));
       self::assertNull($entity_type->getHandlerClass('query_access'));
       self::assertNull($entity_type->getHandlerClass('permission_provider'));
     }
-    elseif ($definition['owner_entity_access'] === true) {
+    elseif ($definition['owner_entity_access'] === TRUE) {
       self::assertEquals(UncacheableEntityAccessControlHandler::class, $entity_type->getHandlerClass('access'));
       self::assertEquals(UncacheableQueryAccessHandler::class, $entity_type->getHandlerClass('query_access'));
       self::assertEquals(UncacheableEntityPermissionProvider::class, $entity_type->getHandlerClass('permission_provider'));
@@ -63,12 +65,12 @@ final class ModelEntityTypeTest extends UnitTestCase {
       self::assertEquals(EntityPermissionProvider::class, $entity_type->getHandlerClass('permission_provider'));
     }
 
-    if ($definition['has_ui'] === false) {
-      self::assertFalse($entity_type->hasFormClasses());
-      self::assertFalse($entity_type->hasRouteProviders());
+    if ($definition['has_ui'] === FALSE) {
+      self::assertFALSE($entity_type->hasFormClasses());
+      self::assertFALSE($entity_type->hasRouteProviders());
     }
     else {
-      self::assertTrue($entity_type->hasFormClasses());
+      self::assertTRUE($entity_type->hasFormClasses());
 
       if ($definition['class'] === EnhancedEntity::class) {
         self::assertEquals(EnhancedEntityForm::class, $entity_type->getFormClass('default'));
@@ -76,10 +78,10 @@ final class ModelEntityTypeTest extends UnitTestCase {
       else {
         self::assertEquals(ContentEntityForm::class, $entity_type->getFormClass('default'));
       }
-      self::assertEquals(null, $entity_type->getFormClass('add'));
-      self::assertEquals(null, $entity_type->getFormClass('edit'));
+      self::assertEquals(NULL, $entity_type->getFormClass('add'));
+      self::assertEquals(NULL, $entity_type->getFormClass('edit'));
       self::assertEquals(ContentEntityDeleteForm::class, $entity_type->getFormClass('delete'));
-      self::assertTrue($entity_type->hasRouteProviders());
+      self::assertTRUE($entity_type->hasRouteProviders());
       self::assertEquals([
         'html' => AdminHtmlRouteProvider::class,
       ], $entity_type->getRouteProviderClasses());
@@ -91,58 +93,58 @@ final class ModelEntityTypeTest extends UnitTestCase {
       [
         'id' => 'foo',
         'class' => EntityTest::class,
-        'enhanced_entity_access' => true,
-        'owner_entity_access' => false,
-        'has_ui' => false,
+        'enhanced_entity_access' => TRUE,
+        'owner_entity_access' => FALSE,
+        'has_ui' => FALSE,
       ],
     ];
     yield [
       [
         'id' => 'foo',
         'class' => EntityTest::class,
-        'enhanced_entity_access' => false,
-        'owner_entity_access' => false,
-        'has_ui' => false,
+        'enhanced_entity_access' => FALSE,
+        'owner_entity_access' => FALSE,
+        'has_ui' => FALSE,
       ],
     ];
     yield [
       [
         'id' => 'foo',
         'class' => EntityTest::class,
-        'enhanced_entity_access' => false,
-        'owner_entity_access' => false,
+        'enhanced_entity_access' => FALSE,
+        'owner_entity_access' => FALSE,
         'provider' => 'entity_test',
-        'has_ui' => true,
+        'has_ui' => TRUE,
       ],
     ];
     yield [
       [
         'id' => 'foo',
         'class' => EntityTest::class,
-        'enhanced_entity_access' => true,
-        'owner_entity_access' => true,
+        'enhanced_entity_access' => TRUE,
+        'owner_entity_access' => TRUE,
         'provider' => 'entity_test',
-        'has_ui' => true,
+        'has_ui' => TRUE,
       ],
     ];
     yield [
       [
         'id' => 'entity_test_enhanced',
         'class' => EnhancedEntity::class,
-        'enhanced_entity_access' => true,
-        'owner_entity_access' => false,
+        'enhanced_entity_access' => TRUE,
+        'owner_entity_access' => FALSE,
         'provider' => 'entity_module_test',
-        'has_ui' => true,
+        'has_ui' => TRUE,
       ],
     ];
     yield [
       [
         'id' => 'entity_test_enhanced',
         'class' => EnhancedEntityWithOwner::class,
-        'enhanced_entity_access' => true,
-        'owner_entity_access' => true,
+        'enhanced_entity_access' => TRUE,
+        'owner_entity_access' => TRUE,
         'provider' => 'entity_module_test',
-        'has_ui' => true,
+        'has_ui' => TRUE,
       ],
     ];
   }

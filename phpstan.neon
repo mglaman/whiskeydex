@@ -3,5 +3,6 @@ parameters:
 	paths:
 		- src
 		- web/modules/custom
+		- web/themes/custom
 includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon

@@ -7,15 +7,20 @@ use Drupal\whiskeydex\Entity\ModelEntityType;
 
 /**
  * @Annotation
+ *
+ * @phpcs:disable Drupal.NamingConventions.ValidVariableName.LowerCamelName
  */
 final class Model extends ContentEntityType {
 
+  /**
+   * @phpstan-var class-string
+   */
   public $entity_type_class = ModelEntityType::class;
 
-  public $enhanced_entity_access = true;
+  public bool $enhanced_entity_access = TRUE;
 
-  public $owner_entity_access = false;
+  public bool $owner_entity_access = FALSE;
 
-  public $has_ui = true;
+  public bool $has_ui = TRUE;
 
 }

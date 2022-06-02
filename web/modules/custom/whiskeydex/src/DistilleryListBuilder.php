@@ -6,8 +6,11 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 
 final class DistilleryListBuilder extends EntityListBuilder {
+
   /**
    * {@inheritdoc}
+   *
+   * @phpstan-return array<string, string|\Drupal\Core\StringTranslation\TranslatableMarkup>
    */
   public function buildHeader() {
     $header['label'] = $this->t('Name');
@@ -16,9 +19,11 @@ final class DistilleryListBuilder extends EntityListBuilder {
 
   /**
    * {@inheritdoc}
+   *
+   * @phpstan-return array<string, string|\Drupal\Core\StringTranslation\TranslatableMarkup|mixed>
    */
   public function buildRow(EntityInterface $entity) {
-    $row['label'] = $entity->toLink($entity->label(), 'edit-form');
+    $row['label'] = $entity->toLink((string) $entity->label(), 'edit-form');
     return $row + parent::buildRow($entity);
   }
 

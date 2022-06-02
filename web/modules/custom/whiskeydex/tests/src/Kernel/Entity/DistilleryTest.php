@@ -3,6 +3,7 @@
 namespace Drupal\Tests\whiskeydex\Entity\Kernel;
 
 use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Tests\whiskeydex\Kernel\WhiskeyDexTestBase;
 use Drupal\whiskeydex\Entity\Distillery;
@@ -17,6 +18,7 @@ final class DistilleryTest extends WhiskeyDexTestBase {
     assert($etm instanceof EntityTypeManagerInterface);
     self::assertTrue($etm->hasDefinition('distillery'));
     $entity_type = $etm->getDefinition('distillery');
+    self::assertInstanceOf(EntityTypeInterface::class, $entity_type);
     self::assertEquals(EntityAccessControlHandler::class, $entity_type->getHandlerClass('access'));
     self::assertEquals(QueryAccessHandler::class, $entity_type->getHandlerClass('query_access'));
     self::assertEquals(EntityPermissionProvider::class, $entity_type->getHandlerClass('permission_provider'));
@@ -47,6 +49,8 @@ final class DistilleryTest extends WhiskeyDexTestBase {
 
   /**
    * @dataProvider entityValues
+   *
+   * @phpstan-param array<string, mixed> $values
    */
   public function testEntity(array $values, string $expected_name, ?string $expected_email): void {
     $etm = $this->container->get('entity_type.manager');
@@ -71,7 +75,7 @@ final class DistilleryTest extends WhiskeyDexTestBase {
           'postal_code' => '40383',
           'address_line1' => '7855 McCracken Pike',
         ],
-        'verified' => true,
+        'verified' => TRUE,
       ],
       'Woodford Reserve',
       'contact@woodfordreserve.com',
@@ -88,10 +92,10 @@ final class DistilleryTest extends WhiskeyDexTestBase {
           'postal_code' => '40383',
           'address_line1' => '7855 McCracken Pike',
         ],
-        'verified' => true,
+        'verified' => TRUE,
       ],
       'Woodford Reserve',
-      null,
+      NULL,
     ];
   }
 
