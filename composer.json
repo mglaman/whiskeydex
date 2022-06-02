@@ -57,6 +57,7 @@
             },
             "file-mapping": {
                 "[web-root]/index.php": false,
+                "[web-root]/sites/development.services.yml": false,
                 "[project-root]/.editorconfig": false
             }
         },

@@ -5,15 +5,13 @@
       {{ page.help }}
       {{ page.breadcrumb }}
     </div>
-    <div class="grid grid-cols-12">
-      <aside class="col-span-3" role="complementary">
-        {{ page.sidebar_first }}
-      </aside>
-      <div class="col-span-6">
+    <div class="grid grid-cols-1 lg:grid-cols-9 gap-8">
+      <div class="lg:col-span-6">
         {{ page.highlighted }}
         {{ page.content }}
       </div>{# /.layout-content #}
-      <aside class="col-span-3" role="complementary">
+      <aside class="lg:col-span-3" role="complementary">
+        {{ page.sidebar_first }}
         {{ page.sidebar_second }}
       </aside>
     </div>

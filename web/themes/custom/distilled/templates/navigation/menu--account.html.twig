@@ -1,3 +1,26 @@
+{% if logged_in %}
+<div class="group inline-block relative">
+  <div>{{ user.getDisplayName }}</div>
+  <ul class="space-y-4 text-sm hidden group-hover:block bg-white shadow-sm divide-y divide-gray-100 rounded absolute right-0">
+  {% for item in items %}
+    {%
+      set classes = [
+      'menu-item',
+      item.in_active_trail ? 'menu-item--active-trail',
+      'text-stone-800',
+      'hover:text-stone-500',
+      'px-4',
+      'py-2',
+    ]
+    %}
+    <li{{ item.attributes.addClass(classes) }}>
+      {{ link(item.title, item.url) }}
+    </li>
+  {% endfor %}
+</ul>
+</div>
+
+{% else %}
 <ul{{ attributes.addClass('flex space-x-4 text-sm') }}>
   {% for item in items %}
     {%
@@ -13,3 +36,5 @@
     </li>
   {% endfor %}
 </ul>
+
+{% endif %}
