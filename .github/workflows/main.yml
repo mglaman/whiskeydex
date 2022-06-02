@@ -76,7 +76,8 @@ jobs:
 
   build:
     needs:
-      - upgrade_to_d10
+      - lint
+      - test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
