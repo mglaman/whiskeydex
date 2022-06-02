@@ -74,6 +74,7 @@ final class ModelEntityType extends ContentEntityType {
         $this->handlers['list_builder'] = "$namespace\\{$class}ListBuilder";
       }
 
+      // @todo make Admin one a flag.
       $this->handlers['route_provider']['html'] = AdminHtmlRouteProvider::class;
       if (class_exists("$namespace\\Routing\\{$class}HtmlRouteProvider")) {
         $this->handlers['route_provider']['html'] = "$namespace\\Routing\\{$class}HtmlRouteProvider";
@@ -97,6 +98,7 @@ final class ModelEntityType extends ContentEntityType {
       $this->handlers['local_task_provider']['default'] = DefaultEntityLocalTaskProvider::class;
 
       // @todo check if has bundles.
+      // @todo do not overwrite if ones provided.
       $this->links = [
         'collection' => '/admin/' . $this->id,
         'canonical' => '/' . $this->id . '/{' . $this->id . '}',
