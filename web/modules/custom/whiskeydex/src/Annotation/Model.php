@@ -23,4 +23,6 @@ final class Model extends ContentEntityType {
 
   public bool $has_ui = TRUE;
 
+  public array $links = [];
+
 }

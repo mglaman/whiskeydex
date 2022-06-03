@@ -5,3 +5,11 @@ whiskeydex.admin_whiskeydex:
     _title: 'Whiskey Dex'
   requirements:
     _permission: 'administer site configuration'
+
+whiskeydex.collections:
+  path: '/collections'
+  defaults:
+    _controller: Drupal\whiskeydex\Controller\CollectionController::all
+    _title: 'Collections'
+  requirements:
+    _permission: 'administer collection+view any collection+view own collection'

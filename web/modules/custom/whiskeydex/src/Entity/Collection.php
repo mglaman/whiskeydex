@@ -12,6 +12,12 @@ use Drupal\user\EntityOwnerTrait;
  * @\Drupal\whiskeydex\Annotation\Model(
  *   id = "collection",
  *   owner_entity_access = true,
+ *   links = {
+ *     "canonical" = "/user/{user}/collection/{collection}",
+ *     "add-form" = "/user/{user}/collection/add",
+ *     "edit-form" = "/user/{user}/collection/{collection}/edit",
+ *     "delete-form" = "/user/{user}/collection/{collection}/delete",
+ *   }
  * )
  */
 final class Collection extends ContentEntityBase implements EntityOwnerInterface {

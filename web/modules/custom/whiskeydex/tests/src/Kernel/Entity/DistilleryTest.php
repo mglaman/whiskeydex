@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Drupal\Tests\whiskeydex\Entity\Kernel;
+namespace Drupal\Tests\whiskeydex\Kernel\Entity;
 
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -11,41 +11,26 @@ use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\QueryAccess\QueryAccessHandler;
 use Drupal\entity\EntityPermissionProvider;
 
-final class DistilleryTest extends WhiskeyDexTestBase {
+final class DistilleryTest extends WhiskeyDexEntityTestBase {
 
-  public function testDefinition(): void {
-    $etm = $this->container->get('entity_type.manager');
-    assert($etm instanceof EntityTypeManagerInterface);
-    self::assertTrue($etm->hasDefinition('distillery'));
-    $entity_type = $etm->getDefinition('distillery');
-    self::assertInstanceOf(EntityTypeInterface::class, $entity_type);
-    self::assertEquals(EntityAccessControlHandler::class, $entity_type->getHandlerClass('access'));
-    self::assertEquals(QueryAccessHandler::class, $entity_type->getHandlerClass('query_access'));
-    self::assertEquals(EntityPermissionProvider::class, $entity_type->getHandlerClass('permission_provider'));
-    self::assertEquals([
-      'collection' => '/admin/distillery',
-      'canonical' => '/distillery/{distillery}',
-      'add-form' => '/distillery/add',
-      'edit-form' => '/distillery/{distillery}/edit',
-      'delete-form' => '/distillery/{distillery}/delete',
-    ], $entity_type->getLinkTemplates());
-  }
+  protected ?string $entityTypeId = 'distillery';
 
-  public function testFields(): void {
-    $efm = $this->container->get('entity_field.manager');
-    assert($efm instanceof EntityFieldManagerInterface);
-    $base_fields = $efm->getBaseFieldDefinitions('distillery');
-    self::assertEquals([
-      'distillery_id',
-      'uuid',
-      'name',
-      'email',
-      'phone',
-      'website',
-      'address',
-      'verified',
-    ], array_keys($base_fields));
-  }
+  protected ?array $handlers = [
+    'access' => EntityAccessControlHandler::class,
+    'query_access' => QueryAccessHandler::class,
+    'permission_provider' => EntityPermissionProvider::class,
+  ];
+
+  protected ?array $baseFieldNames = [
+    'distillery_id',
+    'uuid',
+    'name',
+    'email',
+    'phone',
+    'website',
+    'address',
+    'verified',
+  ];
 
   /**
    * @dataProvider entityValues

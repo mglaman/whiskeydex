@@ -2,13 +2,12 @@
 
 namespace Drupal\Tests\whiskeydex\Kernel\Http;
 
-use Drupal\Tests\whiskeydex\Kernel\WhiskeyDexTestBase;
 use Drupal\user\Entity\User;
 use Drupal\whiskeydex\Entity\Distillery;
 use Drupal\whiskeydex\Entity\Whiskey;
 use Symfony\Component\HttpFoundation\Request;
 
-final class WhiskeyListBuilderTest extends WhiskeyDexTestBase {
+final class WhiskeyListBuilderTest extends WhiskeyDexHttpTestBase {
 
   protected function setUp(): void {
     parent::setUp();
@@ -27,7 +26,6 @@ final class WhiskeyListBuilderTest extends WhiskeyDexTestBase {
    * @dataProvider providesData
    */
   public function testList(string $permission, int $expected_status): void {
-    $this->createUser();
     if ($permission === '') {
       $test_account = User::getAnonymousUser();
     }
@@ -37,12 +35,9 @@ final class WhiskeyListBuilderTest extends WhiskeyDexTestBase {
     $this->container->get('current_user')->setAccount($test_account);
 
     $request = Request::create('/admin/whiskey');
-    $response = $this->container->get('http_kernel')->handle($request);
+    $response = $this->doRequest($request);
     self::assertEquals($expected_status, $response->getStatusCode());
     if ($expected_status === 200) {
-      $content = $response->getContent();
-      self::assertNotFalse($content);
-      $this->setRawContent($content);
       $this->assertNoText('There are no whiskey entities yet.');
       $this->assertLink('Woodford Reserve Straight Bourbon Whiskey');
     }

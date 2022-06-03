@@ -8,9 +8,15 @@ use Drupal\whiskeydex\Entity\Collection;
 final class CollectionRepository {
 
   public function __construct(
-    private EntityTypeManagerInterface $entityTypeManager
+    private readonly EntityTypeManagerInterface $entityTypeManager,
   )
   {
+  }
+
+  public function getUsersCollections(): array {
+    $storage = $this->entityTypeManager->getStorage('collection');
+    $ids = $storage->getQuery()->accessCheck(TRUE)->execute();
+    return $storage->loadMultiple($ids);
   }
 
   /**

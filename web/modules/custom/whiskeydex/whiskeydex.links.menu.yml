@@ -16,3 +16,8 @@ whiskeydex.whiskey:
   parent: 'whiskeydex.admin_whiskeydex'
   description: 'Manage whiskeys.'
   weight: 10
+
+whiskeydex.user_collections:
+  title: Collections
+  route_name: 'whiskeydex.collections'
+  menu_name: main

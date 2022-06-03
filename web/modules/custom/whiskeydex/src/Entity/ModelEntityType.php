@@ -98,15 +98,18 @@ final class ModelEntityType extends ContentEntityType {
       $this->handlers['local_task_provider']['default'] = DefaultEntityLocalTaskProvider::class;
 
       // @todo check if has bundles.
-      // @todo do not overwrite if ones provided.
-      $this->links = [
-        'collection' => '/admin/' . $this->id,
-        'canonical' => '/' . $this->id . '/{' . $this->id . '}',
-        'add-form' => '/' . $this->id . '/add',
-        'edit-form' => '/' . $this->id . '/{' . $this->id . '}/edit',
-        'delete-form' => '/' . $this->id . '/{' . $this->id . '}/delete',
-      ];
-      $this->field_ui_base_route = "entity.$this->id.collection";
+      if ($this->links === []) {
+        $this->links = [
+          'collection' => '/admin/' . $this->id,
+          'canonical' => '/' . $this->id . '/{' . $this->id . '}',
+          'add-form' => '/' . $this->id . '/add',
+          'edit-form' => '/' . $this->id . '/{' . $this->id . '}/edit',
+          'delete-form' => '/' . $this->id . '/{' . $this->id . '}/delete',
+        ];
+      }
+      if ($this->field_ui_base_route === NULL && isset($this->links["entity.$this->id.collection"])) {
+        $this->field_ui_base_route = "entity.$this->id.collection";
+      }
     }
   }
 
