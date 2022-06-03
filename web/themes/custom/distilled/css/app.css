@@ -747,14 +747,6 @@ select {
   right: 0px;
 }
 
-.col-span-3 {
-  grid-column: span 3 / span 3;
-}
-
-.col-span-6 {
-  grid-column: span 6 / span 6;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -840,16 +832,8 @@ select {
   max-width: 80rem;
 }
 
-.max-w-6xl {
-  max-width: 72rem;
-}
-
-.grid-cols-12 {
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.grid-cols-9 {
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+.flex-grow {
+  flex-grow: 1;
 }
 
 .grid-cols-1 {
@@ -862,10 +846,6 @@ select {
 
 .justify-center {
   justify-content: center;
-}
-
-.justify-between {
-  justify-content: space-between;
 }
 
 .gap-8 {
@@ -980,19 +960,14 @@ select {
   padding-right: 1rem;
 }
 
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
 
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 .text-2xl {
@@ -1132,21 +1107,10 @@ select {
   display: block;
 }
 
-.group:hover .group-hover\:inline-block {
-  display: inline-block;
-}
-
 @media (min-width: 640px) {
   .sm\:text-sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .md\:px-0 {
-    padding-left: 0px;
-    padding-right: 0px;
   }
 }
 
@@ -1159,36 +1123,13 @@ select {
     grid-column: span 3 / span 3;
   }
 
-  .lg\:flex {
-    display: flex;
-  }
-
   .lg\:grid-cols-9 {
     grid-template-columns: repeat(9, minmax(0, 1fr));
-  }
-
-  .lg\:items-center {
-    align-items: center;
-  }
-
-  .lg\:justify-between {
-    justify-content: space-between;
-  }
-
-  .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
-    --tw-space-y-reverse: 0;
-    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
-    margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
 
   .lg\:space-x-10 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
     margin-right: calc(2.5rem * var(--tw-space-x-reverse));
     margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
-  }
-
-  .lg\:px-0 {
-    padding-left: 0px;
-    padding-right: 0px;
   }
 }
