@@ -17,8 +17,13 @@ use Drupal\entity\Routing\AdminHtmlRouteProvider;
 use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\user\EntityOwnerInterface;
+use Drupal\whiskeydex\Form\ModelContentEntityForm;
 
 final class ModelEntityType extends ContentEntityType {
+
+  private string $namespace;
+
+  private string $entityClassName;
 
   /**
    * @phpstan-param array<string, bool|string> $definition
@@ -36,6 +41,10 @@ final class ModelEntityType extends ContentEntityType {
     }
 
     parent::__construct($definition);
+
+    $class = basename(str_replace('\\', '/', $this->class));
+    $namespace = "Drupal\\$this->provider";
+
     $this->entity_keys['id'] = $this->id . '_id';
     $this->entity_keys['uuid'] = 'uuid';
     $this->entity_keys['label'] = 'name';
@@ -66,27 +75,26 @@ final class ModelEntityType extends ContentEntityType {
     }
 
     if ($this->get('has_ui')) {
-      $class = basename(str_replace('\\', '/', $this->class));
-      $namespace = "Drupal\\{$this->getProvider()}";
 
-      $this->handlers['list_builder'] = EntityListBuilder::class;
-      if (class_exists("$namespace\\{$class}ListBuilder")) {
-        $this->handlers['list_builder'] = "$namespace\\{$class}ListBuilder";
-      }
+      $this->handlers['list_builder'] = $this->getEntityTypeSpecificClass("$namespace\\{$class}ListBuilder", EntityListBuilder::class);
 
       // @todo make Admin one a flag.
-      $this->handlers['route_provider']['html'] = AdminHtmlRouteProvider::class;
-      if (class_exists("$namespace\\Routing\\{$class}HtmlRouteProvider")) {
-        $this->handlers['route_provider']['html'] = "$namespace\\Routing\\{$class}HtmlRouteProvider";
-      }
+      $this->handlers['route_provider']['html'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Routing\\{$class}HtmlRouteProvider",
+        AdminHtmlRouteProvider::class
+      );
 
-      $this->handlers['form']['default'] = ContentEntityForm::class;
-      $this->handlers['form']['delete'] = ContentEntityDeleteForm::class;
+      $this->handlers['form']['default'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Form\\{$class}Form",
+        ModelContentEntityForm::class
+      );
+      $this->handlers['form']['delete'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Form\\{$class}DeleteForm",
+        ContentEntityDeleteForm::class
+      );
       $forms = [
-        'default' => "{$class}Form",
         'add' => "{$class}AddForm",
         'edit' => "{$class}EditForm",
-        'delete' => "{$class}DeleteForm",
       ];
       foreach ($forms as $operation => $class_name) {
         if (class_exists("$namespace\\Form\\$class_name")) {
@@ -94,23 +102,39 @@ final class ModelEntityType extends ContentEntityType {
         }
       }
 
-      $this->handlers['local_action_provider']['collection'] = EntityCollectionLocalActionProvider::class;
-      $this->handlers['local_task_provider']['default'] = DefaultEntityLocalTaskProvider::class;
+      $this->handlers['local_action_provider']['collection'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Menu\\{$class}CollectionLocalActionProvider",
+        EntityCollectionLocalActionProvider::class
+      );
+      $this->handlers['local_task_provider']['default'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Menu\\{$class}EntityLocalTaskProvider",
+        DefaultEntityLocalTaskProvider::class
+      );
 
       // @todo check if has bundles.
       if ($this->links === []) {
         $this->links = [
-          'collection' => '/admin/' . $this->id,
-          'canonical' => '/' . $this->id . '/{' . $this->id . '}',
-          'add-form' => '/' . $this->id . '/add',
-          'edit-form' => '/' . $this->id . '/{' . $this->id . '}/edit',
-          'delete-form' => '/' . $this->id . '/{' . $this->id . '}/delete',
+          'collection' => sprintf('/admin/%s', $this->id),
+          'canonical' => sprintf('/%s/{%s}', $this->id, $this->id),
+          'add-form' => sprintf('/%s/add', $this->id),
+          'edit-form' => sprintf('/%s/{%s}/edit', $this->id, $this->id),
+          'delete-form' => sprintf('/%s/{%s}/delete', $this->id, $this->id),
         ];
       }
       if ($this->field_ui_base_route === NULL && isset($this->links["entity.$this->id.collection"])) {
         $this->field_ui_base_route = "entity.$this->id.collection";
       }
     }
+  }
+
+  /**
+   * @phpstan-param class-string $class
+   * @phpstan-param class-string $default
+   *
+   * @phpstan-return class-string
+   */
+  private function getEntityTypeSpecificClass(string $class, string $default): string {
+    return class_exists($class) ? $class : $default;
   }
 
 }

@@ -17,7 +17,7 @@ use Drupal\user\EntityOwnerTrait;
 final class CollectionItem extends ContentEntityBase implements EntityOwnerInterface {
   use EntityOwnerTrait;
 
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields += self::ownerBaseFieldDefinitions($entity_type);
 
@@ -28,7 +28,7 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
         'weight' => -5,
       ])
       ->setRequired(TRUE);
-      $fields['whiskey'] = BaseFieldDefinition::create('entity_reference')
+    $fields['whiskey'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel('Whiskey')
       ->setRequired(TRUE)
       ->setSetting('target_type', 'whiskey')
@@ -41,7 +41,7 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
           'placeholder' => '',
         ],
       ]);
-      $fields['collection'] = BaseFieldDefinition::create('entity_reference')
+    $fields['collection'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel('Collection')
       ->setRequired(TRUE)
       ->setSetting('target_type', 'collection')
@@ -56,4 +56,5 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
       ]);
     return $fields;
   }
+
 }

@@ -16,7 +16,7 @@ final class Whiskey extends ContentEntityBase {
 
   public function getDistillery(): Distillery {
     $item = $this->get('distillery')->first();
-    assert($item !== NULL && $item instanceof EntityReferenceItem);
+    assert($item instanceof EntityReferenceItem);
     $distillery = $item->get('entity')->getValue();
     assert($distillery instanceof Distillery);
     return $distillery;

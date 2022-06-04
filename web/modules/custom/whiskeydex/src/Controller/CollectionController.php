@@ -15,7 +15,7 @@ final class CollectionController implements ContainerInjectionInterface {
   ) {
   }
 
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): CollectionController {
     return new self(
       $container->get('whiskeydex.collection_repository')
     );

@@ -29,10 +29,10 @@ final class CollectionTest extends WhiskeyDexEntityTestBase {
    */
   protected function expectedLinkTemplates(): array {
     return [
-      'canonical' => '/user/{user}/collection/{collection}',
-      'add-form' => '/user/{user}/collection/add',
-      'edit-form' => '/user/{user}/collection/{collection}/edit',
-      'delete-form' => '/user/{user}/collection/{collection}/delete',
+      'canonical' => '/collections/{collection}',
+      'add-form' => '/collections/add',
+      'edit-form' => '/collections/{collection}/edit',
+      'delete-form' => '/collections/{collection}/delete',
     ];
   }
 

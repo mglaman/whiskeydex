@@ -36,7 +36,7 @@ final class Distillery extends ContentEntityBase {
   /**
    * {@inheritdoc}
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel('Name')

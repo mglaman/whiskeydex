@@ -17,7 +17,7 @@ whiskeydex.whiskey:
   description: 'Manage whiskeys.'
   weight: 10
 
-whiskeydex.user_collections:
+entity.collection.collection:
   title: Collections
-  route_name: 'whiskeydex.collections'
+  route_name: 'entity.collection.collection'
   menu_name: main

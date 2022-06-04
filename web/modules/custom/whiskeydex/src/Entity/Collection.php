@@ -13,17 +13,18 @@ use Drupal\user\EntityOwnerTrait;
  *   id = "collection",
  *   owner_entity_access = true,
  *   links = {
- *     "canonical" = "/user/{user}/collection/{collection}",
- *     "add-form" = "/user/{user}/collection/add",
- *     "edit-form" = "/user/{user}/collection/{collection}/edit",
- *     "delete-form" = "/user/{user}/collection/{collection}/delete",
+ *     "collection" = "/collections",
+ *     "canonical" = "/collections/{collection}",
+ *     "add-form" = "/collections/add",
+ *     "edit-form" = "/collections/{collection}/edit",
+ *     "delete-form" = "/collections/{collection}/delete",
  *   }
  * )
  */
 final class Collection extends ContentEntityBase implements EntityOwnerInterface {
   use EntityOwnerTrait;
 
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields += self::ownerBaseFieldDefinitions($entity_type);
 
@@ -37,4 +38,5 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
 
     return $fields;
   }
+
 }

@@ -48,6 +48,7 @@
         }
     },
     "scripts": {
+        "phpcs": "phpcs --standard=phpcs.xml",
         "docker-build": "DOCKER_BUILDKIT=1 docker build . -t whiskeydex --secret id=config,src=.env"
     },
     "extra": {

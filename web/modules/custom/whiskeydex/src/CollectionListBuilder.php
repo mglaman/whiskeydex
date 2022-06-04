@@ -5,7 +5,7 @@ namespace Drupal\whiskeydex;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 
-final class DistilleryListBuilder extends EntityListBuilder {
+final class CollectionListBuilder extends EntityListBuilder {
 
   /**
    * {@inheritdoc}
@@ -23,7 +23,7 @@ final class DistilleryListBuilder extends EntityListBuilder {
    * @phpstan-return array<string, string|\Drupal\Core\StringTranslation\TranslatableMarkup|mixed>
    */
   public function buildRow(EntityInterface $entity): array {
-    $row['label'] = $entity->toLink((string) $entity->label(), 'edit-form');
+    $row['label'] = $entity->toLink((string) $entity->label(), 'canonical');
     return $row + parent::buildRow($entity);
   }
 

@@ -1,0 +1,5 @@
+#collection.user_collections.add:
+#  route_name: entity.collection.add_form
+#  title: 'Add collection'
+#  appears_on:
+#    - whiskeydex.user_collections

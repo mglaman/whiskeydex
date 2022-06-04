@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class CollectionTest extends WhiskeyDexHttpTestBase {
 
-  public function register(ContainerBuilder $container) {
+  public function register(ContainerBuilder $container): void {
     parent::register($container);
     $container->setParameter('http.response.debug_cacheability_headers', TRUE);
   }
