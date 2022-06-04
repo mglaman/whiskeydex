@@ -39,7 +39,7 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
       ['callable' => 'menu.default_tree_manipulators:checkAccess'],
     ]);
     self::assertArrayHasKey('entity.collection.collection', $tree);
-    self::assertEquals($allowed, $tree['entity.collection.collection']->access->isAllowed());
+    self::assertEquals($allowed, $tree['entity.collection.collection']->access?->isAllowed());
   }
 
   /**
@@ -48,19 +48,19 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
   public function providesMenuPermissionData(): iterable {
     yield [
       'administer collection',
-      false,
+      FALSE,
     ];
     yield [
       'view any collection',
-      false,
+      FALSE,
     ];
     yield [
       'view own collection',
-      true,
+      TRUE,
     ];
     yield [
       '',
-      false,
+      FALSE,
     ];
   }
 

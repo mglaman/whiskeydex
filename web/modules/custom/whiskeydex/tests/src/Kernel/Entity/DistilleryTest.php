@@ -2,10 +2,7 @@
 
 namespace Drupal\Tests\whiskeydex\Kernel\Entity;
 
-use Drupal\Core\Entity\EntityFieldManagerInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Tests\whiskeydex\Kernel\WhiskeyDexTestBase;
 use Drupal\whiskeydex\Entity\Distillery;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\QueryAccess\QueryAccessHandler;

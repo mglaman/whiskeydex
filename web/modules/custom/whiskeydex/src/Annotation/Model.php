@@ -23,6 +23,9 @@ final class Model extends ContentEntityType {
 
   public bool $has_ui = TRUE;
 
+  /**
+   * @phpstan-var array<string, string>
+   */
   public array $links = [];
 
 }

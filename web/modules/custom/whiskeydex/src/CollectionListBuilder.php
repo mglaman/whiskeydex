@@ -12,7 +12,10 @@ final class CollectionListBuilder extends EntityListBuilder {
 
   protected $limit = 10;
 
-  public function render() {
+  /**
+   * @phpstan-return array<string, mixed>
+   */
+  public function render(): array {
     // Hack to add more granular cacheability to the list.
     $this->cacheability = new CacheableMetadata();
     $this->cacheability->addCacheContexts(['user']);

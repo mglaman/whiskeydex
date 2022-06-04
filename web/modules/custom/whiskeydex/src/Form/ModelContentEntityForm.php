@@ -7,6 +7,9 @@ use Drupal\Core\Form\FormStateInterface;
 
 class ModelContentEntityForm extends ContentEntityForm {
 
+  /**
+   * @phpstan-param array<string, mixed> $form
+   */
   public function save(array $form, FormStateInterface $form_state): int {
     $created = $this->entity->isNew();
     $result = $this->entity->save();

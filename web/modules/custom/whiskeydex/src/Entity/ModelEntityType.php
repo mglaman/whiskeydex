@@ -4,7 +4,6 @@ namespace Drupal\whiskeydex\Entity;
 
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Entity\ContentEntityDeleteForm;
-use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\ContentEntityType;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -22,13 +21,6 @@ use Drupal\whiskeydex\Form\ModelContentEntityForm;
 use Symfony\Component\String\Inflector\EnglishInflector;
 
 final class ModelEntityType extends ContentEntityType {
-
-  /**
-   * fix type.
-   *
-   * @phpstan-var array<string, string>
-   */
-  protected $label_count;
 
   /**
    * @phpstan-param array<string, bool|string> $definition
@@ -49,11 +41,15 @@ final class ModelEntityType extends ContentEntityType {
 
     // @todo there is only an English and French inflector...
     $inflector = new EnglishInflector();
-    $label_singular = mb_strtolower($this->label);
-    $label_plural = mb_strtolower($inflector->pluralize($this->label)[0]);
+    $label = $this->label;
+    if ($label instanceof TranslatableMarkup) {
+      $label = $label->getUntranslatedString();
+    }
+    $label_singular = mb_strtolower($label);
+    $label_plural = mb_strtolower($inflector->pluralize($label)[0]);
 
     // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
-    $this->label_collection = new TranslatableMarkup(ucfirst($inflector->pluralize($this->label)[0]));
+    $this->label_collection = new TranslatableMarkup(ucfirst($label_plural));
     // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
     $this->label_singular = new TranslatableMarkup($label_singular);
     // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
@@ -149,7 +145,7 @@ final class ModelEntityType extends ContentEntityType {
   }
 
   /**
-   * @phpstan-param class-string $class
+   * @phpstan-param string $class
    * @phpstan-param class-string $default
    *
    * @phpstan-return class-string

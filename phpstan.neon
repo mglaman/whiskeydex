@@ -4,5 +4,7 @@ parameters:
 		- src
 		- web/modules/custom
 		- web/themes/custom
+	stubFiles:
+		- stubs/EntityType.stub
 includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
