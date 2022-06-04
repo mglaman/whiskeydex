@@ -3,6 +3,3 @@ services:
     class: Drupal\whiskeydex\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
-  whiskeydex.collection_repository:
-    class: Drupal\whiskeydex\CollectionRepository
-    arguments: ['@entity_type.manager']

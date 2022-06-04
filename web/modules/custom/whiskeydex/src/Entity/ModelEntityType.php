@@ -7,6 +7,7 @@ use Drupal\Core\Entity\ContentEntityDeleteForm;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\ContentEntityType;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\EntityPermissionProvider;
 use Drupal\entity\Menu\DefaultEntityLocalTaskProvider;
@@ -18,12 +19,16 @@ use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\user\EntityOwnerInterface;
 use Drupal\whiskeydex\Form\ModelContentEntityForm;
+use Symfony\Component\String\Inflector\EnglishInflector;
 
 final class ModelEntityType extends ContentEntityType {
 
-  private string $namespace;
-
-  private string $entityClassName;
+  /**
+   * fix type.
+   *
+   * @phpstan-var array<string, string>
+   */
+  protected $label_count;
 
   /**
    * @phpstan-param array<string, bool|string> $definition
@@ -41,6 +46,22 @@ final class ModelEntityType extends ContentEntityType {
     }
 
     parent::__construct($definition);
+
+    // @todo there is only an English and French inflector...
+    $inflector = new EnglishInflector();
+    $label_singular = mb_strtolower($this->label);
+    $label_plural = mb_strtolower($inflector->pluralize($this->label)[0]);
+
+    // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+    $this->label_collection = new TranslatableMarkup(ucfirst($inflector->pluralize($this->label)[0]));
+    // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+    $this->label_singular = new TranslatableMarkup($label_singular);
+    // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+    $this->label_plural = new TranslatableMarkup($label_plural);
+    $this->label_count = [
+      'singular' => "@count $label_singular",
+      'plural' => "@count $label_plural",
+    ];
 
     $class = basename(str_replace('\\', '/', $this->class));
     $namespace = "Drupal\\$this->provider";

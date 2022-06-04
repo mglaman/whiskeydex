@@ -10,11 +10,16 @@ final class CollectionListBuilder extends EntityListBuilder {
   /**
    * {@inheritdoc}
    *
-   * @phpstan-return array<string, string|\Drupal\Core\StringTranslation\TranslatableMarkup>
+   * @phpstan-return array<string, array<string, array<int, string>|\Drupal\Core\StringTranslation\TranslatableMarkup>|\Drupal\Core\StringTranslation\TranslatableMarkup>
    */
   public function buildHeader(): array {
-    $header['label'] = $this->t('Name');
-    return $header + parent::buildHeader();
+    return [
+      'label' => $this->t('Name'),
+      'operations' => [
+        'data' => $this->t('Manage'),
+        'class' => ['sr-only'],
+      ],
+    ];
   }
 
   /**
