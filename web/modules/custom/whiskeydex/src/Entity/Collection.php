@@ -7,8 +7,13 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\user\EntityOwnerInterface;
 use Drupal\user\EntityOwnerTrait;
+
+use function array_map;
+use function in_array;
+use function iterator_to_array;
 
 /**
  * @\Drupal\whiskeydex\Annotation\Model(
@@ -37,6 +42,17 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
     return $items->referencedEntities();
   }
 
+  public function addItem(CollectionItem $item): self {
+    $item_ids = array_map(
+      fn (EntityReferenceItem $item) => (int) $item->get('target_id')->getValue(),
+      iterator_to_array($this->get('items'))
+    );
+    if (!in_array((int) $item->id(), $item_ids, TRUE)) {
+      $this->get('items')->appendItem($item);
+    }
+    return $this;
+  }
+
   public function itemsCount(): int {
     return $this->get('items')->count();
   }
@@ -52,20 +68,16 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
         'weight' => -5,
       ])
       ->setRequired(TRUE);
+    // @todo needs a custom widget for extra meta about the whiskey
+    // (specific year, proof variants, etc.) IEF isn't 10.0.x ready.
     $fields['items'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel('Items')
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setSetting('target_type', 'collection_item')
-      // @todo needs a custom widget for extra meta about the whiskey
-      // (specific year, proof variants, etc.) IEF isn't 10.0.x ready.
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-        'weight' => -1,
-        'settings' => [
-          'match_operator' => 'CONTAINS',
-          'size' => '60',
-          'placeholder' => '',
-        ],
+      ->setDisplayOptions('view', [
+        // @todo use entity_reference_entity_view, needs theme hook.
+        'type' => 'entity_reference_label',
+        'label' => 'hidden',
       ]);
     return $fields;
   }
