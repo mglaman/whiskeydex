@@ -6,7 +6,7 @@ use Drupal\whiskeydex\Entity\CollectionItem;
 
 final class CollectionItemAddForm extends ModelContentEntityForm {
 
-  protected function prepareEntity() {
+  protected function prepareEntity(): void {
     parent::prepareEntity();
     assert($this->entity instanceof CollectionItem);
     $collection = $this->getRouteMatch()->getRawParameter('collection');

@@ -38,7 +38,9 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
   public function getCollectionId(): int {
     $collection = $this->get('collection')->first();
     assert($collection instanceof EntityReferenceItem);
-    return (int) $collection->get('target_id')->getValue();
+    $collection_id = $collection->get('target_id')->getValue();
+    assert(is_string($collection_id));
+    return (int) $collection_id;
   }
 
   public function getCollection(): Collection {
@@ -57,12 +59,12 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
     return $whiskey;
   }
 
-  public function preSave(EntityStorageInterface $storage) {
+  public function preSave(EntityStorageInterface $storage): void {
     parent::preSave($storage);
     $this->set('name', $this->getWhiskey()->label());
   }
 
-  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
+  public function postSave(EntityStorageInterface $storage, $update = TRUE): void {
     parent::postSave($storage, $update);
     $this->getCollection()
       ->addItem($this)

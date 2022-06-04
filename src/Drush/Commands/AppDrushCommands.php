@@ -9,6 +9,9 @@ use Drush\Boot\DrupalBootLevels;
 use Drush\Commands\DrushCommands;
 use Drush\Drush;
 
+/**
+ * @phpcs:disable Squiz.WhiteSpace.FunctionSpacing.Before
+ */
 final class AppDrushCommands extends DrushCommands {
 
   /**
@@ -18,7 +21,7 @@ final class AppDrushCommands extends DrushCommands {
   #[CLI\Option(name: 'sqlite', description: 'Set the DB_CONNECTION to SQLite by default')]
   // @phpstan-ignore-next-line
   #[CLI\Bootstrap(level: DrupalBootLevels::NONE)]
-  public function envGenerate(array $options = ['sqlite' => false]): void {
+  public function envGenerate(array $options = ['sqlite' => FALSE]): void {
     $boot_manager = Drush::bootstrapManager();
     $app_path = $boot_manager->getComposerRoot();
 

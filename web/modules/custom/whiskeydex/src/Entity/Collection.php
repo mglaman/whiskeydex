@@ -44,6 +44,7 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
 
   public function addItem(CollectionItem $item): self {
     $item_ids = array_map(
+      // @phpstan-ignore-next-line
       fn (EntityReferenceItem $item) => (int) $item->get('target_id')->getValue(),
       iterator_to_array($this->get('items'))
     );

@@ -30,4 +30,13 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
     'html' => CollectionItemHtmlRouteProvider::class,
   ];
 
+  protected function expectedLinkTemplates(): array {
+    return [
+      'canonical' => '/collections/{collection}',
+      'add-form' => '/collections/{collection}/add',
+      'edit-form' => '/collections/{collection}/{collection_item}/edit',
+      'delete-form' => '/collections/{collection}/{collection_item}/delete',
+    ];
+  }
+
 }

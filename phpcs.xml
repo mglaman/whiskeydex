@@ -10,6 +10,7 @@
     <exclude name="Drupal.Commenting.ClassComment.Missing"/>
     <exclude name="Drupal.Commenting.DocComment.MissingShort" />
     <exclude name="Drupal.Commenting.FunctionComment.Missing" />
+    <exclude name="Drupal.Commenting.FunctionComment.WrongStyle" />
     <exclude name="Drupal.Commenting.VariableComment.Missing" />
     <exclude name="Drupal.Commenting.VariableComment.MissingVar" />
 
