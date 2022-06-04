@@ -2,9 +2,12 @@
 
 namespace Drupal\Tests\whiskeydex\Kernel\Entity;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity\QueryAccess\UncacheableQueryAccessHandler;
 use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
+use Drupal\whiskeydex\Entity\Collection;
+use Drupal\whiskeydex\Entity\Whiskey;
 use Drupal\whiskeydex\Routing\CollectionHtmlRouteProvider;
 
 final class CollectionTest extends WhiskeyDexEntityTestBase {
@@ -41,5 +44,50 @@ final class CollectionTest extends WhiskeyDexEntityTestBase {
   protected ?array $routeProviders = [
     'html' => CollectionHtmlRouteProvider::class,
   ];
+
+  public function testEntity(): void {
+    $this->installEntitySchema('collection');
+    $this->installEntitySchema('collection_item');
+
+    $etm = $this->container->get('entity_type.manager');
+    assert($etm instanceof EntityTypeManagerInterface);
+    $user = $this->createUser();
+    $collection = $etm->getStorage('collection')->create([
+      'name' => 'main',
+      'uid' => $user->id(),
+    ]);
+    assert($collection instanceof Collection);
+    self::assertEquals('main', $collection->label());
+    self::assertEquals($user->getDisplayName(), $collection->getOwner()->getDisplayName());
+
+    $collection_item = $etm->getStorage('collection_item')->create([
+      'name' => 'foo',
+      'whiskey' => Whiskey::create(['name' => 'foo']),
+    ]);
+    self::assertEquals(0, $collection->itemsCount());
+    $collection->addItem($collection_item);
+    self::assertEquals(1, $collection->itemsCount());
+    self::assertEquals([$collection_item], $collection->getItems());
+  }
+
+  public function testLocalTaskProvider(): void {
+    $user = $this->createUser([], [
+      'view own collection',
+      'create collection',
+      'update own collection',
+      'view own collection_item',
+      'create collection_item',
+      'update own collection_item',
+    ]);
+    $this->container->get('current_user')->setAccount($user);
+    $manager = $this->container->get('plugin.manager.menu.local_task');
+    $tasks = $manager->getLocalTasksForRoute('entity.collection.canonical');
+    self::assertCount(3, $tasks[0]);
+    self::assertEquals([
+      'entity.entity_tasks:entity.collection.canonical',
+      'entity.entity_tasks:entity.collection.edit_form',
+      'entity.entity_tasks:entity.collection_item.add_form',
+    ], array_keys($tasks[0]));
+  }
 
 }
