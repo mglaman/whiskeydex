@@ -22,6 +22,7 @@ final class CollectionTest extends WhiskeyDexEntityTestBase {
     'uuid',
     'uid',
     'name',
+    'items',
   ];
 
   /**
@@ -29,6 +30,7 @@ final class CollectionTest extends WhiskeyDexEntityTestBase {
    */
   protected function expectedLinkTemplates(): array {
     return [
+      'collection' => '/collections',
       'canonical' => '/collections/{collection}',
       'add-form' => '/collections/add',
       'edit-form' => '/collections/{collection}/edit',

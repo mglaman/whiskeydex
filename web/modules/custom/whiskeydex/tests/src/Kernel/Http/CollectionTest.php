@@ -38,8 +38,8 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
     $tree = $menu_tree->transform($tree, [
       ['callable' => 'menu.default_tree_manipulators:checkAccess'],
     ]);
-    self::assertArrayHasKey('whiskeydex.user_collections', $tree);
-    self::assertEquals($allowed, $tree['whiskeydex.user_collections']->access->isAllowed());
+    self::assertArrayHasKey('entity.collection.collection', $tree);
+    self::assertEquals($allowed, $tree['entity.collection.collection']->access->isAllowed());
   }
 
   /**
@@ -48,11 +48,11 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
   public function providesMenuPermissionData(): iterable {
     yield [
       'administer collection',
-      true,
+      false,
     ];
     yield [
       'view any collection',
-      true,
+      false,
     ];
     yield [
       'view own collection',
@@ -69,12 +69,12 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
     $user1 = $this->createUser([], ['view own collection']);
     Collection::create([
       'name' => 'User 1 Collection',
-      'uid' => $user1->id()
+      'uid' => $user1->id(),
     ])->save();
     $user2 = $this->createUser([], ['view own collection']);
     Collection::create([
       'name' => 'User 2 Collection',
-      'uid' => $user2->id()
+      'uid' => $user2->id(),
     ])->save();
 
     $this->container->get('current_user')->setAccount($user1);
@@ -88,7 +88,7 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
       $response->headers->get('x-drupal-cache-tags')
     );
     self::assertEquals(
-      'languages:language_interface theme url.query_args:_wrapper_format user',
+      'languages:language_interface theme url.query_args.pagers:0 url.query_args:_wrapper_format user',
       $response->headers->get('x-drupal-cache-contexts')
     );
 
@@ -103,7 +103,7 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
       $response->headers->get('x-drupal-cache-tags')
     );
     self::assertEquals(
-      'languages:language_interface theme url.query_args:_wrapper_format user',
+      'languages:language_interface theme url.query_args.pagers:0 url.query_args:_wrapper_format user',
       $response->headers->get('x-drupal-cache-contexts')
     );
   }
