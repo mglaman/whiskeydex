@@ -39,10 +39,10 @@ final class WhiskeyTest extends WhiskeyDexEntityTestBase {
 
     $etm = $this->container->get('entity_type.manager');
     assert($etm instanceof EntityTypeManagerInterface);
-    $distillery = $etm->getStorage('whiskey')->create($values);
-    assert($distillery instanceof Whiskey);
-    self::assertEquals($expected_name, $distillery->label());
-    self::assertEquals('Woodford Reserve', $distillery->getDistillery()->label());
+    $whiskey = $etm->getStorage('whiskey')->create($values);
+    assert($whiskey instanceof Whiskey);
+    self::assertEquals($expected_name, $whiskey->label());
+    self::assertEquals('Woodford Reserve', $whiskey->getDistillery()->label());
   }
 
   public function entityValues(): \Generator {
