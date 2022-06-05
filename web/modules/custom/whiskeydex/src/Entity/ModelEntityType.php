@@ -123,10 +123,13 @@ final class ModelEntityType extends ContentEntityType {
         "$namespace\\Menu\\{$class}CollectionLocalActionProvider",
         EntityCollectionLocalActionProvider::class
       );
-      $this->handlers['local_task_provider']['default'] = $this->getEntityTypeSpecificClass(
-        "$namespace\\Menu\\{$class}EntityLocalTaskProvider",
-        DefaultEntityLocalTaskProvider::class
-      );
+
+      if ($this->get('provide_tasks')) {
+        $this->handlers['local_task_provider']['default'] = $this->getEntityTypeSpecificClass(
+          "$namespace\\Menu\\{$class}EntityLocalTaskProvider",
+          DefaultEntityLocalTaskProvider::class
+        );
+      }
 
       // @todo check if has bundles.
       if ($this->links === []) {

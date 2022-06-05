@@ -19,6 +19,12 @@ use function iterator_to_array;
  * @\Drupal\whiskeydex\Annotation\Model(
  *   id = "collection",
  *   owner_entity_access = true,
+ *   provide_tasks = false,
+ *   handlers = {
+ *     "local_action_provider" = {
+ *       "canonical" = "\Drupal\whiskeydex\Menu\CollectionCanonicalLocalActionProvider"
+ *     }
+ *   },
  *   links = {
  *     "collection" = "/collections",
  *     "canonical" = "/collections/{collection}",
@@ -76,8 +82,7 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setSetting('target_type', 'collection_item')
       ->setDisplayOptions('view', [
-        // @todo use entity_reference_entity_view, needs theme hook.
-        'type' => 'entity_reference_label',
+        'type' => 'entity_reference_entity_view',
         'label' => 'hidden',
       ]);
     return $fields;

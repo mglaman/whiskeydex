@@ -9,7 +9,7 @@ _core:
 id: distilled_page_title
 theme: distilled
 region: page_title
-weight: -3
+weight: -4
 provider: null
 plugin: page_title_block
 settings:

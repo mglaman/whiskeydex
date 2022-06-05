@@ -23,6 +23,8 @@ final class Model extends ContentEntityType {
 
   public bool $has_ui = TRUE;
 
+  public bool $provide_tasks = TRUE;
+
   /**
    * @phpstan-var array<string, string>
    */

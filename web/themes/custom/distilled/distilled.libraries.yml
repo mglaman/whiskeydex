@@ -2,8 +2,6 @@ base:
   version: VERSION
   css:
     component:
-      css/components/action-links.css:
-        weight: -10
       css/components/breadcrumb.css:
         weight: -10
       css/components/button.css:
