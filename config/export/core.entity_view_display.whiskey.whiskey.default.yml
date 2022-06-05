@@ -1,0 +1,22 @@
+uuid: 714efabf-5563-4270-be77-9b21305ea5b9
+langcode: en
+status: true
+dependencies:
+  module:
+    - whiskeydex
+id: whiskey.whiskey.default
+targetEntityType: whiskey
+bundle: whiskey
+mode: default
+content:
+  distillery:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  name: true
