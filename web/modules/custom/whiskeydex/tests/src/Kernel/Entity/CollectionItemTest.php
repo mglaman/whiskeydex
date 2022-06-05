@@ -71,7 +71,7 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
     self::assertEquals($whiskey->label(), $collection_item->label());
     self::assertEquals($whiskey->id(), $collection_item->getWhiskey()->id());
     self::assertEquals((int) $collection->id(), $collection_item->getCollectionId());
-    self::assertEquals(1, $collection_item->getCollection()->itemsCount());
+    self::assertEquals(1, $collection_item->getCollection()->getItemsCount());
 
     $collection_items = $collection_item->getCollection()->getItems();
     self::assertCount(1, $collection_items);

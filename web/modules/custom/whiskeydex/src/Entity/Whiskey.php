@@ -33,7 +33,8 @@ final class Whiskey extends ContentEntityBase {
         'type' => 'string_textfield',
         'weight' => -5,
       ])
-      ->setRequired(TRUE);
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('view', TRUE);
     $fields['distillery'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel('Distillery')
       ->setRequired(TRUE)
@@ -46,7 +47,8 @@ final class Whiskey extends ContentEntityBase {
           'size' => '60',
           'placeholder' => '',
         ],
-      ]);
+      ])
+      ->setDisplayConfigurable('view', TRUE);
     return $fields;
   }
 

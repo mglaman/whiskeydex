@@ -8,7 +8,6 @@ use Drupal\Core\Url;
 use Drupal\system\Entity\Menu;
 use Drupal\user\Entity\User;
 use Drupal\whiskeydex\Entity\Collection;
-use Drupal\whiskeydex\Entity\CollectionItem;
 use Drupal\whiskeydex\Entity\Whiskey;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -159,7 +158,7 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
 
     $collection = $this->reloadEntity($collection);
     assert($collection instanceof Collection);
-    self::assertEquals(1, $collection->itemsCount());
+    self::assertEquals(1, $collection->getItemsCount());
   }
 
 }

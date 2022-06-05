@@ -1,7 +1,9 @@
 {%
   set classes = [
   'menu--' ~ derivative_plugin_id|clean_class,
-  'flex-grow'
+  'flex-grow',
+  'hidden',
+  'md:block',
 ]
 %}
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}

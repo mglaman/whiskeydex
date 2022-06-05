@@ -1,12 +1,8 @@
 <?php declare(strict_types=1);
-
-use Drupal\Core\Render\Element;
-
 /**
  * Implements hook_theme().
  */
 function whiskeydex_theme($existing, $type, $theme, $path): array {
-  $stop = null;
   return [
     'collection' => [
       'render element' => 'elements',
@@ -27,9 +23,48 @@ function whiskeydex_theme($existing, $type, $theme, $path): array {
  * Implements hook_preprocess_HOOK().
  */
 function whiskeydex_preprocess_collection(&$variables) {
-  $variables += ['content' => []];
-  foreach (Element::children($variables['elements']) as $key) {
-    $variables['content'][$key] = $variables['elements'][$key];
-  }
+  $variables['collection'] = $variables['elements']['#collection'];
+}
 
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function whiskeydex_theme_suggestions_collection(array $variables) {
+  return _whiskeydex_entity_theme_suggestions('collection', $variables);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function whiskeydex_theme_suggestions_collection_item(array $variables) {
+  return _whiskeydex_entity_theme_suggestions('collection_item', $variables);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function whiskeydex_theme_suggestions_distillery(array $variables) {
+  return _whiskeydex_entity_theme_suggestions('distillery', $variables);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function whiskeydex_theme_suggestions_whiskey(array $variables) {
+  return _whiskeydex_entity_theme_suggestions('whiskey', $variables);
+}
+
+/**
+ * Taken from _commerce_entity_theme_suggestions.
+ */
+function _whiskeydex_entity_theme_suggestions(string $entity_type_id, array $variables): array {
+  $original = $variables['theme_hook_original'];
+  $entity = $variables['elements']['#' . $entity_type_id];
+  $sanitized_view_mode = str_replace('.', '_', $variables['elements']['#view_mode']);
+
+  $suggestions = [];
+  $suggestions[] = $original . '__' . $sanitized_view_mode;
+  $suggestions[] = $original . '__' . $entity->bundle();
+  $suggestions[] = $original . '__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  return $suggestions;
 }

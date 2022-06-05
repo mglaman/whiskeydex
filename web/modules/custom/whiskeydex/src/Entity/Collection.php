@@ -60,7 +60,7 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
     return $this;
   }
 
-  public function itemsCount(): int {
+  public function getItemsCount(): int {
     return $this->get('items')->count();
   }
 
@@ -74,7 +74,8 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
         'type' => 'string_textfield',
         'weight' => -5,
       ])
-      ->setRequired(TRUE);
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('view', TRUE);
     // @todo needs a custom widget for extra meta about the whiskey
     // (specific year, proof variants, etc.) IEF isn't 10.0.x ready.
     $fields['items'] = BaseFieldDefinition::create('entity_reference')
@@ -84,7 +85,11 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
       ->setDisplayOptions('view', [
         'type' => 'entity_reference_entity_view',
         'label' => 'hidden',
-      ]);
+        'settings' => [
+          'view_mode' => 'card',
+        ],
+      ])
+      ->setDisplayConfigurable('view', TRUE);
     return $fields;
   }
 

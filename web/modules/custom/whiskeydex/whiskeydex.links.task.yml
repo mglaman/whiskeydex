@@ -1,0 +1,12 @@
+# for Field UI to work on non-bundle entities, the collection needs a task.
+# @todo make this generated.
+entity.distillery.collection:
+  route_name: entity.distillery.collection
+  title: 'List'
+  base_route: entity.distillery.collection
+  weight: -10
+entity.whiskey.collection:
+  route_name: entity.whiskey.collection
+  title: 'List'
+  base_route: entity.whiskey.collection
+  weight: -10

@@ -64,9 +64,9 @@ final class CollectionTest extends WhiskeyDexEntityTestBase {
       'name' => 'foo',
       'whiskey' => Whiskey::create(['name' => 'foo']),
     ]);
-    self::assertEquals(0, $collection->itemsCount());
+    self::assertEquals(0, $collection->getItemsCount());
     $collection->addItem($collection_item);
-    self::assertEquals(1, $collection->itemsCount());
+    self::assertEquals(1, $collection->getItemsCount());
     self::assertEquals([$collection_item], $collection->getItems());
   }
 

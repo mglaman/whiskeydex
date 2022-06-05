@@ -141,7 +141,7 @@ final class ModelEntityType extends ContentEntityType {
           'delete-form' => sprintf('/%s/{%s}/delete', $this->id, $this->id),
         ];
       }
-      if ($this->field_ui_base_route === NULL && isset($this->links["entity.$this->id.collection"])) {
+      if ($this->field_ui_base_route === NULL && isset($this->links['collection'])) {
         $this->field_ui_base_route = "entity.$this->id.collection";
       }
     }

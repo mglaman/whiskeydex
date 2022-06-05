@@ -15,7 +15,7 @@ use Drupal\user\EntityOwnerTrait;
  *   id = "collection_item",
  *   owner_entity_access = true,
  *   links = {
- *     "canonical" = "/collections/{collection}",
+ *     "canonical" = "/collections/{collection}/{collection_item}",
  *     "add-form" = "/collections/{collection}/add",
  *     "edit-form" = "/collections/{collection}/{collection_item}/edit",
  *     "delete-form" = "/collections/{collection}/{collection_item}/delete",
@@ -89,6 +89,13 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
           'match_operator' => 'CONTAINS',
           'size' => '60',
           'placeholder' => '',
+        ],
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'entity_reference_entity_view',
+        'label' => 'hidden',
+        'settings' => [
+          'view_mode' => 'collection',
         ],
       ]);
     $fields['collection'] = BaseFieldDefinition::create('entity_reference')
