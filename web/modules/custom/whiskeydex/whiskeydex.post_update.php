@@ -2,7 +2,6 @@
 
 /**
  * @file
- *
  * There is no difference between hook_update_N and hook_post_update_N.
  *
  * The value of \Drupal::CORE_MINIMUM_SCHEMA_VERSION is 8000, for Drupal 8. The
