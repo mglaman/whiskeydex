@@ -41,10 +41,14 @@ final class CollectionListBuilder implements EntityListBuilderInterface, EntityH
     $cacheability->addCacheContexts(['user']);
     $view_builder = $this->entityTypeManager->getViewBuilder('collection');
     $build = [
-      'list' => $view_builder->viewMultiple($this->load(), 'card'),
-      '#theme_wrappers' => [
-        'container__collection',
-      ],
+      'list' => [
+        '#theme_wrappers' => [
+          'container__collection',
+        ],
+      ] + $view_builder->viewMultiple($this->load(), 'card'),
+    ];
+    $build['pager'] = [
+      '#type' => 'pager',
     ];
     $cacheability->applyTo($build);
     return $build;

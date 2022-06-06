@@ -74,6 +74,9 @@ final class Collection extends ContentEntityBase implements EntityOwnerInterface
         'type' => 'string_textfield',
         'weight' => -5,
       ])
+      ->setDisplayOptions('view', [
+        'type' => 'string',
+      ])
       ->setRequired(TRUE)
       ->setDisplayConfigurable('view', TRUE);
     // @todo needs a custom widget for extra meta about the whiskey

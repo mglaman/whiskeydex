@@ -36,7 +36,7 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
 
   protected function expectedLinkTemplates(): array {
     return [
-      'canonical' => '/collections/{collection}',
+      'canonical' => '/collections/{collection}/{collection_item}',
       'add-form' => '/collections/{collection}/add',
       'edit-form' => '/collections/{collection}/{collection_item}/edit',
       'delete-form' => '/collections/{collection}/{collection_item}/delete',
@@ -78,7 +78,7 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
     self::assertEquals($collection_item->id(), $collection_items[0]->id());
 
     self::assertEquals(
-      '/collections/' . $collection->id() . '?collection_item=' . $collection_item->id(),
+      '/collections/' . $collection->id() . '/' . $collection_item->id(),
       $collection_item->toUrl('canonical')->toString()
     );
     self::assertEquals(

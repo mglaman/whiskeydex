@@ -93,7 +93,7 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
     $this->assertStringContainsString('User 1 Collection', $this->getTextContent());
     $this->assertStringNotContainsString('User 2 Collection', $this->getTextContent());
     self::assertEquals(
-      'collection:1 http_response rendered',
+      'collection:1 collection_view http_response rendered',
       $response->headers->get('x-drupal-cache-tags')
     );
     self::assertEquals(
@@ -108,7 +108,7 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
     $this->assertStringContainsString('User 2 Collection', $this->getTextContent());
     $this->assertStringNotContainsString('User 1 Collection', $this->getTextContent());
     self::assertEquals(
-      'collection:2 http_response rendered',
+      'collection:2 collection_view http_response rendered',
       $response->headers->get('x-drupal-cache-tags')
     );
     self::assertEquals(

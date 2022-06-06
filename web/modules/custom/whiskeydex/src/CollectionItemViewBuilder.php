@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityViewBuilder;
 final class CollectionItemViewBuilder extends EntityViewBuilder {
 
   /**
-   * @param array<int|string, array<string, mixed>> $build
+   * @phpstan-param array<int|string, array<string, mixed>> $build
    */
   public function buildComponents(array &$build, array $entities, array $displays, $view_mode): void {
     parent::buildComponents($build, $entities, $displays, $view_mode);

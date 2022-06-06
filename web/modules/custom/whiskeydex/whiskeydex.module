@@ -5,7 +5,7 @@ use Drupal\Core\Entity\EntityInterface;
 /**
  * Implements hook_entity_extra_field_info().
  *
- * @phpstan-return  array<string, array<string, array<string, array<string,array<string, bool|Drupal\Core\StringTranslation\TranslatableMarkup|int>>>>>
+ * @phpstan-return array<string, array<string, array<string, array<string,array<string, bool|Drupal\Core\StringTranslation\TranslatableMarkup|int>>>>>
  */
 function whiskeydex_entity_extra_field_info(): array {
   $extra = [];

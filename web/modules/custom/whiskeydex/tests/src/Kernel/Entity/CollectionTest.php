@@ -72,7 +72,7 @@ final class CollectionTest extends WhiskeyDexEntityTestBase {
     self::assertEquals([$collection_item], $collection->getItems());
   }
 
-  public function testLocalTaskProvider(): void {
+  public function testLocalActionProvider(): void {
     $user = $this->createUser([], [
       'view own collection',
       'create collection',
@@ -82,14 +82,14 @@ final class CollectionTest extends WhiskeyDexEntityTestBase {
       'update own collection_item',
     ]);
     $this->container->get('current_user')->setAccount($user);
-    $manager = $this->container->get('plugin.manager.menu.local_task');
-    $tasks = $manager->getLocalTasksForRoute('entity.collection.canonical');
-    self::assertCount(3, $tasks[0]);
+    $manager = $this->container->get('plugin.manager.menu.local_action');
+    $tasks = $manager->getActionsForRoute('entity.collection.canonical');
+    unset($tasks['#cache']);
+    self::assertCount(2, $tasks);
     self::assertEquals([
-      'entity.entity_tasks:entity.collection.canonical',
-      'entity.entity_tasks:entity.collection.edit_form',
-      'entity.entity_tasks:entity.collection_item.add_form',
-    ], array_keys($tasks[0]));
+      'entity.entity_actions:entity.collection_item.add_form',
+      'entity.entity_actions:entity.collection.edit_form',
+    ], array_keys($tasks));
   }
 
 }
