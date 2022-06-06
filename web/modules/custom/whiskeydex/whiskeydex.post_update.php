@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use Drupal\Core\Utility\UpdateException;
+
 /**
  * @file
  * There is no difference between hook_update_N and hook_post_update_N.
@@ -16,9 +18,14 @@
 /**
  * Install `collection` and `collection_item`.
  */
-function whiskeydex_post_update_20220606_install_collection_entity_types(&$sandbox) {
+function whiskeydex_post_update_20220606_install_collection_entity_types(): void {
   $etm = \Drupal::entityTypeManager();
   $edum = \Drupal::entityDefinitionUpdateManager();
-  $edum->installEntityType($etm->getDefinition('collection'));
-  $edum->installEntityType($etm->getDefinition('collection_item'));
+  foreach (['collection_item', 'collection'] as $entity_type_id) {
+    $entity_type = $etm->getDefinition($entity_type_id);
+    if ($entity_type === NULL) {
+      throw new UpdateException("Cannot get definition for '$entity_type_id' entity type.");
+    }
+    $edum->installEntityType($entity_type);
+  }
 }
