@@ -1,9 +1,13 @@
 <?php declare(strict_types=1);
 
+use Drupal\Core\Entity\EntityInterface;
+
 /**
  * Implements hook_entity_extra_field_info().
+ *
+ * @phpstan-return  array<string, array<string, array<string, array<string,array<string, bool|Drupal\Core\StringTranslation\TranslatableMarkup|int>>>>>
  */
-function whiskeydex_entity_extra_field_info() {
+function whiskeydex_entity_extra_field_info(): array {
   $extra = [];
   $extra['collection']['collection']['display']['links'] = [
     'label' => t('Manage'),
@@ -23,8 +27,11 @@ function whiskeydex_entity_extra_field_info() {
 
 /**
  * Implements hook_theme().
+ *
+ * @phpstan-param array<string, mixed> $existing
+ * @phpstan-return array<string, array<string, string>>
  */
-function whiskeydex_theme($existing, $type, $theme, $path): array {
+function whiskeydex_theme(array $existing, string $type, string $theme, string $path): array {
   return [
     'collection' => [
       'render element' => 'elements',
@@ -43,13 +50,19 @@ function whiskeydex_theme($existing, $type, $theme, $path): array {
 
 /**
  * Implements hook_preprocess_HOOK().
+ *
+ * @phpstan-param array<string, string|array<string, mixed>|object> $variables
  */
-function whiskeydex_preprocess_collection(&$variables) {
+function whiskeydex_preprocess_collection(&$variables): void {
+  assert(is_array($variables['elements']));
   $variables['collection'] = $variables['elements']['#collection'];
 }
 
 /**
  * Implements hook_theme_suggestions_HOOK().
+ *
+ * @phpstan-param array<string, string|array<string, mixed>|object> $variables
+ * @phpstan-return array<int, string>
  */
 function whiskeydex_theme_suggestions_collection(array $variables) {
   return _whiskeydex_entity_theme_suggestions('collection', $variables);
@@ -57,6 +70,9 @@ function whiskeydex_theme_suggestions_collection(array $variables) {
 
 /**
  * Implements hook_theme_suggestions_HOOK().
+ *
+ * @phpstan-param array<string, string|array<string, mixed>|object> $variables
+ * @phpstan-return array<int, string>
  */
 function whiskeydex_theme_suggestions_collection_item(array $variables) {
   return _whiskeydex_entity_theme_suggestions('collection_item', $variables);
@@ -64,6 +80,9 @@ function whiskeydex_theme_suggestions_collection_item(array $variables) {
 
 /**
  * Implements hook_theme_suggestions_HOOK().
+ *
+ * @phpstan-param array<string, string|array<string, mixed>|object> $variables
+ * @phpstan-return array<int, string>
  */
 function whiskeydex_theme_suggestions_distillery(array $variables) {
   return _whiskeydex_entity_theme_suggestions('distillery', $variables);
@@ -71,18 +90,29 @@ function whiskeydex_theme_suggestions_distillery(array $variables) {
 
 /**
  * Implements hook_theme_suggestions_HOOK().
+ *
+ * @phpstan-param array<string, string|array<string, mixed>|object> $variables
+ * @phpstan-return array<int, string>
  */
-function whiskeydex_theme_suggestions_whiskey(array $variables) {
+function whiskeydex_theme_suggestions_whiskey(array $variables): array {
   return _whiskeydex_entity_theme_suggestions('whiskey', $variables);
 }
 
 /**
  * Taken from _commerce_entity_theme_suggestions.
+ *
+ * @phpstan-param array<string, string|array<string, mixed>|object> $variables
+ * @phpstan-return array<int, string>
  */
 function _whiskeydex_entity_theme_suggestions(string $entity_type_id, array $variables): array {
   $original = $variables['theme_hook_original'];
+  assert(is_string($original));
+  assert(is_array($variables['elements']));
   $entity = $variables['elements']['#' . $entity_type_id];
-  $sanitized_view_mode = str_replace('.', '_', $variables['elements']['#view_mode']);
+  assert($entity instanceof EntityInterface);
+  $view_mode = $variables['elements']['#view_mode'];
+  assert(is_string($view_mode));
+  $sanitized_view_mode = str_replace('.', '_', $view_mode);
 
   $suggestions = [];
   $suggestions[] = $original . '__' . $sanitized_view_mode;

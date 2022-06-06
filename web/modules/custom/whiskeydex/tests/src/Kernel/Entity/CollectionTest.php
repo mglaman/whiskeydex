@@ -7,6 +7,7 @@ use Drupal\entity\QueryAccess\UncacheableQueryAccessHandler;
 use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\whiskeydex\Entity\Collection;
+use Drupal\whiskeydex\Entity\CollectionItem;
 use Drupal\whiskeydex\Entity\Whiskey;
 use Drupal\whiskeydex\Routing\CollectionHtmlRouteProvider;
 
@@ -64,6 +65,7 @@ final class CollectionTest extends WhiskeyDexEntityTestBase {
       'name' => 'foo',
       'whiskey' => Whiskey::create(['name' => 'foo']),
     ]);
+    assert($collection_item instanceof CollectionItem);
     self::assertEquals(0, $collection->getItemsCount());
     $collection->addItem($collection_item);
     self::assertEquals(1, $collection->getItemsCount());

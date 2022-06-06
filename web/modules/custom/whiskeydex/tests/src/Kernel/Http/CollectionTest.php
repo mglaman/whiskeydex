@@ -148,8 +148,11 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
       'whiskey' => [
         0 => ['target_id' => sprintf('%s (%s)', $whiskey->label(), $whiskey->id())],
       ],
+      // @phpstan-ignore-next-line
       'form_build_id' => (string) $this->cssSelect('input[name="form_build_id"]')[0]->attributes()->value[0],
+      // @phpstan-ignore-next-line
       'form_token' => (string) $this->cssSelect('input[name="form_token"]')[0]->attributes()->value[0],
+      // @phpstan-ignore-next-line
       'form_id' => (string) $this->cssSelect('input[name="form_id"]')[0]->attributes()->value[0],
       'op' => 'Save',
     ]);

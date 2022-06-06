@@ -5,9 +5,12 @@ namespace Drupal\whiskeydex\Menu;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\entity\Menu\EntityLocalActionProviderInterface;
 
-final class CollectionCanonicalLocalActionProvider  implements EntityLocalActionProviderInterface {
+final class CollectionCanonicalLocalActionProvider implements EntityLocalActionProviderInterface {
 
-  public function buildLocalActions(EntityTypeInterface $entity_type) {
+  /**
+   * @phpstan-return  array<string, array<string, array<int, string>|string>>
+   */
+  public function buildLocalActions(EntityTypeInterface $entity_type): array {
     $actions = [];
     $actions['entity.collection_item.add_form'] = [
       'title' => 'Add whiskey',

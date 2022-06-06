@@ -6,7 +6,10 @@ use Drupal\Core\Entity\EntityViewBuilder;
 
 final class CollectionItemViewBuilder extends EntityViewBuilder {
 
-  public function buildComponents(array &$build, array $entities, array $displays, $view_mode) {
+  /**
+   * @param array<int|string, array<string, mixed>> $build
+   */
+  public function buildComponents(array &$build, array $entities, array $displays, $view_mode): void {
     parent::buildComponents($build, $entities, $displays, $view_mode);
     foreach ($entities as $id => $entity) {
       $display = $displays[$entity->bundle()];

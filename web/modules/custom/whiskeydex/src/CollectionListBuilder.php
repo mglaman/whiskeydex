@@ -60,9 +60,14 @@ final class CollectionListBuilder implements EntityListBuilderInterface, EntityH
       ->sort('collection_id')
       ->pager(10);
     $ids = $query->execute();
+    // phpstan-drupal detection broke here??
+    assert(is_array($ids));
     return $this->getStorage()->loadMultiple($ids);
   }
 
+  /**
+   * @phpstan-return array<string, array<string, \Drupal\Core\StringTranslation\TranslatableMarkup|int|\Drupal\Core\Url>>
+   */
   public function getOperations(EntityInterface $entity): array {
     $operations = [];
     if ($entity->access('update') && $entity->hasLinkTemplate('edit-form')) {
