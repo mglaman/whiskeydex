@@ -61,6 +61,10 @@ dropbutton:
     component:
       css/components/dropbutton.css:
         weight: -10
+  js:
+    js/dropbutton.js: {}
+  dependencies:
+    - core/drupal
 file:
   version: VERSION
   css:

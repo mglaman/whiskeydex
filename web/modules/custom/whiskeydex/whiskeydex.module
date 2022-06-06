@@ -1,4 +1,26 @@
 <?php declare(strict_types=1);
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function whiskeydex_entity_extra_field_info() {
+  $extra = [];
+  $extra['collection']['collection']['display']['links'] = [
+    'label' => t('Manage'),
+    'description' => t('Links to manage'),
+    'weight' => 100,
+    'visible' => TRUE,
+  ];
+  $extra['collection_item']['collection_item']['display']['links'] = [
+    'label' => t('Manage'),
+    'description' => t('Links to manage'),
+    'weight' => 100,
+    'visible' => TRUE,
+  ];
+
+  return $extra;
+}
+
 /**
  * Implements hook_theme().
  */

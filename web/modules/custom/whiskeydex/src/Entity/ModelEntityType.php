@@ -6,6 +6,7 @@ use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Entity\ContentEntityDeleteForm;
 use Drupal\Core\Entity\ContentEntityType;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\Core\Entity\EntityViewBuilder;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\EntityPermissionProvider;
@@ -72,6 +73,11 @@ final class ModelEntityType extends ContentEntityType {
     $this->admin_permission = 'administer ' . $this->id;
     $this->base_table = $this->id;
     $this->data_table = $this->id . '_data';
+
+    $this->handlers['view_builder'] = $this->getEntityTypeSpecificClass(
+      "$namespace\\{$class}ViewBuilder",
+      EntityViewBuilder::class
+    );
 
     // Entity API contrib access improvements.
     if ($this->get('enhanced_entity_access')) {
