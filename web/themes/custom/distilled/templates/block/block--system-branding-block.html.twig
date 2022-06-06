@@ -12,7 +12,7 @@
  * - site_slogan: Slogan for site as defined in Site information settings.
  */
 #}
-<div class="flex items-center">
+<div class="flex items-center grow md:grow-0 md:flex-shrink">
   {% if site_logo %}
     <a href="{{ path('<front>') }}" rel="home" class="w-16">
       <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" />

@@ -24,6 +24,7 @@
         "drupal/core-recommended": "^10.0",
         "drupal/entity": "1.x-dev",
         "drush/drush": "^11.0",
+        "symfony/string": "^6.0",
         "vlucas/phpdotenv": "^5.4"
     },
     "autoload": {
@@ -48,6 +49,7 @@
         }
     },
     "scripts": {
+        "phpcs": "phpcs --standard=phpcs.xml",
         "docker-build": "DOCKER_BUILDKIT=1 docker build . -t whiskeydex --secret id=config,src=.env"
     },
     "extra": {

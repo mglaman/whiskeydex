@@ -1,6 +1,6 @@
 uuid: f1c202a7-fde1-4d3f-8e12-3330f089a427
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - system
@@ -9,7 +9,7 @@ dependencies:
 id: breadcrumbs
 theme: distilled
 region: breadcrumb
-weight: 0
+weight: -4
 provider: null
 plugin: system_breadcrumb_block
 settings:

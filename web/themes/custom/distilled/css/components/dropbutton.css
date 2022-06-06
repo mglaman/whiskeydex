@@ -3,6 +3,14 @@
  * General styles for dropbuttons.
  */
 
+.js .dropbutton-multiple .dropbutton-widget {
+  padding-right: 1.5em;
+}
+
+.dropbutton-toggle {
+  width: auto;
+}
+
 .js .dropbutton-widget {
   border: 1px solid #ccc;
   background-color: white;

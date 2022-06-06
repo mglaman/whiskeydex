@@ -39,75 +39,74 @@
  * @see template_preprocess_table()
  */
 #}
-<table{{ attributes }}>
-  {% if caption %}
-    <caption>{{ caption }}</caption>
-  {% endif %}
-
-  {% for colgroup in colgroups %}
-    {% if colgroup.cols %}
-      <colgroup{{ colgroup.attributes }}>
-        {% for col in colgroup.cols %}
-          <col{{ col.attributes }} />
-        {% endfor %}
-      </colgroup>
-    {% else %}
-      <colgroup{{ colgroup.attributes }} />
+<div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+  <table{{ attributes.addCLass('min-w-full divide-y divide-gray-300') }}>
+    {% if caption %}
+      <caption>{{ caption }}</caption>
     {% endif %}
-  {% endfor %}
 
-  {% if header %}
-    <thead>
+    {% for colgroup in colgroups %}
+      {% if colgroup.cols %}
+        <colgroup{{ colgroup.attributes }}>
+          {% for col in colgroup.cols %}
+            <col{{ col.attributes }} />
+          {% endfor %}
+        </colgroup>
+      {% else %}
+        <colgroup{{ colgroup.attributes }} />
+      {% endif %}
+    {% endfor %}
+
+    {% if header %}
+      <thead class="bg-stone-100">
       <tr>
         {% for cell in header %}
-          {%
-            set cell_classes = [
-              cell.active_table_sort ? 'is-active',
-            ]
-          %}
-          <{{ cell.tag }}{{ cell.attributes.addClass(cell_classes) }}>
-            {{- cell.content -}}
+        {% set cell_classes = [
+          cell.active_table_sort ? 'is-active',
+          'px-3 py-3.5 text-left text-sm font-semibold text-gray-900',
+        ] %}
+        <{{ cell.tag }}{{ cell.attributes.addClass(cell_classes) }}>
+        {{- cell.content -}}
+      </{{ cell.tag }}>
+      {% endfor %}
+      </tr>
+      </thead>
+    {% endif %}
+
+    {% if rows %}
+      <tbody class="divide-y divide-gray-200 bg-white">
+      {% for row in rows %}
+        {% set row_classes = [
+          not no_striping ? cycle(['bg-white', 'bg-stone-50'], loop.index0),
+        ] %}
+      <tr{{ row.attributes.addClass(row_classes) }}>
+        {% for cell in row.cells %}
+          <{{ cell.tag }}{{ cell.attributes.addClass('whitespace-nowrap px-3 py-4 text-sm text-gray-500') }}>
+          {{- cell.content -}}
           </{{ cell.tag }}>
         {% endfor %}
-      </tr>
-    </thead>
-  {% endif %}
-
-  {% if rows %}
-    <tbody>
-      {% for row in rows %}
-        {%
-          set row_classes = [
-            not no_striping ? cycle(['odd', 'even'], loop.index0),
-          ]
-        %}
-        <tr{{ row.attributes.addClass(row_classes) }}>
-          {% for cell in row.cells %}
-            <{{ cell.tag }}{{ cell.attributes }}>
-              {{- cell.content -}}
-            </{{ cell.tag }}>
-          {% endfor %}
         </tr>
       {% endfor %}
-    </tbody>
-  {% elseif empty %}
-    <tbody>
+      </tbody>
+    {% elseif empty %}
+      <tbody>
       <tr class="odd">
-        <td colspan="{{ header_columns }}" class="empty message">{{ empty }}</td>
+        <td colspan="{{ header_columns }}" class="empty message p-4">{{ empty }}</td>
       </tr>
-    </tbody>
-  {% endif %}
-  {% if footer %}
-    <tfoot>
+      </tbody>
+    {% endif %}
+    {% if footer %}
+      <tfoot>
       {% for row in footer %}
-        <tr{{ row.attributes }}>
-          {% for cell in row.cells %}
-            <{{ cell.tag }}{{ cell.attributes }}>
-              {{- cell.content -}}
-            </{{ cell.tag }}>
-          {% endfor %}
+      <tr{{ row.attributes }}>
+        {% for cell in row.cells %}
+          <{{ cell.tag }}{{ cell.attributes }}>
+          {{- cell.content -}}
+          </{{ cell.tag }}>
+        {% endfor %}
         </tr>
       {% endfor %}
-    </tfoot>
-  {% endif %}
-</table>
+      </tfoot>
+    {% endif %}
+  </table>
+</div>

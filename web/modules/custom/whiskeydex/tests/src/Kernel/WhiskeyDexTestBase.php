@@ -16,4 +16,10 @@ abstract class WhiskeyDexTestBase extends EntityKernelTestBase {
     'whiskeydex',
   ];
 
+  protected function setUp(): void {
+    parent::setUp();
+    // Burn uid1.
+    $this->createUser();
+  }
+
 }

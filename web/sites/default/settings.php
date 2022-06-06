@@ -9,9 +9,9 @@ $settings['config_exclude_modules'] = [
   'stage_file_proxy',
 ];
 
-$settings['hash_salt'] = $_ENV['DRUPAL_HASH_SALT'] ?: '';
+$settings['hash_salt'] = getenv('DRUPAL_HASH_SALT') ?: '';
 
-$settings['deployment_identifier'] = $_ENV['DEPLOYMENT_IDENTIFIER'] ?: \Drupal::VERSION;
+$settings['deployment_identifier'] = getenv('DEPLOYMENT_IDENTIFIER') ?: \Drupal::VERSION;
 
 $settings['update_free_access'] = FALSE;
 $settings['allow_authorize_operations'] = FALSE;
@@ -28,23 +28,23 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 /**
  * Database connection information.
  */
-if ($_ENV['DB_CONNECTION'] !== 'sqlite') {
+if (getenv('DB_CONNECTION') !== 'sqlite') {
   $databases['default']['default'] = [
-    'driver' => $_ENV['DB_CONNECTION'],
-    'database' => $_ENV['DRUPAL_DATABASE_NAME'],
-    'username' => $_ENV['DRUPAL_DATABASE_USERNAME'],
-    'password' => $_ENV['DRUPAL_DATABASE_PASSWORD'],
-    'host' => $_ENV['DRUPAL_DATABASE_HOST'],
-    'port' => $_ENV['DRUPAL_DATABASE_PORT'],
+    'driver' => getenv('DB_CONNECTION'),
+    'database' => getenv('DRUPAL_DATABASE_NAME'),
+    'username' => getenv('DRUPAL_DATABASE_USERNAME'),
+    'password' => getenv('DRUPAL_DATABASE_PASSWORD'),
+    'host' => getenv('DRUPAL_DATABASE_HOST'),
+    'port' => getenv('DRUPAL_DATABASE_PORT'),
   ];
 }
 else {
-  $databases['default']['default'] = array (
+  $databases['default']['default'] = [
     'database' => '../private/db.sqlite',
     'prefix' => '',
     'namespace' => 'Drupal\\Core\\Database\\Driver\\sqlite',
     'driver' => 'sqlite',
-  );
+  ];
 }
 
 /**

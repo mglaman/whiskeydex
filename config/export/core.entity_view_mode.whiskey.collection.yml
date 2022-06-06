@@ -1,0 +1,10 @@
+uuid: 849ab013-f813-40a2-ac91-796966c903b5
+langcode: en
+status: true
+dependencies:
+  module:
+    - whiskeydex
+id: whiskey.collection
+label: Collection
+targetEntityType: whiskey
+cache: true

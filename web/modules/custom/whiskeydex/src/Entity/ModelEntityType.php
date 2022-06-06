@@ -4,9 +4,10 @@ namespace Drupal\whiskeydex\Entity;
 
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Entity\ContentEntityDeleteForm;
-use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\ContentEntityType;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\Core\Entity\EntityViewBuilder;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\EntityPermissionProvider;
 use Drupal\entity\Menu\DefaultEntityLocalTaskProvider;
@@ -17,6 +18,8 @@ use Drupal\entity\Routing\AdminHtmlRouteProvider;
 use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\user\EntityOwnerInterface;
+use Drupal\whiskeydex\Form\ModelContentEntityForm;
+use Symfony\Component\String\Inflector\EnglishInflector;
 
 final class ModelEntityType extends ContentEntityType {
 
@@ -36,6 +39,30 @@ final class ModelEntityType extends ContentEntityType {
     }
 
     parent::__construct($definition);
+
+    // @todo there is only an English and French inflector...
+    $inflector = new EnglishInflector();
+    $label = $this->label;
+    if ($label instanceof TranslatableMarkup) {
+      $label = $label->getUntranslatedString();
+    }
+    $label_singular = mb_strtolower($label);
+    $label_plural = mb_strtolower($inflector->pluralize($label)[0]);
+
+    // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+    $this->label_collection = new TranslatableMarkup(ucfirst($label_plural));
+    // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+    $this->label_singular = new TranslatableMarkup($label_singular);
+    // phpcs:ignore Drupal.Semantics.FunctionT.NotLiteralString
+    $this->label_plural = new TranslatableMarkup($label_plural);
+    $this->label_count = [
+      'singular' => "@count $label_singular",
+      'plural' => "@count $label_plural",
+    ];
+
+    $class = basename(str_replace('\\', '/', $this->class));
+    $namespace = "Drupal\\$this->provider";
+
     $this->entity_keys['id'] = $this->id . '_id';
     $this->entity_keys['uuid'] = 'uuid';
     $this->entity_keys['label'] = 'name';
@@ -46,6 +73,11 @@ final class ModelEntityType extends ContentEntityType {
     $this->admin_permission = 'administer ' . $this->id;
     $this->base_table = $this->id;
     $this->data_table = $this->id . '_data';
+
+    $this->handlers['view_builder'] = $this->getEntityTypeSpecificClass(
+      "$namespace\\{$class}ViewBuilder",
+      EntityViewBuilder::class
+    );
 
     // Entity API contrib access improvements.
     if ($this->get('enhanced_entity_access')) {
@@ -66,26 +98,26 @@ final class ModelEntityType extends ContentEntityType {
     }
 
     if ($this->get('has_ui')) {
-      $class = basename(str_replace('\\', '/', $this->class));
-      $namespace = "Drupal\\{$this->getProvider()}";
 
-      $this->handlers['list_builder'] = EntityListBuilder::class;
-      if (class_exists("$namespace\\{$class}ListBuilder")) {
-        $this->handlers['list_builder'] = "$namespace\\{$class}ListBuilder";
-      }
+      $this->handlers['list_builder'] = $this->getEntityTypeSpecificClass("$namespace\\{$class}ListBuilder", EntityListBuilder::class);
 
-      $this->handlers['route_provider']['html'] = AdminHtmlRouteProvider::class;
-      if (class_exists("$namespace\\Routing\\{$class}HtmlRouteProvider")) {
-        $this->handlers['route_provider']['html'] = "$namespace\\Routing\\{$class}HtmlRouteProvider";
-      }
+      // @todo make Admin one a flag.
+      $this->handlers['route_provider']['html'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Routing\\{$class}HtmlRouteProvider",
+        AdminHtmlRouteProvider::class
+      );
 
-      $this->handlers['form']['default'] = ContentEntityForm::class;
-      $this->handlers['form']['delete'] = ContentEntityDeleteForm::class;
+      $this->handlers['form']['default'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Form\\{$class}Form",
+        ModelContentEntityForm::class
+      );
+      $this->handlers['form']['delete'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Form\\{$class}DeleteForm",
+        ContentEntityDeleteForm::class
+      );
       $forms = [
-        'default' => "{$class}Form",
         'add' => "{$class}AddForm",
         'edit' => "{$class}EditForm",
-        'delete' => "{$class}DeleteForm",
       ];
       foreach ($forms as $operation => $class_name) {
         if (class_exists("$namespace\\Form\\$class_name")) {
@@ -93,19 +125,42 @@ final class ModelEntityType extends ContentEntityType {
         }
       }
 
-      $this->handlers['local_action_provider']['collection'] = EntityCollectionLocalActionProvider::class;
-      $this->handlers['local_task_provider']['default'] = DefaultEntityLocalTaskProvider::class;
+      $this->handlers['local_action_provider']['collection'] = $this->getEntityTypeSpecificClass(
+        "$namespace\\Menu\\{$class}CollectionLocalActionProvider",
+        EntityCollectionLocalActionProvider::class
+      );
+
+      if ($this->get('provide_tasks')) {
+        $this->handlers['local_task_provider']['default'] = $this->getEntityTypeSpecificClass(
+          "$namespace\\Menu\\{$class}EntityLocalTaskProvider",
+          DefaultEntityLocalTaskProvider::class
+        );
+      }
 
       // @todo check if has bundles.
-      $this->links = [
-        'collection' => '/admin/' . $this->id,
-        'canonical' => '/' . $this->id . '/{' . $this->id . '}',
-        'add-form' => '/' . $this->id . '/add',
-        'edit-form' => '/' . $this->id . '/{' . $this->id . '}/edit',
-        'delete-form' => '/' . $this->id . '/{' . $this->id . '}/delete',
-      ];
-      $this->field_ui_base_route = "entity.$this->id.collection";
+      if ($this->links === []) {
+        $this->links = [
+          'collection' => sprintf('/admin/%s', $this->id),
+          'canonical' => sprintf('/%s/{%s}', $this->id, $this->id),
+          'add-form' => sprintf('/%s/add', $this->id),
+          'edit-form' => sprintf('/%s/{%s}/edit', $this->id, $this->id),
+          'delete-form' => sprintf('/%s/{%s}/delete', $this->id, $this->id),
+        ];
+      }
+      if ($this->field_ui_base_route === NULL && isset($this->links['collection'])) {
+        $this->field_ui_base_route = "entity.$this->id.collection";
+      }
     }
+  }
+
+  /**
+   * @phpstan-param string $class
+   * @phpstan-param class-string $default
+   *
+   * @phpstan-return class-string
+   */
+  private function getEntityTypeSpecificClass(string $class, string $default): string {
+    return class_exists($class) ? $class : $default;
   }
 
 }

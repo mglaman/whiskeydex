@@ -3,7 +3,6 @@
 namespace Drupal\Tests\whiskeydex\Unit;
 
 use Drupal\Core\Entity\ContentEntityDeleteForm;
-use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityAccessControlHandler as CoreEntityAccessControlHandler;
 use Drupal\entity\QueryAccess\UncacheableQueryAccessHandler;
 use Drupal\entity\Routing\AdminHtmlRouteProvider;
@@ -19,6 +18,7 @@ use Drupal\whiskeydex\Entity\ModelEntityType;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\QueryAccess\QueryAccessHandler;
 use Drupal\entity\EntityPermissionProvider;
+use Drupal\whiskeydex\Form\ModelContentEntityForm;
 
 final class ModelEntityTypeTest extends UnitTestCase {
 
@@ -76,7 +76,7 @@ final class ModelEntityTypeTest extends UnitTestCase {
         self::assertEquals(EnhancedEntityForm::class, $entity_type->getFormClass('default'));
       }
       else {
-        self::assertEquals(ContentEntityForm::class, $entity_type->getFormClass('default'));
+        self::assertEquals(ModelContentEntityForm::class, $entity_type->getFormClass('default'));
       }
       self::assertEquals(NULL, $entity_type->getFormClass('add'));
       self::assertEquals(NULL, $entity_type->getFormClass('edit'));

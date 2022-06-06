@@ -43,36 +43,30 @@
  */
 #}
 <header role="banner" class="bg-white w-full">
-  <div class="py-2 mx-auto max-w-7xl px-6 flex items-center justify-between lg:space-x-10">
+  <div class="py-2 mx-auto max-w-6xl px-6 flex items-center space-x-2 lg:space-x-10">
     {{ page.header }}
-    <div>
-      {{ page.primary_menu }}
-      {{ page.secondary_menu }}
-    </div>
+    {{ page.primary_menu }}
+    {{ page.secondary_menu }}
   </div>
 </header>
 <div class="bg-stone-700 w-full shadow-md shadow-stone-200">
-  <div class="container mx-auto text-stone-50 max-w-7xl px-6">
+  <div class="container mx-auto text-stone-50 max-w-6xl px-6 py-2">
     {{ page.page_title }}
+    {{ page.breadcrumb }}
   </div>
 </div>
 
-<main class="container mx-auto mt-6 max-w-7xl px-6">
+<main class="container mx-auto mt-6 max-w-6xl px-6">
   <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
   {% block main %}
   <div>
     {{ page.highlighted }}
     {{ page.help }}
-    {{ page.breadcrumb }}
   </div>
-  <div class="grid grid-cols-1 lg:grid-cols-9 gap-8">
-    <div class="lg:col-span-6">
+  <div class="grid grid-cols-1 gap-8">
+    <div class="">
       {{ page.content }}
     </div>{# /.layout-content #}
-    <aside class="lg:col-span-3" role="complementary">
-      {{ page.sidebar_first }}
-      {{ page.sidebar_second }}
-    </aside>
   </div>
   {% endblock %}
 </main>

@@ -1,0 +1,13 @@
+uuid: 75e2058c-bded-493d-89c0-88a09efe90b4
+langcode: en
+status: true
+dependencies:
+  module:
+    - whiskeydex
+id: collection_item.collection_item.default
+targetEntityType: collection_item
+bundle: collection_item
+mode: default
+content: {  }
+hidden:
+  links: true

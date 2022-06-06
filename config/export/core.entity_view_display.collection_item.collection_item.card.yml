@@ -1,0 +1,19 @@
+uuid: 9425e9d4-a57a-4b53-8add-29819b97933a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.collection_item.card
+  module:
+    - whiskeydex
+id: collection_item.collection_item.card
+targetEntityType: collection_item
+bundle: collection_item
+mode: card
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

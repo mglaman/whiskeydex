@@ -16,7 +16,7 @@ final class Whiskey extends ContentEntityBase {
 
   public function getDistillery(): Distillery {
     $item = $this->get('distillery')->first();
-    assert($item !== NULL && $item instanceof EntityReferenceItem);
+    assert($item instanceof EntityReferenceItem);
     $distillery = $item->get('entity')->getValue();
     assert($distillery instanceof Distillery);
     return $distillery;
@@ -33,7 +33,8 @@ final class Whiskey extends ContentEntityBase {
         'type' => 'string_textfield',
         'weight' => -5,
       ])
-      ->setRequired(TRUE);
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('view', TRUE);
     $fields['distillery'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel('Distillery')
       ->setRequired(TRUE)
@@ -46,7 +47,8 @@ final class Whiskey extends ContentEntityBase {
           'size' => '60',
           'placeholder' => '',
         ],
-      ]);
+      ])
+      ->setDisplayConfigurable('view', TRUE);
     return $fields;
   }
 

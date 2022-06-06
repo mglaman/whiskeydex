@@ -1,0 +1,12 @@
+<?php
+
+namespace Drupal\Core\Entity;
+
+class EntityType {
+
+  /**
+   * @var array<string, string>
+   */
+  protected $label_count;
+
+}
