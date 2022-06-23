@@ -44,6 +44,10 @@ base:
         weight: -10
     theme:
       css/app.css: {  }
+mailer:
+  css:
+    theme:
+      css/mail.css: {  }
 book-navigation:
   version: VERSION
   css:

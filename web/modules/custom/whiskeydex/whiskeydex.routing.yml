@@ -5,3 +5,10 @@ whiskeydex.admin_whiskeydex:
     _title: 'Whiskey Dex'
   requirements:
     _permission: 'administer site configuration'
+whiskeydex.mailer_test_form:
+  path: '/admin/whiskeydex/test-email'
+  defaults:
+    _form: Drupal\whiskeydex\Form\MailerTestForm
+    _title: 'Test emails'
+  requirements:
+    _permission: 'administer site configuration'

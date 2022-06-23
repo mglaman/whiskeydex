@@ -1,6 +1,21 @@
 <?php declare(strict_types=1);
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\RendererInterface;
+
+/**
+ * Implements hook_mail().
+ */
+function whiskeydex_mail(string $key, array &$message, array $params) {
+  if (isset($params['headers'])) {
+    $message['headers'] = array_merge($message['headers'], $params['headers']);
+  }
+  $message['subject'] = $params['subject'];
+
+  $renderer = \Drupal::getContainer()->get('renderer');
+  assert($renderer instanceof RendererInterface);
+  $message['body'][] = $renderer->renderPlain($params['body']);
+}
 
 /**
  * Implements hook_entity_extra_field_info().
@@ -45,6 +60,12 @@ function whiskeydex_theme(array $existing, string $type, string $theme, string $
     'whiskey' => [
       'render element' => 'elements',
     ],
+    'whiskeydex_mail' => [
+      'variables' => [
+        'message' => [],
+        'is_html' => FALSE,
+      ],
+    ],
   ];
 }
 
@@ -56,6 +77,15 @@ function whiskeydex_theme(array $existing, string $type, string $theme, string $
 function whiskeydex_preprocess_collection(&$variables): void {
   assert(is_array($variables['elements']));
   $variables['collection'] = $variables['elements']['#collection'];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function whiskeydex_preprocess_whiskeydex_mail(&$variables) {
+  $variables['subject'] = $variables['message']['subject'];
+  $variables['body'] = $variables['message']['body'];
+
 }
 
 /**
@@ -96,6 +126,15 @@ function whiskeydex_theme_suggestions_distillery(array $variables) {
  */
 function whiskeydex_theme_suggestions_whiskey(array $variables): array {
   return _whiskeydex_entity_theme_suggestions('whiskey', $variables);
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function whiskeydex_theme_suggestions_whiskeydex_mail(array $variables) {
+  $suggestions = [];
+  $suggestions[] = 'whiskeydex_mail__' . str_replace('-', '_', $variables['message']['key']);
+  return $suggestions;
 }
 
 /**
