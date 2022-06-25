@@ -5,6 +5,7 @@
 .idea/**/dictionaries
 .idea/**/shelf
 .idea/**/aws.xml
+.idea/dataSources.xml
 
 
 node_modules
