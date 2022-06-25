@@ -12,7 +12,6 @@ COPY bootstrap.php bootstrap.php
 COPY src/ src/
 COPY web/ web/
 
-# @TODO ditch this and copy the artifact built in GitHub?
 RUN set -eux; \
     export COMPOSER_HOME="$(mktemp -d)"; \
     composer install --ignore-platform-reqs; \
@@ -101,14 +100,9 @@ RUN mkdir -p private
 RUN chown -R www-data:www-data private
 RUN chown -R www-data:www-data web/sites/default/files
 
-RUN --mount=type=secret,id=config,dst=/etc/secrets/.env cat /etc/secrets/.env > .env
-
 # Adjust the Apache docroot.
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/web
 
 EXPOSE 80
 
-
-COPY scripts/entrypoint.sh ./
-
-ENTRYPOINT [ "bash", "entrypoint.sh" ]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
