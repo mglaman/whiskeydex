@@ -107,13 +107,11 @@ jobs:
         with:
           app_name: whiskeydex
           token: ${{ secrets.DO_REGISTRY_TOKEN }}
-          images: '[
-                    {
+          images: '[{
                       "name": "app",
                       "image":{
                         "registry_type": "DOCR",
                         "repository": "whiskeydex",
                         "tag": "${{ github.sha }}"
-                      },
-                    },
-                  ]'
+                      }
+                    }]'
