@@ -24,8 +24,14 @@
         "drupal/core-recommended": "^10.0",
         "drupal/entity": "1.x-dev",
         "drush/drush": "^11.0",
+        "league/flysystem": "^3.0",
+        "league/flysystem-aws-s3-v3": "^3.0",
         "symfony/string": "^6.0",
         "vlucas/phpdotenv": "^5.4"
+    },
+    "require-dev": {
+        "drupal/core-dev": "^10@alpha",
+        "phpstan/phpstan-phpunit": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -40,6 +46,9 @@
     "prefer-stable": true,
     "config": {
         "sort-packages": true,
+        "apcu-autoloader": true,
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
         "allow-plugins": {
             "composer/installers": true,
             "drupal/core-composer-scaffold": true,
@@ -53,6 +62,27 @@
         "docker-build": "DOCKER_BUILDKIT=1 docker build . -t whiskeydex --secret id=config,src=.env"
     },
     "extra": {
+        "composer-exit-on-patch-failure": true,
+        "enable-patching": true,
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "patches": {
+        },
+        "violinist": {
+            "one_pull_request_per_package": 1,
+            "run_scripts": 0,
+            "bundled_packages": {
+                "drupal/core-recommended": [
+                    "drupal/core-composer-scaffold",
+                    "drupal/core-project-message"
+                ]
+            },
+            "blacklist": [
+                "drupal/core-composer-scaffold",
+                "drupal/core-project-message"
+            ]
+        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
@@ -113,9 +143,5 @@
                 "      composer remove drupal/core-project-message"
             ]
         }
-    },
-    "require-dev": {
-        "drupal/core-dev": "^10@alpha",
-        "phpstan/phpstan-phpunit": "^1.1"
     }
 }

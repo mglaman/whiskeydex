@@ -14,7 +14,7 @@ COPY web/ web/
 
 RUN set -eux; \
     export COMPOSER_HOME="$(mktemp -d)"; \
-    composer install --ignore-platform-reqs; \
+    composer install --no-dev --ignore-platform-reqs; \
     rm -rf "$COMPOSER_HOME";
 
 FROM php:8.1-apache-buster as build
