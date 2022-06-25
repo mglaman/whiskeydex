@@ -16,7 +16,11 @@ whiskeydex.whiskey:
   parent: 'whiskeydex.admin_whiskeydex'
   description: 'Manage whiskeys.'
   weight: 10
-
+whiskeydex.mailer_test_form:
+  title: 'Test emails'
+  route_name: 'whiskeydex.mailer_test_form'
+  parent: 'whiskeydex.admin_whiskeydex'
+  weight: 50
 entity.collection.collection:
   title: Collections
   route_name: 'entity.collection.collection'

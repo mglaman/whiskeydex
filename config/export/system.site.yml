@@ -3,7 +3,7 @@ _core:
 langcode: en
 uuid: 935d22dc-0349-41ce-8dea-62417dfadf01
 name: WhiskeyDex
-mail: admin@example.com
+mail: hello@whiskeydex.com
 slogan: ''
 page:
   403: '/user/login'
@@ -12,4 +12,4 @@ page:
 admin_compact_mode: false
 weight_select_max: 100
 default_langcode: en
-mail_notification: ''
+mail_notification: re-reply@whiskeydex.com

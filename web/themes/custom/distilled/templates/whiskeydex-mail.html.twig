@@ -1,0 +1,37 @@
+{% if is_html %}
+  <html>
+  <head>
+    <style>
+    </style>
+  </head>
+  <body>
+  <div>
+    <table cellpadding="0" cellspacing="0" style="width: 100%">
+      <tr style="background: white; color: rgb(41, 37, 36)">
+        <td>
+          <div style="max-width: 600px; margin: 0 auto">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg width="64px" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+              <path d="m40.191 87.039h47.617c1.1523 0 2.0469-0.89453 2.0469-2.0469v-41.984c0-1.1523-0.89453-2.0469-2.0469-2.0469h-47.617c-1.1523 0-2.0469 0.89453-2.0469 2.0469v42.113c0 1.0234 0.89453 1.918 2.0469 1.918zm45.57-11.262h-43.523v-9.7266c6.1445 1.1523 12.543 1.1523 18.816 0.12891l6.9102-1.1523c5.7617-1.0273 11.906-1.0273 17.797 0.125zm-43.523 7.168v-3.1992l43.523-0.003906v3.1992zm43.523-37.891v16.129c-6.1445-1.1523-12.543-1.1523-18.688-0.12891l-6.9102 1.1523c-6.0156 1.0234-12.16 0.89453-18.047-0.25781l-0.003907-16.895z" fill="#56534d"/>
+            </svg>
+            <a href="{{ url('<front>') }}">WhiskeyDex</a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="padding: 0px 0px 0px 0px;">
+            {{ body }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>footer</td>
+      </tr>
+    </table>
+  </div>
+  </body>
+  </html>
+{% else %}
+  {{ body }}
+{% endif %}

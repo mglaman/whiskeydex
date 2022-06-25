@@ -3,3 +3,6 @@ services:
     class: Drupal\whiskeydex\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+  whiskeydex.mailer:
+    class: Drupal\whiskeydex\Mailer
+    arguments: ['@plugin.manager.mail', '@language_manager', '@config.factory']
