@@ -71,7 +71,7 @@ if (isset($_SERVER['HTTP_X_FORWARDED_FOR'], $_SERVER['REMOTE_ADDR'])) {
 }
 
 // If a filesystem driver is defined and uses object storage, include config.
-if (!empty(getenv('FILESYSTEM_DRIVER')) && getenv('FILESYSTEM_DRIVER') !== 'local') {
+if (!empty(getenv('FILESYSTEM_DRIVER')) && getenv('FILESYSTEM_DRIVER') === 's3') {
   // If the filesystem isn't local, move Twig to the temporary directory.
   $settings['php_storage']['twig']['directory'] = $settings['file_temp_path'];
   // We cannot support a private file path if using object storage.

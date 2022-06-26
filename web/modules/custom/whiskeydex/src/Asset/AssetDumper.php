@@ -4,6 +4,7 @@ namespace Drupal\whiskeydex\Asset;
 
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Asset\AssetDumperInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\File\FileSystemInterface;
 
@@ -15,7 +16,8 @@ use Drupal\Core\File\FileSystemInterface;
 final class AssetDumper implements AssetDumperInterface {
 
   public function __construct(
-    private readonly FileSystemInterface $fileSystem
+    private readonly FileSystemInterface $fileSystem,
+    private readonly ConfigFactoryInterface $configFactory
   ) {
   }
 
@@ -33,7 +35,7 @@ final class AssetDumper implements AssetDumperInterface {
     catch (FileException $e) {
       return FALSE;
     }
-    if (extension_loaded('zlib') && \Drupal::config('system.performance')->get($file_extension . '.gzip')) {
+    if (extension_loaded('zlib') && $this->configFactory->get('system.performance')->get($file_extension . '.gzip')) {
       try {
         if (!file_exists($uri . '.gz') && !$this->fileSystem->saveData(gzencode($data, 9, FORCE_GZIP), $uri . '.gz', FileSystemInterface::EXISTS_REPLACE)) {
           return FALSE;

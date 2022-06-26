@@ -12,6 +12,12 @@ use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\image\Entity\ImageStyle;
 
+/**
+ * @phpcs:disable Drupal.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
+ * @phpcs:disable DrupalPractice.Objects.GlobalClass.GlobalClass
+ * @phpcs:disable DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
+ * @phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found
+ */
 final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWrapperInterface {
 
   private string $uri;

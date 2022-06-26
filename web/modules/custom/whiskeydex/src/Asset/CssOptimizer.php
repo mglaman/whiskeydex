@@ -4,12 +4,15 @@ namespace Drupal\whiskeydex\Asset;
 
 use Drupal\Core\Asset\CssOptimizer as CoreCssOptimizer;
 
+/**
+ * @phpcs:disable Drupal.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
+ */
 final class CssOptimizer extends CoreCssOptimizer {
 
   /**
    * @todo this needs refactor when color removed in drupal core release.
    */
-  public function rewriteFileURI($matches) {
+  public function rewriteFileURI($matches): string {
     // Prefix with base and remove '../' segments where possible.
     $path = $this->rewriteFileURIBasePath . $matches[1];
     $last = '';

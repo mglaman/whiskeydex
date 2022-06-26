@@ -39,4 +39,5 @@ final class Mailer {
     $message += ['to' => $to];
     return (bool) $message['result'];
   }
+
 }

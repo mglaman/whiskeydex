@@ -31,7 +31,6 @@ use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
  *
  * Basically a port of Swiftmailer module for Symfony Mailer.
  */
-
 final class SymfonyMailer implements MailInterface, ContainerFactoryPluginInterface {
 
   public function __construct(
@@ -143,7 +142,6 @@ final class SymfonyMailer implements MailInterface, ContainerFactoryPluginInterf
       return TRUE;
     }
     catch (\Exception $e) {
-      $stop = null;
       // @todo add logging.
     }
     return FALSE;

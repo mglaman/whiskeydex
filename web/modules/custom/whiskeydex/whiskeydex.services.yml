@@ -21,11 +21,11 @@ services:
   whiskeydex.asset_css_dump:
     class: Drupal\whiskeydex\Asset\AssetDumper
     decorates: asset.css.dumper
-    parent: asset.css.dumper
+    arguments: ['@file_system', '@config.factory']
   whiskeydex.asset_js_dump:
     class: Drupal\whiskeydex\Asset\AssetDumper
     decorates: asset.js.dumper
-    parent: asset.js.dumper
+    arguments: ['@file_system', '@config.factory']
   whiskeydex.css_collection_optimizer:
     class: Drupal\whiskeydex\Asset\CssCollectionOptimizer
     arguments: ['@whiskeydex.css_collection_optimizer.inner', '@datetime.time', '@config.factory', '@file_system']

@@ -8,6 +8,7 @@ use Drupal\user\Entity\User;
 use Drupal\whiskeydex\Mailer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+// phpcs:ignoreFile
 final class MailerTestForm extends FormBase {
 
   protected Mailer $mailer;
