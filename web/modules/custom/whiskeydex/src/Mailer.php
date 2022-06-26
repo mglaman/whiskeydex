@@ -15,6 +15,10 @@ final class Mailer {
   ) {
   }
 
+  /**
+   * @phpstan-param array<int, string> $body
+   * @phpstan-param array{id?: string, cc?: string, bcc?: string, langcode?: string, reply-to?: string|null} $params
+   */
   public function sendMail(string $to, string $subject, array $body, array $params = []): bool {
     $default_params = [
       'headers' => [
@@ -35,6 +39,7 @@ final class Mailer {
       $default_params['headers']['Bcc'] = $params['bcc'];
     }
     $params = array_replace($default_params, $params);
+    // @phpstan-ignore-next-line
     $message = $this->mailManager->mail('whiskeydex', $params['id'], $to, $params['langcode'], $params, $params['reply-to']);
     $message += ['to' => $to];
     return (bool) $message['result'];

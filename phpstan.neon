@@ -6,5 +6,10 @@ parameters:
 		- web/themes/custom
 	stubFiles:
 		- stubs/EntityType.stub
+	excludePaths:
+		- web/modules/custom/whiskeydex/src/Form/MailerTestForm.php
+		# TODO
+		- web/modules/custom/whiskeydex/src/Plugin/Mail/SymfonyMailer.php
+		- web/modules/custom/whiskeydex/src/StreamWrapper/ObjectStorageStreamWrapper.php
 includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon

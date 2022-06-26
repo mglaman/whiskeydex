@@ -13,7 +13,7 @@ final class StreamWrapperManager extends CoreStreamWrapperManager {
   /**
    * @phpstan-param class-string $class
    */
-  public function registerWrapper($scheme, $class, $type) {
+  public function registerWrapper($scheme, $class, $type): void {
     parent::registerWrapper($scheme, $class, $type);
     if (is_a($class, ObjectStorageStreamWrapper::class, TRUE)) {
       $client = $class::getClient();

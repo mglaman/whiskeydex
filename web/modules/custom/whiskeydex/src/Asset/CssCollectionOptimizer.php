@@ -17,15 +17,19 @@ final class CssCollectionOptimizer implements AssetCollectionOptimizerInterface 
   ) {
   }
 
-  public function optimize(array $assets) {
+  /**
+   * @phpstan-param array<string, mixed> $assets
+   * @phpstan-return  array<string, mixed>
+   */
+  public function optimize(array $assets): array {
     return $this->inner->optimize($assets);
   }
 
-  public function getAll() {
+  public function getAll(): array {
     return $this->inner->getAll();
   }
 
-  public function deleteAll() {
+  public function deleteAll(): void {
     $this->inner->deleteAll();
 
     $threshold = $this->configFactory->get('system.performance')->get('stale_file_threshold');
