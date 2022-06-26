@@ -118,7 +118,7 @@ final class SymfonyMailer implements MailInterface, ContainerFactoryPluginInterf
       }
       elseif ($mailer_type === 'ses') {
         $dsn = sprintf(
-          'ses+smtp://%s:%s@default',
+          'ses+smtp://%s:%s@default?region=us-east-1',
           urlencode(getenv('MAIL_USERNAME')),
           urlencode(getenv('MAIL_PASSWORD')),
         );
