@@ -5,7 +5,12 @@ Because I want a way to track my whiskey collection and whiskey I have tasted an
 
 ## Hosting
 
-Currently trying out [Render](https://render.com) and deploying on their free tier: https://whiskeydex.onrender.com (Docker web service, PostgreSQL.)
+DigitalOcean App Platform, managed PostgreSQL, and Spaces for object storage.
+
+### Local object storage
+
+Min.IO is an open source compatible S3 storage solution. However, it doesn't treat directories the same as S3 or
+DigitalOcean's spaces. So local usage is difficult.
 
 ## PHPUnit + code coverage
 

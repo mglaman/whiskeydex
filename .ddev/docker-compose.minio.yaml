@@ -13,8 +13,8 @@ services:
       - MINIO_DOMAIN=storage
       # DDEV configurations to expose MinIO over the network.
       - VIRTUAL_HOST=$DDEV_HOSTNAME
-      - HTTP_EXPOSE=8081:8080
-      - HTTPS_EXPOSE=8080:8080
+      - HTTP_EXPOSE=8081:8080,9002:9001
+      - HTTPS_EXPOSE=8080:8080,9001:9001
     expose:
       - '8080'
       - '9001'
@@ -22,10 +22,6 @@ services:
       # These labels ensure this service is discoverable by ddev
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: $DDEV_APPROOT
-    networks:
-      default:
-        aliases:
-          - mojodata.storage
   storage_cli:
     container_name: ddev-${DDEV_SITENAME}-mc
     image: minio/mc
@@ -34,19 +30,21 @@ services:
     entrypoint: /bin/bash
     stdin_open: true
     tty: true
+    links:
+      - storage:$DDEV_HOSTNAME
 
   web:
-    environment:
-      FILESYSTEM_DRIVER: s3
-      AWS_ACCESS_KEY_ID: minioadmin
-      AWS_SECRET_ACCESS_KEY: minioadmin
-      AWS_DEFAULT_REGION: us-east-1
-      S3_BUCKET: mojodata
-      S3_PROTOCOL: https
-      S3_CNAME: ${DDEV_SITENAME}.ddev.site:8080
-      S3_ENDPOINT: http://storage:8080
-      S3_USE_PATH_STYLE_ENDPOINT: 1
-      S3_CNAME_IS_BUCKET: 0
+#    environment:
+#      FILESYSTEM_DRIVER: s3
+#      AWS_ACCESS_KEY_ID: minioadmin
+#      AWS_SECRET_ACCESS_KEY: minioadmin
+#      AWS_DEFAULT_REGION: us-east-1
+#      S3_BUCKET: cask
+#      S3_PROTOCOL: https
+#      S3_CNAME: ${DDEV_SITENAME}.ddev.site:8080
+#      S3_ENDPOINT: http://storage:8080
+#      S3_USE_PATH_STYLE_ENDPOINT: 1
+#      S3_CNAME_IS_BUCKET: 0
     links:
       - storage:$DDEV_HOSTNAME
 volumes:

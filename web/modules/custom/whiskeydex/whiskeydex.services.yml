@@ -6,3 +6,35 @@ services:
   whiskeydex.mailer:
     class: Drupal\whiskeydex\Mailer
     arguments: ['@plugin.manager.mail', '@language_manager', '@config.factory']
+
+  # Support registering default stream contexts for stream wrappers.
+  whiskeydex.stream_wrapper_manager:
+    class: Drupal\whiskeydex\StreamWrapper\StreamWrapperManager
+    parent: stream_wrapper_manager
+    decorates: stream_wrapper_manager
+  # Object storage stream wrapper.
+  stream_wrapper.s3:
+    class: Drupal\whiskeydex\StreamWrapper\ObjectStorageStreamWrapper
+    tags:
+      - { name: stream_wrapper, scheme: s3 }
+  # Object storage decorators.
+  whiskeydex.asset_css_dump:
+    class: Drupal\whiskeydex\Asset\AssetDumper
+    decorates: asset.css.dumper
+    parent: asset.css.dumper
+  whiskeydex.asset_js_dump:
+    class: Drupal\whiskeydex\Asset\AssetDumper
+    decorates: asset.js.dumper
+    parent: asset.js.dumper
+  whiskeydex.css_collection_optimizer:
+    class: Drupal\whiskeydex\Asset\CssCollectionOptimizer
+    arguments: ['@whiskeydex.css_collection_optimizer.inner', '@datetime.time', '@config.factory', '@file_system']
+    decorates: asset.css.collection_optimizer
+  whiskeydex.css_optimize:
+    class: Drupal\whiskeydex\Asset\CssOptimizer
+    decorates: asset.css.optimizer
+    parent: asset.css.optimizer
+  whiskeydex.js_collection_optimizer:
+    class: Drupal\whiskeydex\Asset\JsCollectionOptimizer
+    arguments: ['@whiskeydex.js_collection_optimizer.inner', '@datetime.time', '@config.factory', '@file_system']
+    decorates: asset.js.collection_optimizer
