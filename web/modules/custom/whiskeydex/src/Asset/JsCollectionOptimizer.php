@@ -13,7 +13,8 @@ final class JsCollectionOptimizer implements AssetCollectionOptimizerInterface {
     private readonly AssetCollectionOptimizerInterface $inner,
     private readonly TimeInterface $time,
     private readonly ConfigFactoryInterface $configFactory,
-    private readonly FileSystemInterface $fileSystem
+    private readonly FileSystemInterface $fileSystem,
+    private readonly string $scheme
   ) {
   }
 
@@ -39,8 +40,10 @@ final class JsCollectionOptimizer implements AssetCollectionOptimizerInterface {
         $this->fileSystem->delete($uri);
       }
     };
-    if (is_dir('s3://js')) {
-      $this->fileSystem->scanDirectory('s3://js', '/.*/', ['callback' => $delete_stale]);
+    // The trailing slash is important for compatibility with object storage,
+    // where the concept of directories differs between providers.
+    if (is_dir($this->scheme . '://js/')) {
+      $this->fileSystem->scanDirectory($this->scheme . '://js/', '/.*/', ['callback' => $delete_stale]);
     }
   }
 

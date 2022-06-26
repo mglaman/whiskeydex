@@ -13,7 +13,8 @@ final class CssCollectionOptimizer implements AssetCollectionOptimizerInterface 
     private readonly AssetCollectionOptimizerInterface $inner,
     private readonly TimeInterface $time,
     private readonly ConfigFactoryInterface $configFactory,
-    private readonly FileSystemInterface $fileSystem
+    private readonly FileSystemInterface $fileSystem,
+    private readonly string $scheme
   ) {
   }
 
@@ -39,8 +40,10 @@ final class CssCollectionOptimizer implements AssetCollectionOptimizerInterface 
         $this->fileSystem->delete($uri);
       }
     };
-    if (is_dir('s3://css')) {
-      $this->fileSystem->scanDirectory('s3://css', '/.*/', ['callback' => $delete_stale]);
+    // The trailing slash is important for compatibility with object storage,
+    // where the concept of directories differs between providers.
+    if (is_dir($this->scheme . '://css/')) {
+      $this->fileSystem->scanDirectory($this->scheme . '://css/', '/.*/', ['callback' => $delete_stale]);
     }
   }
 

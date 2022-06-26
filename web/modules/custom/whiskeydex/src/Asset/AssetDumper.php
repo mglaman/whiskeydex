@@ -17,7 +17,8 @@ final class AssetDumper implements AssetDumperInterface {
 
   public function __construct(
     private readonly FileSystemInterface $fileSystem,
-    private readonly ConfigFactoryInterface $configFactory
+    private readonly ConfigFactoryInterface $configFactory,
+    private readonly string $scheme
   ) {
   }
 
@@ -26,7 +27,7 @@ final class AssetDumper implements AssetDumperInterface {
    */
   public function dump($data, $file_extension): string {
     $filename = $file_extension . '_' . Crypt::hashBase64($data) . '.' . $file_extension;
-    $path = 's3://' . $file_extension;
+    $path = $this->scheme . '://' . $file_extension;
     $uri = $path . '/' . $filename;
     // Create the CSS or JS file.
     $this->fileSystem->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);

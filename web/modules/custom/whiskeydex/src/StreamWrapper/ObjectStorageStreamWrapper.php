@@ -36,11 +36,13 @@ final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWr
   }
 
   public function mkdir($path, $mode, $options) {
-    return parent::mkdir($this->addBucketToPath($path), $mode, $options);
+    $path = rtrim($this->addBucketToPath($path), '\/') . '/';
+    return parent::mkdir($path, $mode, $options);
   }
 
   public function rmdir($path, $options) {
-    return parent::rmdir($this->addBucketToPath($path), $options);
+    $path = rtrim($this->addBucketToPath($path), '\/') . '/';
+    return parent::rmdir($path, $options);
   }
 
   public function dir_opendir($path, $options) {
@@ -104,7 +106,7 @@ final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWr
     if (str_starts_with($target, 'styles/') && !file_exists($this->uri)) {
       $this->generateImageStyle($target);
     }
-    return 'https://whiskeydex.nyc3.digitaloceanspaces.com/' . UrlHelper::encodePath($target);
+    return 'https://' . getenv('S3_CNAME') . '/' . UrlHelper::encodePath($target);
   }
 
   public function realpath() {
@@ -129,17 +131,23 @@ final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWr
     return substr($uri, strpos($uri, '://') + 3);
   }
 
-  public static function getClient(): S3ClientInterface {
-    return new S3Client([
-      'version' => 'latest',
-      'region' => getenv('AWS_DEFAULT_REGION'),
-      'endpoint' => getenv('S3_ENDPOINT'),
-      'use_path_style_endpoint' => getenv('S3_USE_PATH_STYLE_ENDPOINT') ?: FALSE,
-      'credentials' => new Credentials(
-        getenv('AWS_ACCESS_KEY_ID'),
-        getenv('AWS_SECRET_ACCESS_KEY'),
-      ),
-    ]);
+  public static function getClient(): ?S3ClientInterface {
+    try {
+      return new S3Client([
+        'version' => 'latest',
+        'region' => getenv('AWS_DEFAULT_REGION'),
+        'endpoint' => getenv('S3_ENDPOINT'),
+        'use_path_style_endpoint' => getenv('S3_USE_PATH_STYLE_ENDPOINT') === 'true',
+        'credentials' => new Credentials(
+          getenv('AWS_ACCESS_KEY_ID'),
+          getenv('AWS_SECRET_ACCESS_KEY'),
+        ),
+      ]);
+    }
+    // @todo bubble error for production debugging.
+    catch (\Exception $exception) {
+      return NULL;
+    }
   }
 
   protected function generateImageStyle($target) {

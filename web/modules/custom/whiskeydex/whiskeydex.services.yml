@@ -1,3 +1,5 @@
+parameters:
+  asset_scheme: s3
 services:
   whiskeydex.route_subscriber:
     class: Drupal\whiskeydex\Routing\RouteSubscriber
@@ -21,14 +23,14 @@ services:
   whiskeydex.asset_css_dump:
     class: Drupal\whiskeydex\Asset\AssetDumper
     decorates: asset.css.dumper
-    arguments: ['@file_system', '@config.factory']
+    arguments: ['@file_system', '@config.factory', '%asset_scheme%']
   whiskeydex.asset_js_dump:
     class: Drupal\whiskeydex\Asset\AssetDumper
     decorates: asset.js.dumper
-    arguments: ['@file_system', '@config.factory']
+    arguments: ['@file_system', '@config.factory', '%asset_scheme%']
   whiskeydex.css_collection_optimizer:
     class: Drupal\whiskeydex\Asset\CssCollectionOptimizer
-    arguments: ['@whiskeydex.css_collection_optimizer.inner', '@datetime.time', '@config.factory', '@file_system']
+    arguments: ['@whiskeydex.css_collection_optimizer.inner', '@datetime.time', '@config.factory', '@file_system', '%asset_scheme%']
     decorates: asset.css.collection_optimizer
   whiskeydex.css_optimize:
     class: Drupal\whiskeydex\Asset\CssOptimizer
@@ -36,5 +38,5 @@ services:
     parent: asset.css.optimizer
   whiskeydex.js_collection_optimizer:
     class: Drupal\whiskeydex\Asset\JsCollectionOptimizer
-    arguments: ['@whiskeydex.js_collection_optimizer.inner', '@datetime.time', '@config.factory', '@file_system']
+    arguments: ['@whiskeydex.js_collection_optimizer.inner', '@datetime.time', '@config.factory', '@file_system', '%asset_scheme%']
     decorates: asset.js.collection_optimizer

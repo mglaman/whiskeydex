@@ -9,7 +9,7 @@ final class WhiskeydexServiceProvider extends ServiceProviderBase {
 
   public function alter(ContainerBuilder $container): void {
     if (getenv('FILESYSTEM_DRIVER') !== 's3') {
-      $container->removeDefinition('stream_wrapper.s3');
+      $container->setParameter('asset_scheme', 'public');
     }
   }
 

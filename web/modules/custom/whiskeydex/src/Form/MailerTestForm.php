@@ -24,8 +24,13 @@ final class MailerTestForm extends FormBase {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['email'] = [
+      '#type' => 'email',
+      '#title' => 'Email',
+    ];
     $form['email_key'] = [
       '#type' => 'select',
+      '#title' => 'Email key',
       '#options' => [
         'dummy' => 'Dummy',
         'status_canceled' => 'user status_canceled',
@@ -47,12 +52,14 @@ final class MailerTestForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $email_key = $form_state->getValue('email_key');
     if ($email_key === 'dummy') {
-      $this->mailer->sendMail('who@example.com', 'This is a subject', [
+      $this->mailer->sendMail($form_state->getValue('email'), 'This is a subject', [
         '#markup' => 'What.',
       ]);
     }
     else {
-      _user_mail_notify($email_key, User::load($this->currentUser()->id()));
+      $user = User::load($this->currentUser()->id());
+      $user->setEmail($form_state->getValue('email'));
+      _user_mail_notify($email_key, $user);
     }
     $this->messenger()->addStatus('Sent email');
   }
