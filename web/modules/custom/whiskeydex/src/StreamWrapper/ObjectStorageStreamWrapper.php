@@ -3,14 +3,15 @@
 namespace Drupal\whiskeydex\StreamWrapper;
 
 use Aws\Credentials\Credentials;
+use Aws\LruArrayCache;
 use Aws\S3\S3Client;
-use Aws\S3\S3ClientInterface;
 use Aws\S3\StreamWrapper;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\image\Entity\ImageStyle;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @phpcs:disable Drupal.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -18,7 +19,7 @@ use Drupal\image\Entity\ImageStyle;
  * @phpcs:disable DrupalPractice.Objects.GlobalDrupal.GlobalDrupal
  * @phpcs:disable Generic.CodeAnalysis.UselessOverridingMethod.Found
  */
-final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWrapperInterface {
+final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWrapperInterface, ConfigurableStreamWrapperInterface {
 
   private string $uri;
 
@@ -131,9 +132,11 @@ final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWr
     return substr($uri, strpos($uri, '://') + 3);
   }
 
-  public static function getClient(): ?S3ClientInterface {
+  public static function getContextDefaults(ContainerInterface $container): array {
     try {
-      return new S3Client([
+      // @todo inject from factory from container.
+      // @todo test (https://github.com/aws/aws-sdk-php/issues/2023, https://github.com/aws/aws-sdk-php/issues/1043)
+      $client = new S3Client([
         'version' => 'latest',
         'region' => getenv('AWS_DEFAULT_REGION'),
         'endpoint' => getenv('S3_ENDPOINT'),
@@ -146,8 +149,13 @@ final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWr
     }
     // @todo bubble error for production debugging.
     catch (\Exception $exception) {
-      return NULL;
+      $client = NULL;
     }
+    $defaults['client'] = $client;
+    // @todo support Drupal's cache layers.
+    $defaults['cache'] = new LruArrayCache();
+    $defaults['ACL'] = 'public-read';
+    return $defaults;
   }
 
   protected function generateImageStyle($target) {

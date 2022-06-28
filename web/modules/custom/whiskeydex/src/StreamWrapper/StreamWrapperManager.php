@@ -2,7 +2,6 @@
 
 namespace Drupal\whiskeydex\StreamWrapper;
 
-use Aws\LruArrayCache;
 use Drupal\Core\StreamWrapper\StreamWrapperManager as CoreStreamWrapperManager;
 
 /**
@@ -15,13 +14,9 @@ final class StreamWrapperManager extends CoreStreamWrapperManager {
    */
   public function registerWrapper($scheme, $class, $type): void {
     parent::registerWrapper($scheme, $class, $type);
-    if (is_a($class, ObjectStorageStreamWrapper::class, TRUE)) {
-      $client = $class::getClient();
+    if (is_a($class, ConfigurableStreamWrapperInterface::class, TRUE)) {
       $default = stream_context_get_options(stream_context_get_default());
-      $default[$scheme]['client'] = $client;
-      // @todo support Drupal's cache layers.
-      $default[$scheme]['cache'] = new LruArrayCache();
-      $default[$scheme]['ACL'] = 'public-read';
+      $default[$scheme] = $class::getContextDefaults($this->container);
       stream_context_set_default($default);
     }
   }
