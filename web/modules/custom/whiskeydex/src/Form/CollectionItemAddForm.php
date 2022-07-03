@@ -9,8 +9,8 @@ final class CollectionItemAddForm extends ModelContentEntityForm {
   protected function prepareEntity(): void {
     parent::prepareEntity();
     assert($this->entity instanceof CollectionItem);
-    $collection = $this->getRouteMatch()->getRawParameter('collection');
-    $this->entity->set('collection', $collection);
+    $whiskey = $this->getRouteMatch()->getRawParameter('whiskey');
+    $this->entity->set('whiskey', $whiskey);
   }
 
 }

@@ -13,7 +13,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\SortArray;
 
-final class CollectionListBuilder implements EntityListBuilderInterface, EntityHandlerInterface {
+final class CollectionItemListBuilder implements EntityListBuilderInterface, EntityHandlerInterface {
 
   use StringTranslationTrait;
 
@@ -39,7 +39,7 @@ final class CollectionListBuilder implements EntityListBuilderInterface, EntityH
   public function render(): array {
     $cacheability = new CacheableMetadata();
     $cacheability->addCacheContexts(['user']);
-    $view_builder = $this->entityTypeManager->getViewBuilder('collection');
+    $view_builder = $this->entityTypeManager->getViewBuilder('collection_item');
     $build = [
       'list' => [
         '#theme_wrappers' => [
@@ -55,13 +55,13 @@ final class CollectionListBuilder implements EntityListBuilderInterface, EntityH
   }
 
   public function getStorage(): EntityStorageInterface {
-    return $this->entityTypeManager->getStorage('collection');
+    return $this->entityTypeManager->getStorage('collection_item');
   }
 
   public function load(): array {
     $query = $this->getStorage()->getQuery()
       ->accessCheck(TRUE)
-      ->sort('collection_id')
+      ->sort('created', 'DESC')
       ->pager(10);
     $ids = $query->execute();
     // phpstan-drupal detection broke here??

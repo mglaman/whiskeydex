@@ -29,11 +29,18 @@ final class Whiskey extends ContentEntityBase {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel('Name')
+      ->setRequired(TRUE)
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -5,
       ])
-      ->setRequired(TRUE)
+      ->setDisplayOptions('view', [
+        'type' => 'string',
+        'label' => 'hidden',
+        'settings' => [
+          'link_to_entity' => TRUE,
+        ],
+      ])
       ->setDisplayConfigurable('view', TRUE);
     $fields['distillery'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel('Distillery')

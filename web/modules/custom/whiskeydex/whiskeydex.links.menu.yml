@@ -21,7 +21,7 @@ whiskeydex.mailer_test_form:
   route_name: 'whiskeydex.mailer_test_form'
   parent: 'whiskeydex.admin_whiskeydex'
   weight: 50
-entity.collection.collection:
-  title: Collections
-  route_name: 'entity.collection.collection'
-  menu_name: main
+#entity.collection_item.collection:
+#  title: Collection
+#  route_name: 'entity.collection_item.collection'
+#  menu_name: main
