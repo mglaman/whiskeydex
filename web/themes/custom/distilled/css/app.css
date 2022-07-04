@@ -769,6 +769,11 @@ select {
   margin-right: auto;
 }
 
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -837,16 +842,20 @@ select {
   height: 1.25rem;
 }
 
-.h-4 {
-  height: 1rem;
-}
-
 .h-6 {
   height: 1.5rem;
 }
 
+.h-4 {
+  height: 1rem;
+}
+
 .w-16 {
   width: 4rem;
+}
+
+.w-6 {
+  width: 1.5rem;
 }
 
 .w-full {
@@ -855,10 +864,6 @@ select {
 
 .w-4 {
   width: 1rem;
-}
-
-.w-6 {
-  width: 1.5rem;
 }
 
 .w-40 {
@@ -887,6 +892,10 @@ select {
 
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .items-start {

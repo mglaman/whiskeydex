@@ -28,3 +28,11 @@ entity.whiskey.community_add_form:
     _title: Add new whiskey
   requirements:
     _permission: 'view whiskey'
+
+whiskeydex.home:
+  path: /home
+  defaults:
+    _controller: \Drupal\whiskeydex\Controller\FrontController::front
+    _title: Home
+  requirements:
+    _permission: 'access content'

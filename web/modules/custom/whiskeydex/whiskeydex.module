@@ -63,6 +63,9 @@ function whiskeydex_theme(array $existing, string $type, string $theme, string $
         'is_html' => FALSE,
       ],
     ],
+    'whiskeydex_home' => [
+      'variables' => [],
+    ],
   ];
 }
 
