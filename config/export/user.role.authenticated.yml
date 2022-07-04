@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - system
+    - whiskeydex
 _core:
   default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
 id: authenticated
@@ -12,3 +13,9 @@ weight: 1
 is_admin: false
 permissions:
   - 'access content'
+  - 'create collection_item'
+  - 'delete own collection_item'
+  - 'update own collection_item'
+  - 'view distillery'
+  - 'view own collection_item'
+  - 'view whiskey'
