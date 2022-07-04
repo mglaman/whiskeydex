@@ -35,7 +35,11 @@ final class FrontController implements ContainerInjectionInterface {
         ->toString(TRUE);
       assert($generated_url instanceof GeneratedUrl);
       $cacheable_metadata->addCacheableDependency($generated_url);
-      return new LocalRedirectResponse($generated_url->getGeneratedUrl());
+      return new LocalRedirectResponse(
+        $generated_url->getGeneratedUrl(),
+        302,
+        ['Cache-Control' => 'no-cache, private']
+      );
     }
 
     $build = [
