@@ -114,4 +114,12 @@ jobs:
                         "repository": "whiskeydex",
                         "tag": "${{ github.sha }}"
                       }
+                    },
+                    {
+                      "name": "worker",
+                      "image":{
+                        "registry_type": "DOCR",
+                        "repository": "whiskeydex",
+                        "tag": "${{ github.sha }}"
+                      }
                     }]'

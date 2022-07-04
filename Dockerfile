@@ -9,6 +9,7 @@ COPY config/ config/
 COPY composer.json composer.json
 COPY composer.lock composer.lock
 COPY bootstrap.php bootstrap.php
+COPY worker.php worker.php
 COPY src/ src/
 COPY web/ web/
 
