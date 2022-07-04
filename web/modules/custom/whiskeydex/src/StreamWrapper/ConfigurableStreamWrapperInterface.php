@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 interface ConfigurableStreamWrapperInterface {
 
   /**
-   * @return array<string, mixed>
+   * @phpstan-return array<string, mixed>
    */
   public static function getContextDefaults(ContainerInterface $container): array;
 
