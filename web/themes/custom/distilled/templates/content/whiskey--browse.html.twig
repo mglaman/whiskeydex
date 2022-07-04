@@ -1,0 +1,15 @@
+<div class="relative rounded-lg border border-gray-300 bg-white px-3 py-2 shadow-sm space-y-3 hover:border-stone-400 mb-2 last:mb-0">
+  <div class="flex items-start">
+    <div class="flex-grow">
+      <div class="font-bold">{{ elements.name }}</div>
+    </div>
+    <div class="flex-shrink">
+      <a href="{{ url('entity.collection_item.add_form', {'whiskey': whiskey.id}) }}">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="sr-only">Add to collection</span>
+      </a>
+    </div>
+  </div>
+</div>

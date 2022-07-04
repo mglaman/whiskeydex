@@ -124,10 +124,38 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
       ]);
     $fields['batch'] = BaseFieldDefinition::create('string')
       ->setLabel('Batch')
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+      ])
       ->setDisplayOptions('view', [
         'type' => 'string',
         'label' => 'inline',
       ]);
+    $fields['nose'] = BaseFieldDefinition::create('string_long')
+      ->setLabel('Nose')
+      ->setDisplayOptions('form', [
+        'type' => 'string_textarea',
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'basic_string',
+      ]);
+    $fields['taste'] = BaseFieldDefinition::create('string_long')
+      ->setLabel('Taste')
+      ->setDisplayOptions('form', [
+        'type' => 'string_textarea',
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'basic_string',
+      ]);
+    $fields['finish'] = BaseFieldDefinition::create('string_long')
+      ->setLabel('Finish')
+      ->setDisplayOptions('form', [
+        'type' => 'string_textarea',
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'basic_string',
+      ]);
+    // nose, taste, finish: plain text or tags of flavors.
     return $fields;
   }
 

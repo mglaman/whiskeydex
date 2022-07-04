@@ -24,6 +24,7 @@ final class WhiskeyTest extends WhiskeyDexEntityTestBase {
     'uuid',
     'name',
     'distillery',
+    'community',
   ];
 
   /**

@@ -6,7 +6,7 @@ name: WhiskeyDex
 mail: hello@whiskeydex.com
 slogan: ''
 page:
-  403: '/user/login'
+  403: /user/login
   404: ''
   front: /collection
 admin_compact_mode: false

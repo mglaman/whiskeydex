@@ -16,7 +16,14 @@ content:
       view_mode: default
       link: true
     third_party_settings: {  }
+    weight: 1
+    region: content
+  name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 0
     region: content
-hidden:
-  name: true
+hidden: {  }

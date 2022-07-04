@@ -10,6 +10,11 @@ use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 /**
  * @\Drupal\whiskeydex\Annotation\Model(
  *   id = "whiskey",
+ *   handlers = {
+ *     "form" = {
+ *       "community_add" = "Drupal\whiskeydex\Form\WhiskeyCommunityAddForm",
+ *     }
+ *   }
  * )
  */
 final class Whiskey extends ContentEntityBase {
@@ -55,7 +60,11 @@ final class Whiskey extends ContentEntityBase {
           'placeholder' => '',
         ],
       ])
-      ->setDisplayConfigurable('view', TRUE);
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
+    $fields['community'] = BaseFieldDefinition::create('boolean')
+      ->setLabel('Added by the community')
+      ->setDefaultValue(FALSE);
     return $fields;
   }
 

@@ -12,3 +12,19 @@ whiskeydex.mailer_test_form:
     _title: 'Test emails'
   requirements:
     _permission: 'administer site configuration'
+whiskeydex.browse_whiskeys:
+  path: '/whiskeys'
+  defaults:
+    _controller: \Drupal\whiskeydex\Controller\BrowseWhiskeyController::browser
+    _title: Whiskeys
+  requirements:
+    _permission: 'view whiskey'
+
+entity.whiskey.community_add_form:
+  path: '/whiskey/new'
+  defaults:
+    _entity_form: whiskey.community_add
+    entity_type_id: whiskey
+    _title: Add new whiskey
+  requirements:
+    _permission: 'view whiskey'

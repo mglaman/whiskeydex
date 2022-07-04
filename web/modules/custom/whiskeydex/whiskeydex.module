@@ -27,12 +27,6 @@ function whiskeydex_mail(string $key, array &$message, array $params): void {
  */
 function whiskeydex_entity_extra_field_info(): array {
   $extra = [];
-  $extra['collection']['collection']['display']['links'] = [
-    'label' => t('Manage'),
-    'description' => t('Links to manage'),
-    'weight' => 100,
-    'visible' => TRUE,
-  ];
   $extra['collection_item']['collection_item']['display']['links'] = [
     'label' => t('Manage'),
     'description' => t('Links to manage'),
@@ -77,9 +71,19 @@ function whiskeydex_theme(array $existing, string $type, string $theme, string $
  *
  * @phpstan-param array<string, string|array<string, mixed>|object> $variables
  */
-function whiskeydex_preprocess_collection(&$variables): void {
+function whiskeydex_preprocess_collection_item(&$variables): void {
   assert(is_array($variables['elements']));
-  $variables['collection'] = $variables['elements']['#collection'];
+  $variables['collection_item'] = $variables['elements']['#collection_item'];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * @phpstan-param array<string, string|array<string, mixed>|object> $variables
+ */
+function whiskeydex_preprocess_whiskey(&$variables): void {
+  assert(is_array($variables['elements']));
+  $variables['whiskey'] = $variables['elements']['#whiskey'];
 }
 
 /**

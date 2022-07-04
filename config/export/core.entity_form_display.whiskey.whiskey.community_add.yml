@@ -1,0 +1,15 @@
+uuid: 5bd11f8d-eb3f-4b79-b63d-bf81b7f2ca2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.whiskey.community_add
+  module:
+    - whiskeydex
+id: whiskey.whiskey.community_add
+targetEntityType: whiskey
+bundle: whiskey
+mode: community_add
+content: {  }
+hidden:
+  distillery: true

@@ -1,0 +1,22 @@
+uuid: 41c7e8ec-00a0-448e-a874-f74240ca4e29
+langcode: en
+status: true
+dependencies:
+  module:
+    - whiskeydex
+id: whiskey.whiskey.default
+targetEntityType: whiskey
+bundle: whiskey
+mode: default
+content:
+  distillery:
+    type: entity_reference_autocomplete
+    weight: -1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

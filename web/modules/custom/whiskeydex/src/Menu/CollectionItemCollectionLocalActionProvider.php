@@ -9,7 +9,15 @@ final class CollectionItemCollectionLocalActionProvider extends EntityCollection
 
   public function buildLocalActions(EntityTypeInterface $entity_type) {
     // @needs custom action which searches for whiskey first.
-    return [];
+    return [
+      'whiskeydex.browse_whiskeys' => [
+        'title' => 'Add a whiskey',
+        'route_name' => 'whiskeydex.browse_whiskeys',
+        'appears_on' => [
+          'entity.collection_item.collection',
+        ],
+      ],
+    ];
   }
 
 }

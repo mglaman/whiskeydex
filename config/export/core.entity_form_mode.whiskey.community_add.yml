@@ -1,0 +1,10 @@
+uuid: 3e2a98c5-3f7e-4b9b-a20b-d82bd71b2bf3
+langcode: en
+status: true
+dependencies:
+  module:
+    - whiskeydex
+id: whiskey.community_add
+label: 'Community Add'
+targetEntityType: whiskey
+cache: true

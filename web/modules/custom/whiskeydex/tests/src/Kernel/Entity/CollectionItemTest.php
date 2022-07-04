@@ -9,6 +9,7 @@ use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\whiskeydex\Entity\CollectionItem;
 use Drupal\whiskeydex\Entity\Whiskey;
 use Drupal\whiskeydex\Routing\CollectionItemHtmlRouteProvider;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
 final class CollectionItemTest extends WhiskeyDexEntityTestBase {
 
@@ -27,6 +28,12 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
     'name',
     'created',
     'whiskey',
+    'year',
+    'proof',
+    'batch',
+    'nose',
+    'taste',
+    'finish'
   ];
 
   protected ?array $routeProviders = [
@@ -37,7 +44,7 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
     return [
       'collection' => '/collection',
       'canonical' => '/collection/{collection_item}',
-      'add-form' => '/collection/add',
+      'add-form' => '/collection/add/{whiskey}',
       'edit-form' => '/collection/{collection_item}/edit',
       'delete-form' => '/collection/{collection_item}/delete',
     ];
@@ -68,6 +75,9 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
       '/collection/' . $collection_item->id(),
       $collection_item->toUrl('canonical')->toString()
     );
+
+    $this->expectException(MissingMandatoryParametersException::class);
+    $this->expectExceptionMessage('Some mandatory parameters are missing ("whiskey") to generate a URL for route "entity.collection_item.add_form".');
     self::assertEquals(
       '/collection/add',
       $collection_item->toUrl('add-form')->toString()

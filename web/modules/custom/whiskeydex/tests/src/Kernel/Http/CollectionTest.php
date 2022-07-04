@@ -83,10 +83,21 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
     $whiskey->save();
     assert($whiskey instanceof Whiskey);
 
-    $url = Url::fromRoute('entity.collection_item.add_form')->toString();
+    $url = Url::fromRoute(
+      'entity.collection_item.add_form',
+      ['whiskey' => $whiskey->id()]
+    )->toString();
     $request = Request::create($url);
     $response = $this->doRequest($request);
     self::assertEquals(200, $response->getStatusCode());
+
+    $this->setRawContent($response->getContent());
+    $whiskey_element = $this->cssSelect('[name="whiskey[0][target_id]"]');
+    self::assertCount(1, $whiskey_element);
+    self::assertEquals(
+      "{$whiskey->label()} ({$whiskey->id()})",
+      $whiskey_element[0]->attributes()->value[0]
+    );
 
     $request = Request::create($url, 'POST', [
       'whiskey' => [
