@@ -41,6 +41,7 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
     }
     $item = $this->get('year')->first();
     assert($item instanceof IntegerItem);
+    // @phpstan-ignore-next-line
     return (int) $item->get('value')->getValue();
   }
 

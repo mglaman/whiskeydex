@@ -7,6 +7,9 @@ use Drupal\entity\Menu\EntityCollectionLocalActionProvider;
 
 final class CollectionItemCollectionLocalActionProvider extends EntityCollectionLocalActionProvider {
 
+  /**
+   * @phpstan-return array<string, mixed>
+   */
   public function buildLocalActions(EntityTypeInterface $entity_type) {
     // @needs custom action which searches for whiskey first.
     return [

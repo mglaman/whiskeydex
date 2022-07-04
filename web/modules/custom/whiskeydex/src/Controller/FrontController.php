@@ -18,12 +18,15 @@ final class FrontController implements ContainerInjectionInterface {
   ) {
   }
 
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('current_user')
     );
   }
 
+  /**
+   * @phpstan-return array<string, mixed>|\Symfony\Component\HttpFoundation\RedirectResponse
+   */
   public function front(): array|RedirectResponse {
     $cacheable_metadata = new CacheableMetadata();
     $cacheable_metadata->addCacheContexts(['user.roles:authenticated']);

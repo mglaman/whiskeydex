@@ -8,7 +8,7 @@ use Drupal\whiskeydex\Entity\Whiskey;
 
 final class WhiskeyCommunityAddForm extends ContentEntityForm {
 
-  protected function prepareEntity() {
+  protected function prepareEntity(): void {
     parent::prepareEntity();
     assert($this->entity instanceof Whiskey);
     $this->entity->set('community', TRUE);

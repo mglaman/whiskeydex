@@ -33,7 +33,7 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
     'batch',
     'nose',
     'taste',
-    'finish'
+    'finish',
   ];
 
   protected ?array $routeProviders = [

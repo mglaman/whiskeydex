@@ -19,30 +19,35 @@ final class BrowseWhiskeyController implements ContainerInjectionInterface {
   ) {
   }
 
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('entity_type.manager'),
       $container->get('form_builder')
     );
   }
 
+  /**
+   * @phpstan-return array<string, mixed>
+   */
   public function browser(Request $request): array {
     $keys = $request->query->get('keys', '');
     $entity_type = $this->entityTypeManager->getDefinition('whiskey');
+    assert($entity_type !== NULL);
     $storage = $this->entityTypeManager->getStorage('whiskey');
     $query = $storage
       ->getQuery()
       ->accessCheck(TRUE)
       ->pager(10);
-    if ($keys !== '') {
+    if (is_string($keys) && $keys !== '') {
       $keys = trim($keys);
       $search = $query->orConditionGroup();
       $search->condition('name', "%$keys%", 'LIKE');
       $search->condition('distillery.entity.name', "%$keys%", 'LIKE');
       $query->condition($search);
-
     }
-    $whiskeys = $storage->loadMultiple($query->execute());
+    $ids = $query->execute();
+    assert(is_array($ids));
+    $whiskeys = $storage->loadMultiple($ids);
 
     $build = [
       '#cache' => [

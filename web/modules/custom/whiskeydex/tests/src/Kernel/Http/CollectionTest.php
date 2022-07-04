@@ -90,12 +90,12 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
     $request = Request::create($url);
     $response = $this->doRequest($request);
     self::assertEquals(200, $response->getStatusCode());
-
-    $this->setRawContent($response->getContent());
+    $this->setRawContent((string) $response->getContent());
     $whiskey_element = $this->cssSelect('[name="whiskey[0][target_id]"]');
     self::assertCount(1, $whiskey_element);
     self::assertEquals(
       "{$whiskey->label()} ({$whiskey->id()})",
+      // @phpstan-ignore-next-line
       $whiskey_element[0]->attributes()->value[0]
     );
 
@@ -117,7 +117,7 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
     $request = Request::create('/collection');
     $response = $this->doRequest($request);
     self::assertEquals(200, $response->getStatusCode());
-    $this->assertStringContainsString($whiskey->label(), $this->getTextContent());
+    $this->assertStringContainsString((string) $whiskey->label(), $this->getTextContent());
   }
 
 }

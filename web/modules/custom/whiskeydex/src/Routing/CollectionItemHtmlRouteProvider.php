@@ -17,6 +17,7 @@ final class CollectionItemHtmlRouteProvider extends DefaultHtmlRouteProvider {
   protected function getAddFormRoute(EntityTypeInterface $entity_type) {
     $route = parent::getAddFormRoute($entity_type);
     if ($route) {
+      /** @var array<string, mixed> $parameters */
       $parameters = $route->getOption('parameters');
       $parameters['whiskey'] = [
         'type' => 'entity:whiskey',

@@ -17,6 +17,13 @@ use Drupal\Core\Form\FormStateInterface;
  */
 final class YearWidget extends WidgetBase {
 
+  /**
+   * @phpstan-param \Drupal\Core\Field\FieldItemListInterface<\Drupal\Core\Field\Plugin\DataType\FieldItem> $items
+   * @phpstan-param array<string, mixed> $element
+   * @phpstan-param array<string, mixed> $form
+   *
+   * @phpstan-return array<string, mixed>
+   */
   public function formElement(
     FieldItemListInterface $items,
     $delta,
@@ -24,6 +31,7 @@ final class YearWidget extends WidgetBase {
     array &$form,
     FormStateInterface $form_state
   ) {
+    // @phpstan-ignore-next-line
     $value = $items[$delta]->value ?? NULL;
     $element += [
       '#type' => 'textfield',
