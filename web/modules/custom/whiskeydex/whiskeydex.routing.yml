@@ -36,3 +36,16 @@ whiskeydex.home:
     _title: Home
   requirements:
     _permission: 'access content'
+
+whiskeydex.manifest:
+  path: /manifest.json
+  defaults:
+    _controller: \Drupal\whiskeydex\Controller\ProgressiveWebAppController::manifest
+  requirements:
+    _permission: 'access content'
+whiskeydex.service_worker:
+  path: /service-worker-script
+  defaults:
+    _controller: \Drupal\whiskeydex\Controller\ProgressiveWebAppController::serviceWorker
+  requirements:
+    _permission: 'access content'

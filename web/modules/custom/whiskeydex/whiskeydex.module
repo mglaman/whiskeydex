@@ -2,6 +2,24 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function whiskeydex_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'whiskeydex/service-worker-register';
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#tag' => 'link',
+      '#attributes' => [
+        'rel' => 'manifest',
+        'href' => Url::fromRoute('whiskeydex.manifest')->toString(),
+      ],
+    ],
+    'manifest',
+  ];
+}
 
 /**
  * Implements hook_mail().

@@ -1,0 +1,3 @@
+service-worker-register:
+  js:
+    js/service-worker-register.js: {preprocess: false}
