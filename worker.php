@@ -22,9 +22,12 @@ function worker_process(string $command, ?callable $after = NULL): void {
 }
 
 Loop::addTimer(1.0, static function () {
+  // @todo remove deploy, go for curated deployment with less cache rebuilds.
+  worker_process(__DIR__ . '/vendor/bin/drush deploy');
+  /*
   worker_process(__DIR__ . '/vendor/bin/drush updb --yes',
     static fn () => worker_process(__DIR__ . '/vendor/bin/drush cim --yes')
-  );
+  ); */
 });
 Loop::addPeriodicTimer(600.0, static function () {
   worker_process(__DIR__ . '/vendor/bin/drush cron');

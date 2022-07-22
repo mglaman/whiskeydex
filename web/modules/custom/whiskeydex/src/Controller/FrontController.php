@@ -5,7 +5,6 @@ namespace Drupal\whiskeydex\Controller;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\GeneratedUrl;
-use Drupal\Core\Routing\LocalRedirectResponse;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -34,14 +33,11 @@ final class FrontController implements ContainerInjectionInterface {
       $generated_url = Url::fromRoute('entity.collection_item.collection')
         ->toString(TRUE);
       assert($generated_url instanceof GeneratedUrl);
-      $cacheable_metadata->addCacheableDependency($generated_url);
-      $redirect = new LocalRedirectResponse(
+      return new RedirectResponse(
         $generated_url->getGeneratedUrl(),
         302,
         ['Cache-Control' => 'no-cache']
       );
-      $redirect->addCacheableDependency($cacheable_metadata);
-      return $redirect;
     }
 
     $build = [
