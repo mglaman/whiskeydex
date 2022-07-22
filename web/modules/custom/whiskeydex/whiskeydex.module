@@ -6,8 +6,10 @@ use Drupal\Core\Url;
 
 /**
  * Implements hook_page_attachments().
+ *
+ * @phpstan-param array{'#attached': array<string, array<string, mixed>>} $attachments
  */
-function whiskeydex_page_attachments(array &$attachments) {
+function whiskeydex_page_attachments(array &$attachments): void {
   $attachments['#attached']['library'][] = 'whiskeydex/service-worker-register';
   $attachments['#attached']['html_head'][] = [
     [

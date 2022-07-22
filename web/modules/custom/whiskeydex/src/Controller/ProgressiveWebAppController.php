@@ -22,7 +22,7 @@ final class ProgressiveWebAppController implements ContainerInjectionInterface {
   ) {
   }
 
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): self {
     return new self(
       $container->get('extension.list.theme'),
       $container->get('file_url_generator'),
@@ -56,7 +56,7 @@ final class ProgressiveWebAppController implements ContainerInjectionInterface {
 
   public function serviceWorker(): CacheableResponse {
     $data = file_get_contents(__DIR__ . '/../../js/service-worker.js');
-    $response = new CacheableResponse($data, 200, [
+    $response = new CacheableResponse((string) $data, 200, [
       'Content-Type' => 'application/javascript',
       'Service-Worker-Allowed' => '/',
     ]);
