@@ -19,7 +19,6 @@ final class AppDrushCommands extends DrushCommands {
    */
   #[CLI\Command(name: 'app:env:generate', aliases: ['env:generate'])]
   #[CLI\Option(name: 'sqlite', description: 'Set the DB_CONNECTION to SQLite by default')]
-  // @phpstan-ignore-next-line
   #[CLI\Bootstrap(level: DrupalBootLevels::NONE)]
   public function envGenerate(array $options = ['sqlite' => FALSE]): void {
     $boot_manager = Drush::bootstrapManager();
@@ -52,15 +51,12 @@ final class AppDrushCommands extends DrushCommands {
   }
 
   #[CLI\Command(name: 'app:content:generate')]
-  // @phpstan-ignore-next-line
   #[CLI\Bootstrap(level: DrupalBootLevels::FULL)]
   public function contentGenerate(): CommandResult {
     // @phpstan-ignore-next-line
     $entity_type_manager = \Drupal::entityTypeManager();
 
     $distillery_storage = $entity_type_manager->getStorage('distillery');
-    // @todo fix that explicit accessCheck rule.
-    // @phpstan-ignore-next-line
     $distillery_count = $distillery_storage->getQuery()
       ->accessCheck(FALSE)
       ->count()
@@ -69,8 +65,6 @@ final class AppDrushCommands extends DrushCommands {
       return CommandResult::dataWithExitCode('Distilleries exist, not generating content.', 1);
     }
     $whiskey_storage = $entity_type_manager->getStorage('whiskey');
-    // @todo fix that explicit accessCheck rule.
-    // @phpstan-ignore-next-line
     $whiskey_count = $whiskey_storage->getQuery()
       ->accessCheck(FALSE)
       ->count()
