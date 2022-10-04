@@ -48,12 +48,10 @@ RUN set -eux; \
 	; \
 	\
 	docker-php-ext-install -j "$(nproc)" \
-    bcmath \
 		gd \
 		opcache \
 		pdo_mysql \
 		pdo_pgsql \
-    soap \
 		zip \
 	; \
 	\
