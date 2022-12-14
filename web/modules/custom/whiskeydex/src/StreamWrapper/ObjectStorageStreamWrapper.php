@@ -7,10 +7,10 @@ use Aws\LruArrayCache;
 use Aws\S3\S3Client;
 use Aws\S3\StreamWrapper;
 use Drupal\Component\Utility\Crypt;
-use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 use Drupal\image\Entity\ImageStyle;
+use GuzzleHttp\Psr7\Uri;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -107,7 +107,13 @@ final class ObjectStorageStreamWrapper extends StreamWrapper implements StreamWr
     if (str_starts_with($target, 'styles/') && !file_exists($this->uri)) {
       $this->generateImageStyle($target);
     }
-    return 'https://' . getenv('S3_CNAME') . '/' . UrlHelper::encodePath($target);
+    $uri = (new Uri)
+      ->withScheme('https')
+      ->withHost(getenv('S3_CNAME'));
+    if (getenv('S3_USE_PATH_STYLE_ENDPOINT') === 'true') {
+      $target = getenv('S3_BUCKET') . '/' . $target;
+    }
+    return (string) $uri->withPath('/' . $target);
   }
 
   public function realpath() {

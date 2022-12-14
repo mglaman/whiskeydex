@@ -34,17 +34,17 @@ services:
       - storage:$DDEV_HOSTNAME
 
   web:
-#    environment:
-#      FILESYSTEM_DRIVER: s3
-#      AWS_ACCESS_KEY_ID: minioadmin
-#      AWS_SECRET_ACCESS_KEY: minioadmin
-#      AWS_DEFAULT_REGION: us-east-1
-#      S3_BUCKET: cask
-#      S3_PROTOCOL: https
-#      S3_CNAME: ${DDEV_SITENAME}.ddev.site:8080
-#      S3_ENDPOINT: http://storage:8080
-#      S3_USE_PATH_STYLE_ENDPOINT: 1
-#      S3_CNAME_IS_BUCKET: 0
+    environment:
+      FILESYSTEM_DRIVER: s3
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
+      AWS_DEFAULT_REGION: us-east-1
+      S3_BUCKET: cask
+      S3_PROTOCOL: https
+      S3_CNAME: ${DDEV_SITENAME}.ddev.site:8080
+      S3_ENDPOINT: http://storage:8080
+      S3_USE_PATH_STYLE_ENDPOINT: 'true'
+      S3_CNAME_IS_BUCKET: 'false'
     links:
       - storage:$DDEV_HOSTNAME
 volumes:
