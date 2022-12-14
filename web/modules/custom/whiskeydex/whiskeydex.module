@@ -21,6 +21,27 @@ function whiskeydex_page_attachments(array &$attachments): void {
     ],
     'manifest',
   ];
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'viewport',
+        'content' => 'width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no',
+      ],
+    ],
+    'viewport',
+  ];
+
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'apple-mobile-web-app-status-bar-style',
+        'content' => 'black-translucent',
+      ],
+    ],
+    'status-bar',
+  ];
 }
 
 /**
