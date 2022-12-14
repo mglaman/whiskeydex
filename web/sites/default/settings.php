@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\Installer\InstallerKernel;
+
 $settings['config_sync_directory'] = '../config/export';
 
 // @todo it'd be great if the config exclude service wasn't locked to settings
@@ -71,9 +73,9 @@ if (isset($_SERVER['HTTP_X_FORWARDED_FOR'], $_SERVER['REMOTE_ADDR'])) {
 }
 
 // If a filesystem driver is defined and uses object storage, include config.
-if (!empty(getenv('FILESYSTEM_DRIVER')) && getenv('FILESYSTEM_DRIVER') === 's3') {
+if (!empty(getenv('FILESYSTEM_DRIVER')) && getenv('FILESYSTEM_DRIVER') === 's3' && !InstallerKernel::installationAttempted()) {
   // If the filesystem isn't local, move Twig to the temporary directory.
-  $settings['php_storage']['twig']['directory'] = $settings['file_temp_path'];
+  $settings['php_storage']['twig']['directory'] = sys_get_temp_dir();
   // We cannot support a private file path if using object storage.
   unset($settings['file_private_path']);
   // Set s3:// as default scheme.
