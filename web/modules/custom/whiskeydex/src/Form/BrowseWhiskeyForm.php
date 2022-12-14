@@ -23,6 +23,7 @@ final class BrowseWhiskeyForm extends FormBase {
       '#type' => 'search',
       '#title' => 'Search',
       '#title_display' => 'invisible',
+      '#placeholder' => $this->t('Search for a whiskey'),
       '#size' => 15,
       '#default_value' => $this->getRequest()->query->get('keys', ''),
     ];
