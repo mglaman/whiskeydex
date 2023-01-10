@@ -16,6 +16,8 @@ final class WhiskeyCommunityAddFormTest extends WhiskeyDexHttpTestBase {
   /**
    * @testWith [""]
    *           ["Woodford Reserve Rye Whiskey"]
+   *           [" leading empty space"]
+   *           ["trailing empty space  "]
    */
   public function testPrefillOfName(string $name): void {
     $test_account = $this->createUser([], ['view whiskey']);
@@ -39,7 +41,7 @@ final class WhiskeyCommunityAddFormTest extends WhiskeyDexHttpTestBase {
     $whiskey_element = $this->cssSelect('[name="name[0][value]"]');
     self::assertCount(1, $whiskey_element);
     self::assertEquals(
-      $name,
+      trim($name),
       // @phpstan-ignore-next-line
       $whiskey_element[0]->attributes()->value[0]
     );

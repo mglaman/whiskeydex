@@ -40,3 +40,9 @@ services:
     class: Drupal\whiskeydex\Asset\JsCollectionOptimizer
     arguments: ['@whiskeydex.js_collection_optimizer.inner', '@datetime.time', '@config.factory', '@file_system', '%asset_scheme%']
     decorates: asset.js.collection_optimizer
+
+  http_middleware.trim:
+    class: Drupal\whiskeydex\StackMiddleware\TrimMiddleware
+    arguments: ['@kernel']
+    tags:
+      - { name: http_middleware }
