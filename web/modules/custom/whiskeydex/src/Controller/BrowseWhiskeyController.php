@@ -66,7 +66,15 @@ final class BrowseWhiskeyController implements ContainerInjectionInterface {
       $build['suggest'] = [
         '#type' => 'link',
         '#title' => 'Add "' . $keys . '" as a new whiskey',
-        '#url' => Url::fromRoute('entity.whiskey.community_add_form'),
+        '#url' => Url::fromRoute(
+          'entity.whiskey.community_add_form',
+          [],
+          [
+            'query' => [
+              'name' => $keys,
+            ],
+          ]
+        ),
         '#attributes' => [],
       ];
     }
