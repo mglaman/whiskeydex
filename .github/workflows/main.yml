@@ -77,49 +77,49 @@ jobs:
 #          DRUPAL_NIGHTWATCH_IGNORE_DIRECTORIES: node_modules,vendor,.*,sites/*/files,sites/*/private,sites/simpletest
 #          DRUPAL_NIGHTWATCH_SEARCH_DIRECTORY: ../
 
-  build:
-    needs:
-      - lint
-      - test
-    runs-on: ubuntu-latest
-    env:
-      DOCKER_BUILDKIT: 1
-    steps:
-      - uses: actions/checkout@v2
-      - name: docker login
-        run: docker login registry.digitalocean.com --username ${{ secrets.DO_REGISTRY_TOKEN }} --password ${{ secrets.DO_REGISTRY_TOKEN }}
+  # build:
+  #   needs:
+  #     - lint
+  #     - test
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     DOCKER_BUILDKIT: 1
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: docker login
+  #       run: docker login registry.digitalocean.com --username ${{ secrets.DO_REGISTRY_TOKEN }} --password ${{ secrets.DO_REGISTRY_TOKEN }}
 
-      - name: Build image
-        run: |
-          docker build . -t $REGISTRY/$REPOSITORY:$IMAGE_TAG
-      - name: Push image
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        run: |
-          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-  deploy:
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    steps:
-      - name: DigitalOcean App Platform deployment
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: digitalocean/app_action@v1.1.0
-        with:
-          app_name: whiskeydex
-          token: ${{ secrets.DO_REGISTRY_TOKEN }}
-          images: '[{
-                      "name": "app",
-                      "image":{
-                        "registry_type": "DOCR",
-                        "repository": "whiskeydex",
-                        "tag": "${{ github.sha }}"
-                      }
-                    },
-                    {
-                      "name": "worker",
-                      "image":{
-                        "registry_type": "DOCR",
-                        "repository": "whiskeydex",
-                        "tag": "${{ github.sha }}"
-                      }
-                    }]'
+  #     - name: Build image
+  #       run: |
+  #         docker build . -t $REGISTRY/$REPOSITORY:$IMAGE_TAG
+  #     - name: Push image
+  #       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+  #       run: |
+  #         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+  # deploy:
+  #   needs:
+  #     - build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: DigitalOcean App Platform deployment
+  #       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+  #       uses: digitalocean/app_action@v1.1.0
+  #       with:
+  #         app_name: whiskeydex
+  #         token: ${{ secrets.DO_REGISTRY_TOKEN }}
+  #         images: '[{
+  #                     "name": "app",
+  #                     "image":{
+  #                       "registry_type": "DOCR",
+  #                       "repository": "whiskeydex",
+  #                       "tag": "${{ github.sha }}"
+  #                     }
+  #                   },
+  #                   {
+  #                     "name": "worker",
+  #                     "image":{
+  #                       "registry_type": "DOCR",
+  #                       "repository": "whiskeydex",
+  #                       "tag": "${{ github.sha }}"
+  #                     }
+  #                   }]'

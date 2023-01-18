@@ -1,0 +1,15 @@
+# The services of the project.
+#
+# Each service listed will be deployed
+# to power your Platform.sh project.
+
+postgresqldb:
+  type: postgresql:12
+  disk: 1028
+#
+#rediscache:
+#    type: redis:3.2
+#
+#solrsearch:
+#    type: solr:6.6
+#    disk: 1024
