@@ -82,6 +82,11 @@ if (!empty(getenv('FILESYSTEM_DRIVER')) && getenv('FILESYSTEM_DRIVER') === 's3' 
   $config['system.file']['default_scheme'] = 's3';
 }
 
+
+if (file_exists($app_root . '/' . $site_path . '/settings.platformsh.php')) {
+  include $app_root . '/' . $site_path . '/settings.platformsh.php';
+}
+
 /**
  * Include local environment overrides.
  */
