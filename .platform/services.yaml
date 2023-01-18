@@ -6,6 +6,9 @@
 postgresqldb:
   type: postgresql:12
   disk: 1028
+  configuration:
+    extensions:
+      - pg_trgm
 #
 #rediscache:
 #    type: redis:3.2
