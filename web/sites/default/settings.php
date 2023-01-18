@@ -11,9 +11,9 @@ $settings['config_exclude_modules'] = [
   'stage_file_proxy',
 ];
 
-$settings['hash_salt'] = getenv('DRUPAL_HASH_SALT');
+$settings['hash_salt'] = getenv('DRUPAL_HASH_SALT') ?: NULL;
 
-$settings['deployment_identifier'] = getenv('DEPLOYMENT_IDENTIFIER');
+$settings['deployment_identifier'] = getenv('DEPLOYMENT_IDENTIFIER')?: NULL;
 
 $settings['update_free_access'] = FALSE;
 $settings['allow_authorize_operations'] = FALSE;
