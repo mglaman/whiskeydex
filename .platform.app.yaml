@@ -61,6 +61,7 @@ runtime:
 #    - sodium
     - apcu
 #    - blackfire
+    - pdo_pgsql
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
