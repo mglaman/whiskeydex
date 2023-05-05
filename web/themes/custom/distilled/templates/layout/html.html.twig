@@ -29,11 +29,12 @@
     not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
     node_type ? 'page-node-type-' ~ node_type|clean_class,
     db_offline ? 'db-offline',
-    'bg-stone-200',
+    'bg-white',
+    'h-full'
   ]
 %}
 <!DOCTYPE html>
-<html{{ html_attributes }}>
+<html{{ html_attributes.addClass('h-full bg-white') }}>
   <head>
     <head-placeholder token="{{ placeholder_token }}">
     <title>{{ head_title|safe_join(' | ') }}</title>
@@ -48,7 +49,7 @@
     <a href="#main-content" class="visually-hidden focusable skip-link">
       {{ 'Skip to main content'|t }}
     </a>
-    {{ page_top }}
+    {{ page_top|without('toolbar') }}
     {{ page }}
     {{ page_bottom }}
     <js-bottom-placeholder token="{{ placeholder_token }}">

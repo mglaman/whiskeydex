@@ -1,13 +1,12 @@
 <?php declare(strict_types=1);
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 
 /**
  * Implements hook_page_attachments().
- *
- * @phpstan-param array{'#attached': array<string, array<string, mixed>>} $attachments
  */
 function whiskeydex_page_attachments(array &$attachments): void {
   $attachments['#attached']['library'][] = 'whiskeydex/service-worker-register';
@@ -103,9 +102,6 @@ function whiskeydex_theme(array $existing, string $type, string $theme, string $
         'message' => [],
         'is_html' => FALSE,
       ],
-    ],
-    'whiskeydex_home' => [
-      'variables' => [],
     ],
   ];
 }
@@ -215,4 +211,39 @@ function _whiskeydex_entity_theme_suggestions(string $entity_type_id, array $var
   $suggestions[] = $original . '__' . $entity->bundle();
   $suggestions[] = $original . '__' . $entity->bundle() . '__' . $sanitized_view_mode;
   return $suggestions;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function whiskeydex_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['name']['#title'] = t('Email');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function whiskeydex_form_user_form_alter(array &$form, FormStateInterface $form_state) {
+  $form['account']['name']['#type'] = 'value';
+  $form['account']['mail']['#title'] = t('Email');
+
+  if (isset($form['#attributes']['data-user-info-from-browser'])) {
+    unset($form['#attributes']['data-user-info-from-browser']);
+  }
+
+  $form['account']['name']['#element_validate'][] = 'whiskeydex_user_form_name_validate';
+}
+
+function whiskeydex_user_form_name_validate($form, FormStateInterface $form_state): void {
+  $form_state->setValue('name', $form_state->getValue('mail'));
+}
+
+function whiskeydex_preprocess_page(&$variables) {
+  $variables['user_displayname'] = \Drupal::currentUser()->getDisplayName();
+  $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
+  $variables['is_userpage'] = in_array(
+    \Drupal::routeMatch()->getRouteName(),
+    ['user.page', 'entity.user.edit_form', 'entity.user.canonical'],
+    TRUE
+  );
 }

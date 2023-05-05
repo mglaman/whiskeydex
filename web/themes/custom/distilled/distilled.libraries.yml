@@ -1,3 +1,13 @@
+alpinejs:
+  version: 3.x.x
+  license:
+    name: MIT
+    url: https://github.com/alpinejs/alpine/blob/master/LICENSE.md
+    gpl-compatible: true
+  header: true
+  js:
+    https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js: { type: external, minified: true, attributes: { type: module } }
+
 base:
   version: VERSION
   css:

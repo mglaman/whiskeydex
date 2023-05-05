@@ -4,9 +4,16 @@
 # 'example.settings.local.php' file, which sits next to this file.
 parameters:
   http.response.debug_cacheability_headers: true
+  renderer.config:
+    required_cache_contexts: ['languages:language_interface', 'theme', 'user.permissions']
+    auto_placeholder_conditions:
+      max-age: 0
+      contexts: ['session', 'user']
+      tags: []
+      debug: true
   twig.config:
     debug: true
-    auto_reload: true
+    auto_reload: null
     cache: true
 services:
   cache.backend.null:

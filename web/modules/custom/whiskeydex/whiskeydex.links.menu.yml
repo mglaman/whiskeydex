@@ -25,3 +25,16 @@ whiskeydex.mailer_test_form:
 #  title: Collection
 #  route_name: 'entity.collection_item.collection'
 #  menu_name: main
+
+whiskeydex.collection:
+  title: Collection
+  route_name: entity.collection_item.collection
+  menu_name: 'main'
+  description: 'View collection items.'
+  weight: 0
+whiskeydex.search:
+  title: Search
+  route_name: whiskeydex.browse_whiskeys
+  menu_name: main
+  description: Search for whiskeys
+  weight: 1

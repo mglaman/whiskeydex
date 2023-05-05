@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-final class TrimMiddleware implements HttpKernelInterface {
+class TrimMiddleware implements HttpKernelInterface {
 
   public function __construct(
     private readonly HttpKernelInterface $app

@@ -36,7 +36,7 @@ jobs:
       - name: PHPStan
         run: php vendor/bin/phpstan analyze
 
-  test:
+  phpunit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -62,20 +62,43 @@ jobs:
       - name: phpunit
         run: php vendor/bin/phpunit web/modules/custom
 
-#      - name: nightwatch
-#        run: |
-#          cd web/core
-#          yarn test:nightwatch --tag whiskeydex
-#        env:
-#          DRUPAL_TEST_BASE_URL: http://127.0.0.1:8080
-#          DRUPAL_TEST_DB_URL: sqlite://localhost/sites/default/files/.ht.sqlite
-#          DRUPAL_TEST_WEBDRIVER_HOSTNAME: 127.0.0.1
-#          DRUPAL_TEST_WEBDRIVER_PORT: 9515
-#          DRUPAL_TEST_CHROMEDRIVER_AUTOSTART: 'false'
-#          DRUPAL_TEST_WEBDRIVER_CHROME_ARGS: "--disable-gpu --headless --no-sandbox"
-#          DRUPAL_NIGHTWATCH_OUTPUT: reports/nightwatch
-#          DRUPAL_NIGHTWATCH_IGNORE_DIRECTORIES: node_modules,vendor,.*,sites/*/files,sites/*/private,sites/simpletest
-#          DRUPAL_NIGHTWATCH_SEARCH_DIRECTORY: ../
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist
+      - name: Install dependencies
+        run: npm ci
+
+      - run: php vendor/bin/drush app:env:generate --sqlite
+      - run: php vendor/bin/drush site:install --yes
+
+      - run: "cd web && php -S 127.0.0.1:8080 .ht.router.php &"
+
+      - name: cypress
+        run: npx cypress run
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() || success() }}
+        with:
+          name: nightwatch_reports
+          path: |
+            cypress/screenshots
+            cypress/videos
+          retention-days: 7
+
 
   # build:
   #   needs:

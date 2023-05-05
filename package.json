@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx tailwindcss -i ./web/themes/custom/distilled/src/app.css -o ./web/themes/custom/distilled/css/app.css --watch",
-    "prod": "@dev -- --minify"
+    "prod": "npx tailwindcss -i ./web/themes/custom/distilled/src/app.css -o ./web/themes/custom/distilled/css/app.css --minify",
+    "cypress:open": "cypress open"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
     "@tailwindcss/forms": "^0.5.2",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "cypress": "^12.11.0"
   }
 }

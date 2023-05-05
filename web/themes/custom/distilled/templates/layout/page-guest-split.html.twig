@@ -1,0 +1,23 @@
+<div class="flex min-h-full">
+  <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <div>
+        <svg class="h-12 w-auto" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="38.14 40.96 51.71 46.08">
+          <path d="m40.191 87.039h47.617c1.1523 0 2.0469-0.89453 2.0469-2.0469v-41.984c0-1.1523-0.89453-2.0469-2.0469-2.0469h-47.617c-1.1523 0-2.0469 0.89453-2.0469 2.0469v42.113c0 1.0234 0.89453 1.918 2.0469 1.918zm45.57-11.262h-43.523v-9.7266c6.1445 1.1523 12.543 1.1523 18.816 0.12891l6.9102-1.1523c5.7617-1.0273 11.906-1.0273 17.797 0.125zm-43.523 7.168v-3.1992l43.523-0.003906v3.1992zm43.523-37.891v16.129c-6.1445-1.1523-12.543-1.1523-18.688-0.12891l-6.9102 1.1523c-6.0156 1.0234-12.16 0.89453-18.047-0.25781l-0.003907-16.895z" fill="#56534d"></path>
+        </svg>
+        {% block above_content %}
+        {% endblock %}
+      </div>
+        <div class="mt-10">
+          {% block content %}
+            {{ page.content }}
+          {% endblock %}
+        </div>
+        {% block below_content %}
+        {% endblock %}
+      </div>
+    </div>
+    <div class="relative hidden w-0 flex-1 lg:block">
+      <img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1608232385022-8ba61bec6c59?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1908&q=80" alt="">
+    </div>
+  </div>

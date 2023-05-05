@@ -4,6 +4,7 @@ type: theme
 base theme: false
 libraries:
   - distilled/base
+  - distilled/alpinejs
   - distilled/messages
 libraries-extend:
   user/drupal.user:
