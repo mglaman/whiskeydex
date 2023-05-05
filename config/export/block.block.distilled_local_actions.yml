@@ -8,8 +8,8 @@ _core:
   default_config_hash: ABoKnlk20KHqZRw_2Qr4EvaFvH4lnQ2nuhunHeE1JIU
 id: distilled_local_actions
 theme: distilled
-region: content
-weight: -10
+region: header
+weight: -3
 provider: null
 plugin: local_actions_block
 settings:
