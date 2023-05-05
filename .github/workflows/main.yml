@@ -73,7 +73,7 @@ jobs:
           coverage: none
           tools: composer:v2
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
