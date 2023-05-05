@@ -23,6 +23,8 @@ final class Model extends ContentEntityType {
 
   public bool $has_ui = TRUE;
 
+  public bool $admin_ui_routes = TRUE;
+
   public bool $provide_tasks = TRUE;
 
   /**
