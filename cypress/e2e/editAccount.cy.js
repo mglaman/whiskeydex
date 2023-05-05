@@ -22,7 +22,7 @@ describe('user can edit their account', function () {
     cy.get('input[name="mail"]').clear().type(authorSut.email);
     cy.get('input[type="submit"]').contains('Save').click();
     cy.contains('The changes have been saved.');
-    cy.visit('http://127.0.0.1:8080/user/logout')
+    cy.visit('http://127.0.0.1:8080/account/logout')
     cy.loginAsUser(authorSut.email, authorSut.password)
     cy.contains('View profile')
   })
@@ -43,7 +43,7 @@ describe('user can edit their account', function () {
     cy.get('input[name="pass[pass2]"]').type(authorSut.password);
     cy.get('input[type="submit"]').contains('Save').click();
     cy.contains('The changes have been saved.');
-    cy.visit('http://127.0.0.1:8080/user/logout')
+    cy.visit('http://127.0.0.1:8080/account/logout')
     cy.loginAsUser(authorSut.email, authorSut.password)
   })
 })
