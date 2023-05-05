@@ -21,7 +21,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
@@ -39,7 +39,7 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.PHP_VERSION }}
@@ -108,7 +108,7 @@ jobs:
   #   env:
   #     DOCKER_BUILDKIT: 1
   #   steps:
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v3
   #     - name: docker login
   #       run: docker login registry.digitalocean.com --username ${{ secrets.DO_REGISTRY_TOKEN }} --password ${{ secrets.DO_REGISTRY_TOKEN }}
 
