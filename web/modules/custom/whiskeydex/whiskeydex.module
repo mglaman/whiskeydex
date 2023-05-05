@@ -2,7 +2,6 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 
 /**
@@ -56,7 +55,6 @@ function whiskeydex_mail(string $key, array &$message, array $params): void {
   $message['subject'] = $params['subject'];
 
   $renderer = \Drupal::getContainer()->get('renderer');
-  assert($renderer instanceof RendererInterface);
   $message['body'][] = $renderer->renderPlain($params['body']);
 }
 
@@ -132,7 +130,6 @@ function whiskeydex_preprocess_whiskey(&$variables): void {
  * @phpstan-param array<string, string|array<string, mixed>|object> $variables
  */
 function whiskeydex_preprocess_whiskeydex_mail(&$variables): void {
-  // @phpstan-ignore-next-line
   $variables['subject'] = $variables['message']['subject'];
   $variables['body'] = $variables['message']['body'];
 }
@@ -185,7 +182,6 @@ function whiskeydex_theme_suggestions_whiskey(array $variables): array {
  */
 function whiskeydex_theme_suggestions_whiskeydex_mail(array $variables): array {
   $suggestions = [];
-  // @phpstan-ignore-next-line
   $suggestions[] = 'whiskeydex_mail__' . str_replace('-', '_', $variables['message']['key']);
   return $suggestions;
 }
@@ -215,15 +211,19 @@ function _whiskeydex_entity_theme_suggestions(string $entity_type_id, array $var
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @phpstan-param array<string, mixed> $form
  */
-function whiskeydex_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function whiskeydex_form_user_login_form_alter(array &$form): void {
   $form['name']['#title'] = t('Email');
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * @phpstan-param array<string, mixed> $form
  */
-function whiskeydex_form_user_form_alter(array &$form, FormStateInterface $form_state) {
+function whiskeydex_form_user_form_alter(array &$form): void {
   $form['account']['name']['#type'] = 'value';
   $form['account']['mail']['#title'] = t('Email');
 
@@ -234,11 +234,17 @@ function whiskeydex_form_user_form_alter(array &$form, FormStateInterface $form_
   $form['account']['name']['#element_validate'][] = 'whiskeydex_user_form_name_validate';
 }
 
-function whiskeydex_user_form_name_validate($form, FormStateInterface $form_state): void {
+/**
+ * @param array<string, mixed> $form
+ */
+function whiskeydex_user_form_name_validate(array $form, FormStateInterface $form_state): void {
   $form_state->setValue('name', $form_state->getValue('mail'));
 }
 
-function whiskeydex_preprocess_page(&$variables) {
+/**
+ * @param array<string, mixed> $variables
+ */
+function whiskeydex_preprocess_page(array &$variables): void {
   $variables['user_displayname'] = \Drupal::currentUser()->getDisplayName();
   $variables['route_name'] = \Drupal::routeMatch()->getRouteName();
   $variables['is_userpage'] = in_array(

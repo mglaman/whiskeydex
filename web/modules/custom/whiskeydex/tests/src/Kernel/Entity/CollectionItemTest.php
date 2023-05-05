@@ -2,11 +2,9 @@
 
 namespace Drupal\Tests\whiskeydex\Kernel\Entity;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity\QueryAccess\UncacheableQueryAccessHandler;
 use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
-use Drupal\whiskeydex\Entity\CollectionItem;
 use Drupal\whiskeydex\Entity\Whiskey;
 use Drupal\whiskeydex\Routing\CollectionItemHtmlRouteProvider;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
@@ -55,19 +53,16 @@ final class CollectionItemTest extends WhiskeyDexEntityTestBase {
     $this->installEntitySchema('whiskey');
 
     $etm = $this->container->get('entity_type.manager');
-    assert($etm instanceof EntityTypeManagerInterface);
     $user = $this->createUser();
 
     $whiskey = Whiskey::create(['name' => 'foo']);
     $whiskey->save();
-    assert($whiskey instanceof Whiskey);
 
     $collection_item = $etm->getStorage('collection_item')->create([
       'whiskey' => $whiskey->id(),
       'uid' => $user->id(),
     ]);
     $collection_item->save();
-    assert($collection_item instanceof CollectionItem);
     self::assertEquals($whiskey->label(), $collection_item->label());
     self::assertEquals($whiskey->id(), $collection_item->getWhiskey()->id());
 

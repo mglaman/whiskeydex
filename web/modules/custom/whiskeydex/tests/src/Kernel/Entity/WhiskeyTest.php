@@ -2,12 +2,10 @@
 
 namespace Drupal\Tests\whiskeydex\Kernel\Entity;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\EntityPermissionProvider;
 use Drupal\entity\QueryAccess\QueryAccessHandler;
 use Drupal\whiskeydex\Entity\Distillery;
-use Drupal\whiskeydex\Entity\Whiskey;
 
 final class WhiskeyTest extends WhiskeyDexEntityTestBase {
 
@@ -39,9 +37,7 @@ final class WhiskeyTest extends WhiskeyDexEntityTestBase {
     ])->save();
 
     $etm = $this->container->get('entity_type.manager');
-    assert($etm instanceof EntityTypeManagerInterface);
     $whiskey = $etm->getStorage('whiskey')->create($values);
-    assert($whiskey instanceof Whiskey);
     self::assertEquals($expected_name, $whiskey->label());
     self::assertEquals('Woodford Reserve', $whiskey->getDistillery()->label());
   }

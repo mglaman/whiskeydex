@@ -65,7 +65,6 @@ final class CollectionItemListBuilder implements EntityListBuilderInterface, Ent
       ->pager(10);
     $ids = $query->execute();
     // phpstan-drupal detection broke here??
-    assert(is_array($ids));
     return $this->getStorage()->loadMultiple($ids);
   }
 

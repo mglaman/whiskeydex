@@ -6,7 +6,6 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\views\Form\ViewsForm;
 
 /**
@@ -56,9 +55,12 @@ function distilled_preprocess_image_widget(array &$variables): void {
   }
 }
 
-function distilled_preprocess_menu(&$variables) {
+/**
+ * @param array{items: array<int, array{url: \Drupal\Core\Url, route_name: string}>} $variables
+ *   The variables.
+ */
+function distilled_preprocess_menu(array &$variables): void {
   foreach ($variables['items'] as $key => $item) {
-    assert(is_array($item) && $item['url'] instanceof Url);
     $variables['items'][$key]['route_name'] = $item['url']->isRouted() ? $item['url']->getRouteName() : '';
   }
 }

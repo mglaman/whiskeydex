@@ -2,9 +2,7 @@
 
 namespace Drupal\Tests\whiskeydex\Kernel\Entity;
 
-use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\entity\Routing\AdminHtmlRouteProvider;
 use Drupal\Tests\whiskeydex\Kernel\WhiskeyDexTestBase;
 
@@ -31,7 +29,6 @@ abstract class WhiskeyDexEntityTestBase extends WhiskeyDexTestBase {
 
   public function testDefinition(): void {
     $etm = $this->container->get('entity_type.manager');
-    assert($etm instanceof EntityTypeManagerInterface);
     self::assertNotNull($this->entityTypeId);
     self::assertTrue($etm->hasDefinition($this->entityTypeId));
     $entity_type = $etm->getDefinition($this->entityTypeId);
@@ -45,7 +42,6 @@ abstract class WhiskeyDexEntityTestBase extends WhiskeyDexTestBase {
 
   public function testFields(): void {
     $efm = $this->container->get('entity_field.manager');
-    assert($efm instanceof EntityFieldManagerInterface);
     self::assertNotNull($this->entityTypeId);
     $base_fields = $efm->getBaseFieldDefinitions($this->entityTypeId);
     self::assertEquals($this->baseFieldNames, array_keys($base_fields));

@@ -14,6 +14,7 @@
     <exclude name="Drupal.Commenting.VariableComment.Missing" />
     <exclude name="Drupal.Commenting.VariableComment.MissingVar" />
     <exclude name="Drupal.Commenting.FileComment.Missing" />
+    <exclude name="Drupal.Commenting.FunctionComment.MissingParamComment" />
 
     <exclude name="Drupal.WhiteSpace.OpenTagNewline.BlankLine" />
   </rule>

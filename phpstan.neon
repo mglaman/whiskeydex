@@ -11,5 +11,14 @@ parameters:
 		# TODO
 		- web/modules/custom/whiskeydex/src/Plugin/Mail/SymfonyMailer.php
 		- web/modules/custom/whiskeydex/src/StreamWrapper/ObjectStorageStreamWrapper.php
+	drupal:
+		entityMapping:
+			whiskey:
+				class: Drupal\whiskeydex\Entity\Whiskey
+			distillery:
+				class: Drupal\whiskeydex\Entity\Distillery
+			collection_item:
+				class: Drupal\whiskeydex\Entity\CollectionItem
 includes:
+	- phpstan-baseline.neon
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon

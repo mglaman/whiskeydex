@@ -6,7 +6,6 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Cache\CacheableRedirectResponse;
 use Drupal\Core\Cache\CacheableResponseInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\GeneratedUrl;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -38,7 +37,6 @@ final class FrontController implements ContainerInjectionInterface {
     if ($this->account->isAuthenticated()) {
       $generated_url = Url::fromRoute('entity.collection_item.collection')
         ->toString(TRUE);
-      assert($generated_url instanceof GeneratedUrl);
       return new CacheableRedirectResponse(
         $generated_url->getGeneratedUrl(),
         302,
