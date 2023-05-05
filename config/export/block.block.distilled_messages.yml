@@ -10,8 +10,8 @@ _core:
   default_config_hash: aeqlWs7HwctZeZC7ADcbxfqehJzBRfZKmuZz3DsH3_4
 id: distilled_messages
 theme: distilled
-region: highlighted
-weight: -2
+region: content
+weight: -4
 provider: null
 plugin: system_messages_block
 settings:

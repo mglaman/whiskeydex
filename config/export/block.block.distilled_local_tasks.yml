@@ -9,7 +9,7 @@ _core:
 id: distilled_local_tasks
 theme: distilled
 region: content
-weight: -5
+weight: -3
 provider: null
 plugin: local_tasks_block
 settings:

@@ -3,28 +3,24 @@
 namespace Drupal\whiskeydex\Controller;
 
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\Cache\CacheableRedirectResponse;
-use Drupal\Core\Cache\CacheableResponseInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 final class FrontController implements ContainerInjectionInterface {
 
   public function __construct(
-    private readonly AccountInterface $account,
-    private readonly HttpKernelInterface $httpKernel,
+    private readonly AccountInterface $account
   ) {
   }
 
   public static function create(ContainerInterface $container): self {
     return new self(
-      $container->get('current_user'),
-      $container->get('http_kernel')
+      $container->get('current_user')
     );
   }
 
@@ -37,7 +33,7 @@ final class FrontController implements ContainerInjectionInterface {
     if ($this->account->isAuthenticated()) {
       $generated_url = Url::fromRoute('entity.collection_item.collection')
         ->toString(TRUE);
-      return new CacheableRedirectResponse(
+      return new RedirectResponse(
         $generated_url->getGeneratedUrl(),
         302,
         ['Cache-Control' => 'no-cache']
@@ -45,15 +41,11 @@ final class FrontController implements ContainerInjectionInterface {
     }
 
     $url = Url::fromRoute('user.login')->toString(TRUE);
-    $subrequest = Request::create($url->getGeneratedUrl());
-    if ($request->hasSession()) {
-      $subrequest->setSession($request->getSession());
-    }
-    $response = $this->httpKernel->handle($subrequest, HttpKernelInterface::SUB_REQUEST);
-    if ($response instanceof CacheableResponseInterface) {
-      $response->addCacheableDependency($url);
-    }
-    return $response;
+    return new RedirectResponse(
+      $url->getGeneratedUrl(),
+      302,
+      ['Cache-Control' => 'no-cache']
+    );
   }
 
 }
