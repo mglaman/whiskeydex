@@ -1,0 +1,20 @@
+uuid: 75df3aef-b3fd-40f3-a476-785dc1945a06
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - distilled
+id: mainpagecontent
+theme: distilled
+region: content
+weight: -2
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

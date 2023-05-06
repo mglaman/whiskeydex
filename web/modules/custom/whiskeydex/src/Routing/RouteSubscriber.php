@@ -18,35 +18,41 @@ final class RouteSubscriber extends RouteSubscriberBase {
           $route->setPath('/signup');
           $route->setDefault('_title', 'Sign up');
           break;
+
         case 'user.login':
           $route->setPath('/login');
           break;
+
         case 'user.pass':
           $route->setPath('/forgot-password');
           $route->setDefault('_title', 'Forgot password');
           break;
+
         case 'entity.user.canonical':
           $route->setPath('/account/{user}');
-          // $route->setDefault('_title_callback', 'Drupal\forkdin_users\Controller\UserController::userTitle');
           break;
+
         case 'entity.user.edit_form':
           $route->setPath('/account/{user}/edit');
-          // $route->setDefault('_title_callback', 'Drupal\forkdin_users\Controller\UserController::userTitle');
           $route->setOption('_admin_route', FALSE);
           break;
+
         case 'user.page':
           $route->setPath('/account');
-          // $route->setDefault('_title_callback', 'Drupal\forkdin_users\Controller\UserController::userTitle');
           break;
+
         case 'user.logout':
           $route->setPath('/account/logout');
           break;
+
         case 'user.reset.login':
           $route->setPath('/account/reset/{uid}/{timestamp}/{hash}/login');
           break;
+
         case 'user.reset':
           $route->setPath('/account/reset/{uid}/{timestamp}/{hash}');
           break;
+
         case 'user.reset.form':
           $route->setPath('/account/reset/{uid}');
           break;

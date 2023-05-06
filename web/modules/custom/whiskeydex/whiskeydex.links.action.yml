@@ -1,0 +1,5 @@
+collection_item_edit:
+  route_name: entity.collection_item.edit_form
+  title: 'Edit'
+  appears_on:
+    - entity.collection_item.canonical

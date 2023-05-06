@@ -28,7 +28,6 @@ final class ModelEntityTypeTest extends UnitTestCase {
    * @phpstan-param array{id: string, class: string, enhanced_entity_access: bool, owner_entity_access: bool, has_ui: bool } $definition
    */
   public function testDefinitions(array $definition): void {
-    self::assertArrayHasKey('id', $definition);
     $entity_type = new ModelEntityType($definition);
     $keys = [
       'revision' => '',
@@ -96,6 +95,7 @@ final class ModelEntityTypeTest extends UnitTestCase {
         'enhanced_entity_access' => TRUE,
         'owner_entity_access' => FALSE,
         'has_ui' => FALSE,
+        'admin_ui_routes' => TRUE,
       ],
     ];
     yield [
@@ -105,6 +105,7 @@ final class ModelEntityTypeTest extends UnitTestCase {
         'enhanced_entity_access' => FALSE,
         'owner_entity_access' => FALSE,
         'has_ui' => FALSE,
+        'admin_ui_routes' => TRUE,
       ],
     ];
     yield [
@@ -115,6 +116,7 @@ final class ModelEntityTypeTest extends UnitTestCase {
         'owner_entity_access' => FALSE,
         'provider' => 'entity_test',
         'has_ui' => TRUE,
+        'admin_ui_routes' => TRUE,
       ],
     ];
     yield [
@@ -125,6 +127,7 @@ final class ModelEntityTypeTest extends UnitTestCase {
         'owner_entity_access' => TRUE,
         'provider' => 'entity_test',
         'has_ui' => TRUE,
+        'admin_ui_routes' => TRUE,
       ],
     ];
     yield [
@@ -135,6 +138,7 @@ final class ModelEntityTypeTest extends UnitTestCase {
         'owner_entity_access' => FALSE,
         'provider' => 'entity_module_test',
         'has_ui' => TRUE,
+        'admin_ui_routes' => TRUE,
       ],
     ];
     yield [
@@ -145,6 +149,7 @@ final class ModelEntityTypeTest extends UnitTestCase {
         'owner_entity_access' => TRUE,
         'provider' => 'entity_module_test',
         'has_ui' => TRUE,
+        'admin_ui_routes' => TRUE,
       ],
     ];
   }

@@ -205,7 +205,10 @@ final class SymfonyMailer implements MailInterface, ContainerFactoryPluginInterf
       // Request optimization so that the CssOptimizer performs essential
       // processing such as @include.
       foreach ($this->assetResolver->getCssAssets($assets, TRUE) as $css_asset) {
-        $css .= file_get_contents($css_asset['data']);
+        // @todo in Cypress `data` is empty, debug!
+        if (!empty($css_asset['data'])) {
+          $css .= file_get_contents($css_asset['data']);
+        }
       }
 
       if ($css) {

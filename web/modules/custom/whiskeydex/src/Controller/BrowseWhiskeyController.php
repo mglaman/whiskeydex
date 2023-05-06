@@ -32,7 +32,6 @@ final class BrowseWhiskeyController implements ContainerInjectionInterface {
   public function browser(Request $request): array {
     $keys = $request->query->get('keys', '');
     $entity_type = $this->entityTypeManager->getDefinition('whiskey');
-    assert($entity_type !== NULL);
     $storage = $this->entityTypeManager->getStorage('whiskey');
     $query = $storage
       ->getQuery()
@@ -46,16 +45,15 @@ final class BrowseWhiskeyController implements ContainerInjectionInterface {
       $query->condition($search);
     }
     $ids = $query->execute();
-    assert(is_array($ids));
     $whiskeys = $storage->loadMultiple($ids);
 
     $build = [
       '#cache' => [
         'contexts' => Cache::mergeContexts(
-          $entity_type->getListCacheContexts(),
+          $entity_type?->getListCacheContexts() ?? [],
           ['url.query_args:keys']
         ),
-        'tags' => $entity_type->getListCacheTags(),
+        'tags' => $entity_type?->getListCacheTags() ?? [],
       ],
     ];
     $build['form'] = $this->formBuilder->getForm(BrowseWhiskeyForm::class);

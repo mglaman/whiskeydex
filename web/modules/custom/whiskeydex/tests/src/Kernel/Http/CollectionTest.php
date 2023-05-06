@@ -81,7 +81,6 @@ final class CollectionTest extends WhiskeyDexHttpTestBase {
 
     $whiskey = Whiskey::create(['name' => $this->randomMachineName()]);
     $whiskey->save();
-    assert($whiskey instanceof Whiskey);
 
     $url = Url::fromRoute(
       'entity.collection_item.add_form',

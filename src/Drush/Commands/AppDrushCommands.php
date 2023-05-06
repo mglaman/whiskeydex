@@ -16,6 +16,7 @@ final class AppDrushCommands extends DrushCommands {
 
   /**
    * @param array{sqlite: bool} $options
+   *   The options.
    */
   #[CLI\Command(name: 'app:env:generate', aliases: ['env:generate'])]
   #[CLI\Option(name: 'sqlite', description: 'Set the DB_CONNECTION to SQLite by default')]

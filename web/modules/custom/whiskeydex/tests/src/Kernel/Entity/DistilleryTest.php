@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\whiskeydex\Kernel\Entity;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\whiskeydex\Entity\Distillery;
 use Drupal\entity\EntityAccessControlHandler;
 use Drupal\entity\QueryAccess\QueryAccessHandler;
 use Drupal\entity\EntityPermissionProvider;
@@ -36,9 +34,7 @@ final class DistilleryTest extends WhiskeyDexEntityTestBase {
    */
   public function testEntity(array $values, string $expected_name, ?string $expected_email): void {
     $etm = $this->container->get('entity_type.manager');
-    assert($etm instanceof EntityTypeManagerInterface);
     $distillery = $etm->getStorage('distillery')->create($values);
-    assert($distillery instanceof Distillery);
     self::assertEquals($distillery->label(), $expected_name);
     self::assertEquals($distillery->getEmail(), $expected_email);
   }

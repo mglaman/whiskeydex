@@ -12,7 +12,7 @@ final class WhiskeyCommunityAddForm extends ContentEntityForm {
     parent::prepareEntity();
     assert($this->entity instanceof Whiskey);
     if ($this->entity->label() === NULL) {
-      $this->entity->name = $this->getRequest()->query->get('name');
+      $this->entity->set('name', (string) $this->getRequest()->query->get('name'));
     }
     $this->entity->set('community', TRUE);
   }

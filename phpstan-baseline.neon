@@ -1,0 +1,51 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^PHPDoc tag @return with type array\\<string, mixed\\>\\|Symfony\\\\Component\\\\HttpFoundation\\\\RedirectResponse is not subtype of native type Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			count: 1
+			path: web/modules/custom/whiskeydex/src/Controller/FrontController.php
+
+		-
+			message: "#^Method Drupal\\\\whiskeydex\\\\StackMiddleware\\\\TrimMiddleware\\:\\:trimArray\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/whiskeydex/src/StackMiddleware/TrimMiddleware.php
+
+		-
+			message: "#^Method Drupal\\\\whiskeydex\\\\StackMiddleware\\\\TrimMiddleware\\:\\:trimArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/whiskeydex/src/StackMiddleware/TrimMiddleware.php
+
+		-
+			message: "#^Cannot access an offset on mixed\\.$#"
+			count: 1
+			path: web/modules/custom/whiskeydex/whiskeydex.module
+
+		-
+			message: "#^Cannot access offset '\\#title' on mixed\\.$#"
+			count: 2
+			path: web/modules/custom/whiskeydex/whiskeydex.module
+
+		-
+			message: "#^Cannot access offset '\\#type' on mixed\\.$#"
+			count: 1
+			path: web/modules/custom/whiskeydex/whiskeydex.module
+
+		-
+			message: "#^Cannot access offset 'data\\-user\\-info\\-from…' on mixed\\.$#"
+			count: 2
+			path: web/modules/custom/whiskeydex/whiskeydex.module
+
+		-
+			message: "#^Cannot access offset 'key' on array\\<string, mixed\\>\\|object\\|string\\.$#"
+			count: 1
+			path: web/modules/custom/whiskeydex/whiskeydex.module
+
+		-
+			message: "#^Cannot access offset 'subject' on array\\<string, mixed\\>\\|object\\|string\\.$#"
+			count: 1
+			path: web/modules/custom/whiskeydex/whiskeydex.module
+
+		-
+			message: "#^Function whiskeydex_page_attachments\\(\\) has parameter \\$attachments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/whiskeydex/whiskeydex.module

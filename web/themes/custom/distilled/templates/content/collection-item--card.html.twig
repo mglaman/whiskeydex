@@ -1,9 +1,14 @@
-
-<div class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-left shadow">
+{#{{ dump() }}#}
+<div class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-left shadow relative">
   <div class="flex flex-1 flex-col">
     <img class="rounded-t-lg" src="https://placehold.co/600x400" alt="" />
     <div class="px-5 py-3">
-      <div class="mb-2 text-2xl font-medium tracking-tight text-gray-900 dark:text-white">{{ elements.name }}</div>
+      <div class="mb-2 text-2xl font-medium tracking-tight text-gray-900 dark:text-white">
+        <a href="{{ url('entity.collection_item.canonical', {collection_item: collection_item.id}) }}">
+          <span aria-hidden="true" class="absolute inset-0"></span>
+          {{- collection_item.label -}}
+        </a>
+      </div>
     </div>
   </div>
   <div>

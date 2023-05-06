@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Drupal\whiskeydex\Entity;
 
@@ -15,6 +17,7 @@ use Drupal\entity\Menu\EntityCollectionLocalActionProvider;
 use Drupal\entity\QueryAccess\QueryAccessHandler;
 use Drupal\entity\QueryAccess\UncacheableQueryAccessHandler;
 use Drupal\entity\Routing\AdminHtmlRouteProvider;
+use Drupal\entity\Routing\DefaultHtmlRouteProvider;
 use Drupal\entity\UncacheableEntityAccessControlHandler;
 use Drupal\entity\UncacheableEntityPermissionProvider;
 use Drupal\user\EntityOwnerInterface;
@@ -101,10 +104,13 @@ final class ModelEntityType extends ContentEntityType {
 
       $this->handlers['list_builder'] = $this->getEntityTypeSpecificClass("$namespace\\{$class}ListBuilder", EntityListBuilder::class);
 
-      // @todo make Admin one a flag.
+      $default_route_provider = DefaultHtmlRouteProvider::class;
+      if ($this->get('admin_ui_routes')) {
+        $default_route_provider = AdminHtmlRouteProvider::class;
+      }
       $this->handlers['route_provider']['html'] = $this->getEntityTypeSpecificClass(
         "$namespace\\Routing\\{$class}HtmlRouteProvider",
-        AdminHtmlRouteProvider::class
+        $default_route_provider
       );
 
       $this->handlers['form']['default'] = $this->getEntityTypeSpecificClass(
@@ -139,12 +145,13 @@ final class ModelEntityType extends ContentEntityType {
 
       // @todo check if has bundles.
       if ($this->links === []) {
+        $path_id = str_replace('_', '-', $this->id);
         $this->links = [
-          'collection' => sprintf('/admin/%s', $this->id),
-          'canonical' => sprintf('/%s/{%s}', $this->id, $this->id),
-          'add-form' => sprintf('/%s/add', $this->id),
-          'edit-form' => sprintf('/%s/{%s}/edit', $this->id, $this->id),
-          'delete-form' => sprintf('/%s/{%s}/delete', $this->id, $this->id),
+          'collection' => sprintf($this->get('admin_ui_routes') ? '/admin/%s' : '/%s', $path_id),
+          'canonical' => sprintf('/%s/{%s}', $path_id, $this->id),
+          'add-form' => sprintf('/%s/add', $path_id),
+          'edit-form' => sprintf('/%s/{%s}/edit', $path_id, $this->id),
+          'delete-form' => sprintf('/%s/{%s}/delete', $path_id, $this->id),
         ];
       }
       if ($this->field_ui_base_route === NULL && isset($this->links['collection'])) {

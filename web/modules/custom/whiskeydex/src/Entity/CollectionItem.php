@@ -15,6 +15,7 @@ use Drupal\user\EntityOwnerTrait;
  * @\Drupal\whiskeydex\Annotation\Model(
  *   id = "collection_item",
  *   owner_entity_access = true,
+ *   provide_tasks = false,
  *   links = {
  *     "collection" = "/collection",
  *     "canonical" = "/collection/{collection_item}",
