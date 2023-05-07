@@ -32,8 +32,8 @@ Cypress.Commands.add('registerUser', (email, password) => {
   cy.get('input[name="pass[pass1]"]').type(password);
   cy.get('input[name="pass[pass2]"]').type(password);
   cy.get('input[type="submit"]').contains('Create new account').click();
-  cy.contains('Registration successful. You are now logged in.');
-  cy.visit('http://127.0.0.1:8080/user/logout')
+  cy.contains('Registration successful. You are now logged in.', {timeout: 1000});
+  cy.visit('http://127.0.0.1:8080/account/logout')
 });
 
 Cypress.Commands.add('loginAsUser', (email, password) => {

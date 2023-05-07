@@ -23,7 +23,7 @@ describe('user can register', () => {
     cy.get('input[name="pass[pass1]"]').type(password);
     cy.get('input[name="pass[pass2]"]').type(password);
     cy.get('input[type="submit"]').contains('Create new account').click();
-    cy.contains('Registration successful. You are now logged in.');
+    cy.contains('Registration successful. You are now logged in.', {timeout: 1000});
   })
   it('with invalid email', () => {
     const password = faker.internet.password();
