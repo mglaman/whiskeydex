@@ -10,3 +10,7 @@ entity.whiskey.collection:
   title: 'List'
   base_route: entity.whiskey.collection
   weight: -10
+user.logout:
+  route_name: user.logout
+  base_route: entity.user.canonical
+  title: Log out
