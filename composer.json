@@ -37,7 +37,7 @@
         "drupal/core-project-message": "^10.0",
         "drupal/core-recommended": "^10.0",
         "drupal/entity": "1.x-dev",
-        "drush/drush": "^11.0",
+        "drush/drush": "^12.0",
         "html2text/html2text": "^4.3",
         "platformsh/config-reader": "^2.4",
         "react/child-process": "^0.6.4",
