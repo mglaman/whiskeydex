@@ -251,16 +251,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.269.7",
+            "version": "3.274.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f34afba20e3ad782ed91332a8306b91b06a1de5c"
+                "reference": "b2f37a49ca40bce633323a6988477c22be562c37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f34afba20e3ad782ed91332a8306b91b06a1de5c",
-                "reference": "f34afba20e3ad782ed91332a8306b91b06a1de5c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b2f37a49ca40bce633323a6988477c22be562c37",
+                "reference": "b2f37a49ca40bce633323a6988477c22be562c37",
                 "shasum": ""
             },
             "require": {
@@ -340,9 +340,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.269.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.274.0"
             },
-            "time": "2023-05-05T19:51:13+00:00"
+            "time": "2023-06-27T18:32:17+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
