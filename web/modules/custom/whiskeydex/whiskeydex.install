@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_update_N().
+ */
+function whiskeydex_update_10001(&$sandbox) {
+  $edum = \Drupal::entityDefinitionUpdateManager();
+  $edum->installFieldStorageDefinition(
+    'image',
+    'collection_item',
+    'whiskeydex',
+    BaseFieldDefinition::create('image')
+  );
+}

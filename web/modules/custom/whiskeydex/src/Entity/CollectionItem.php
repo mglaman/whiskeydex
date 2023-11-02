@@ -157,7 +157,20 @@ final class CollectionItem extends ContentEntityBase implements EntityOwnerInter
       ->setDisplayOptions('view', [
         'type' => 'basic_string',
       ]);
-    // nose, taste, finish: plain text or tags of flavors.
+    $fields['image'] = BaseFieldDefinition::create('image')
+      ->setLabel('Image')
+      ->setSetting('alt_field', FALSE)
+      ->setSetting('alt_field_required', FALSE)
+      ->setDisplayOptions('form', [
+        'type' => 'image_image',
+        'weight' => -10,
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'image',
+        'settings' => [
+          'image_style' => 'large',
+        ],
+      ]);
     return $fields;
   }
 
